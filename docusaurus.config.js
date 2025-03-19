@@ -10,27 +10,19 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Hi, I am Aria',
-  tagline: 'I am learning some coding skills to become a engineer. I love reading, singing, and eatting.',
+  title: 'Retsnom-learningCoding',
+  tagline: '哈囉，我是Aria，一位正在學習程式語言的人類，雖然討厭人類卻因為身為人類，而不得不學習團體生活，但也渴望能在厲害的團隊中一起打造理想中的產品。我走在自己的人生規劃中，走在自己的時區，儘管緩慢，也在慢慢成長。我是一位高敏感人也是一位左撇子，喜歡伊隆馬斯克並決定要跟他一起死在火星上。' ,
   favicon: 'img/retsnom-favion.PNG',
 
-  // Set the production url of your site here
   url: 'https://docusaurus-web.vercel.app/',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'facebook', 
+  projectName: 'docusaurus', 
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -43,10 +35,6 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,
@@ -54,11 +42,6 @@ const config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-          //   'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
@@ -85,8 +68,8 @@ const config = {
     [
       '@docusaurus/plugin-google-gtag',
       {
-        trackingID: 'G-7KJZMT5GD8', // 您的 Google Analytics ID
-        anonymizeIP: true, // 可選：啟用匿名化 IP
+        trackingID: 'G-7KJZMT5GD8', 
+        anonymizeIP: true, 
       },
     ],
   ],
@@ -94,15 +77,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       algolia: {
-        // The application ID provided by Algolia
-        appId: 'JBWLJQTNQD',
-  
-        // Public API key: it is safe to commit it
-        apiKey: 'ea3152bd81efc9c989ac4bf399ff58b4',
-  
-        indexName: 'package',
+        appId: 'KOYF7XQ73V',
+        apiKey: '00759781d7603d19b126467e6cb509b9',
+        indexName: 'aria-web-theta',
+        contextualSearch: true,
+        debug: false,
       },
-      // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
         logo: {
@@ -113,10 +93,12 @@ const config = {
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
-            position: 'right',
+            position: 'left',
             label: 'Note',
           },
-          {to: '/blog', label: 'Blog', position: 'right'},
+          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/projects', label: 'Projects', position: 'left'},
+          {to: 'https://proud-wax-361.notion.site/78fcfde5dd5346568974db8628e33763?v=2d22870525f4456987760bdb7305133f&pvs=4', label: 'Reading', position: 'left'},
         ],
       },
       footer: {
@@ -131,6 +113,12 @@ const config = {
               },{
                 label: 'Blog',
                 to: '/blog',
+              },{
+                label: 'Projects',
+                to: '/projects',
+              },{
+                label: 'Reading',
+                to: 'https://proud-wax-361.notion.site/78fcfde5dd5346568974db8628e33763?v=2d22870525f4456987760bdb7305133f&pvs=4',
               }
             ],
           },
@@ -166,7 +154,20 @@ const config = {
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
+        additionalLanguages: ['sass'],
       },
+      metadata: [
+        { name: 'google-analytics', content: 'G-7KJZMT5GD8' },
+      ],
+      scripts: [
+        {
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-7KJZMT5GD8',
+          async: true,
+        },
+        {
+          src: '/gtag.js',
+        },
+      ],
     }),
 };
 

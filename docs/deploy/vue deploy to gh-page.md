@@ -6,8 +6,6 @@ keywords: [vue, vite, GitHub Pages]
 
 # 部署 Vue + Vite 專案到 GitHub Pages
 
-以下是將 Vue + Vite 專案部署到 GitHub Pages 的完整步驟：
-
 ## 1\. 設定 vite.config.js
 
 首先需要修改 `vite.config.js` 檔案，設定正確的 base URL：
@@ -119,3 +117,11 @@ const router = createRouter({
 3. 重新部署專案
 
 按照這些步驟，你的 Vue + Vite 專案就能成功部署到 GitHub Pages 了！
+---
+
+:::danger[Please note]
+
+這個內容是來自AI
+
+
+:::

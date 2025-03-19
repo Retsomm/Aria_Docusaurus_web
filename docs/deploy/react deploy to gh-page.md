@@ -4,7 +4,7 @@ description: react deploy to GitHub Pages
 keywords: [react, GitHub Pages]
 ---
 
-# 如何將 react-app 部屬到 GitHub Pages
+# 部屬react專案到GitHub Pages
 
 ## 1\. **安裝 gh-pages 套件**
 
@@ -76,3 +76,11 @@ npm run deploy
 ```
 
 完成上述步驟後，你的 React 應用應該就能成功部署到 GitHub Pages 了。網址將是你在 package.json 中設定的 homepage 值。
+---
+
+:::danger[Please note]
+
+這個內容是來自AI
+
+
+:::

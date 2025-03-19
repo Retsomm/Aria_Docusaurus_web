@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: auto;
+}
+.title {
+  margin-bottom: 30px;
+  font-size: 3rem;
+} 
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: solid 3px rgb(0, 0, 0);
+  width: 300px;
+  height: auto;
+  font-weight: 800;
+  border-radius: 5px;
+  margin: 10px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2),
+              4px 4px 10px rgba(0,0,0,0.1);
+}
+.img {
+  max-width: 100%;
+  max-height: 100%;
+  width: 300px;
+  height: 120px;
+  margin-bottom: 10px;
+}
+.tags {
+  display: flex;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.tag {
+  border: solid 3px rgb(93, 53, 97);
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.text {
+  text-align: left;
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.button {
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+@media screen and (max-width: 996px) {
+  .title {
+    margin-bottom: 30px;
+    font-size: 2rem;
+    
+  } 
+}
+
