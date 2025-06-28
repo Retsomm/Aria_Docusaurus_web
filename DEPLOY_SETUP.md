@@ -83,6 +83,35 @@ npm run serve
 # http://localhost:3000
 ```
 
+## Vercel 自動部署設置
+
+專案已配置 GitHub Actions 與 Vercel 整合部署：
+
+### 方式一：Vercel Git 整合（推薦，最簡單）
+
+1. 確保您的 Vercel 專案已連接到 GitHub repository
+2. Vercel 會自動檢測 Git 變更並部署
+3. 無需額外設置，推送代碼即可自動部署
+
+### 方式二：GitHub Actions + Vercel API
+
+如果您想要更多控制權，可以使用 GitHub Actions 部署：
+
+1. **設置 GitHub Secrets**：
+   - `VERCEL_TOKEN` - Vercel API token
+   - `VERCEL_ORG_ID` - Vercel 組織/用戶 ID  
+   - `VERCEL_PROJECT_ID` - Vercel 專案 ID
+
+2. **詳細設置步驟**：
+   查看 [Vercel 設置指南](./VERCEL_SETUP.md) 獲取完整說明
+
+3. **工作流程**：
+   ```
+   推送到 main → GitHub Actions 測試 → 自動部署到 Vercel
+   ```
+
+**注意**：如果您已經使用 Vercel Git 整合，建議保持現狀，無需額外設置 GitHub Actions 部署。
+
 ## 部署狀態監控
 
 ### GitHub Actions
