@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import Coding from '@site/static/img/Coding-amico.png';
-import Portfolio from '@site/static/img/Portfolio.png';
-import life from '@site/static/img/life.png';
+import Coding from '@site/static/img/home/Coding-amico.png';
+import Portfolio from '@site/static/img/home/Portfolio.png';
+import life from '@site/static/img/home/life.png';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 function HomepageHeader() {

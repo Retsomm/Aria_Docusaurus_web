@@ -1,0 +1,137 @@
+---
+title: React useState 狀態管理：獨立計數 vs. 共享計數
+description: A short description of this page
+keywords: [react, useState]
+---
+
+## 獨立計數
+
+```jsx
+import { useState } from 'react';
+
+export default function MyApp() {
+  return (
+    <div>
+      <h1>Counters that update separately</h1>
+      <MyButton />
+      <MyButton />
+    </div>
+  );
+}
+
+function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Clicked {count} times
+    </button>
+  );
+}
+```
+
+**行為**
+
+- 這段程式碼會顯示兩個按鈕，**每個按鈕都有自己的計數狀態**。
+
+- 當點擊其中一個按鈕時，**只會影響該按鈕的 `count`**，不會影響另一個按鈕。
+
+**原因**
+
+- `MyButton` 組件內部使用 `useState`，每次渲染 `MyButton` 時，React 都會為這個組件建立**獨立的 `count` 狀態**。
+
+- 由於 `MyApp` 直接渲染兩個 `MyButton`，每個 `MyButton` 各自擁有自己的 `count`，所以按一個按鈕，不會影響另一個。
+
+**結果**
+
+這會導致：
+
+- 每個按鈕的點擊次數是獨立的，互不影響。
+
+- 例如，點擊第一個按鈕 3 次，點擊第二個按鈕 2 次，畫面會顯示：
+
+```jsx
+Clicked 3 times
+Clicked 2 times
+```
+
+## 共享計數
+
+```jsx
+import { useState } from 'react';
+
+export default function MyApp() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    <div>
+      <h1>Counters that update together</h1>
+      <MyButton count={count} onClick={handleClick} />
+      <MyButton count={count} onClick={handleClick} />
+    </div>
+  );
+}
+
+function MyButton({ count, onClick }) {
+  return (
+    <button onClick={onClick}>
+      Clicked {count} times
+    </button>
+  );
+}
+```
+
+**行為**
+
+- 這段程式碼也會顯示兩個按鈕，但**兩個按鈕的點擊次數是同步的**。
+
+- 當點擊任意一個按鈕時，**兩個按鈕的 `count` 都會一起更新**。
+
+**原因**
+
+- `count` 狀態是**定義在 `MyApp` 中**，並作為 `prop` 傳遞給 `MyButton`。
+
+- 當點擊按鈕時，觸發 `handleClick`，更新 `count` 的值，導致 `MyApp` 重新渲染。
+
+- 由於 `MyButton` 透過 `prop` 接收 `count`，它們會一起更新成相同的值。
+
+**結果**
+
+這會導致：
+
+- 兩個按鈕的點擊次數總是同步的。
+
+- 例如，點擊第一個按鈕 3 次，畫面會顯示：
+
+```jsx
+Clicked 3 times
+Clicked 3 times
+```
+
+## **總結**
+
+|  | 第一段（獨立計數） | 第二段（同步計數） | 
+|---|---|---|
+| `useState` 位置 | `MyButton` 組件內部 | `MyApp` 組件內部 | 
+| 狀態範圍 | 每個按鈕各自擁有獨立的 `count` | `count` 由 `MyApp` 控制，所有按鈕共用 | 
+| 影響範圍 | 點擊一個按鈕**不影響**另一個 | 點擊一個按鈕會**同步影響**所有按鈕 | 
+
+這兩種方式適用於不同的需求：
+
+- **如果每個按鈕需要自己的計數（互不影響）** → 使用 **第一種方式**（`MyButton` 內部管理 `useState`）。
+
+- **如果所有按鈕應該共享相同的計數（同步更新）** → 使用 **第二種方式**（`MyApp` 控制 `useState`）。
+
+這樣的設計模式也可以擴展到更大的應用場景，例如：
+
+- **局部狀態管理（第一種）** 適合元件內部獨立的狀態，例如表單輸入欄位、獨立的倒數計時器。
+
+- **全局狀態管理（第二種）** 適合共享狀態，例如主題切換、登入狀態、購物車總數。

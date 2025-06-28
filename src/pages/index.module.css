@@ -10,17 +10,18 @@
   gap: 1rem;
 }
 .Astronaut {
-  background: url(/static/img/astronaut-animate.svg) 0 / 100% 400px no-repeat;
-  height: 500px;
-  width: 500px;
-  flex:2
+  background: url(/static/img/astronaut-animate.svg) 0 / contain no-repeat;
+  height: 600px;
+  width: 600px;
+  flex: 3;
 }
 .right {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex:3;
-  padding: 60px;
+  flex:2;
+  letter-spacing: 1px;
+  margin-left: -60px;
 }
 .heroBanner {
   padding: 4rem 0;
@@ -42,6 +43,9 @@
 .subtitle {
   width: 90%;
 }
+.hero__title {
+  margin-right: 30px;
+}
 @media screen and (max-width: 996px) {
   .heroBanner {
     padding: 2rem;
@@ -59,6 +63,7 @@
   .right {
     margin-top: 30px;
     padding: 0;
+    margin-left: 0;
   }
   .subtitle {
     margin-top: 30px;

@@ -1,7 +1,7 @@
 ---
-title: 部屬vue+vite專案到GitHub Pages
-description: vue+vite deploy to GitHub Pages
-keywords: [vue, vite, GitHub Pages]
+title: 部屬vite專案到GitHub Pages
+description: vite deploy to GitHub Pages
+keywords: [vite, GitHub Pages]
 ---
 
 # 部署 Vue + Vite 專案到 GitHub Pages
@@ -117,9 +117,38 @@ const router = createRouter({
 3. 重新部署專案
 
 按照這些步驟，你的 Vue + Vite 專案就能成功部署到 GitHub Pages 了！
+
+## 請確保你的 `.gitignore` 檔案內有忽略 `dist/`，避免它影響你的專案檔案：
+
+```bash
+node_modules/
+dist/
+```
+
+這樣 `dist` 目錄不會被 Git 跟蹤，不會影響你的 `src/` 目錄。
+
+改進 `package.json` 的 `deploy` 指令：
+
+```json
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist -f"
+}
+```
+
+如果 `npm run deploy` 讓你的專案變成 `dist` 目錄，你可以：
+
+1. **確保 `.gitignore` 忽略 `dist/`**
+
+2. **使用 `git reset --hard origin/main` 來還原 `src/`**
+
+3. **修改 `deploy` 指令為 `gh-pages -d dist -f`，避免影響本地專案**
+
+4. **使用 `git worktree` 分開 `gh-pages`，不影響 `main` 分支**
+
 ---
 
-:::danger[Please note]
+:::tip[Please note]
 
 這個內容是來自AI
 

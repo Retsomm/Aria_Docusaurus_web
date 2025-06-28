@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Retsnom-learningCoding',
-  tagline: '哈囉，我是Aria，一位正在學習程式語言的人類，雖然討厭人類卻因為身為人類，而不得不學習團體生活，但也渴望能在厲害的團隊中一起打造理想中的產品。我走在自己的人生規劃中，走在自己的時區，儘管緩慢，也在慢慢成長。我是一位高敏感人也是一位左撇子，喜歡伊隆馬斯克並決定要跟他一起死在火星上。' ,
+  tagline: '嗨，我是Aria，一位正在學習程式語言的人類，渴望能在厲害的團隊中一起打造理想中的產品。我走在自己的人生規劃中，走在自己的時區，儘管緩慢，也在持續成長。我是一位高敏感人也是一位左撇子，喜歡伊隆馬斯克並決定要跟他一起死在火星上。' ,
   favicon: 'img/retsnom-favion.PNG',
 
   url: 'https://docusaurus-web.vercel.app/',
@@ -20,14 +20,13 @@ const config = {
   organizationName: 'facebook', 
   projectName: 'docusaurus', 
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
   presets: [
     [
       'classic',
@@ -38,6 +37,8 @@ const config = {
         },
         blog: {
           showReadingTime: true,
+          truncateMarker: /<!--\s*(truncate)\s*-->/,
+          postsPerPage: 5,
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
@@ -91,12 +92,11 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            to: '/docs/intro',
             position: 'left',
             label: 'Note',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/blog/intro', label: 'Blog', position: 'left'},
           {to: '/projects', label: 'Projects', position: 'left'},
           {to: 'https://proud-wax-361.notion.site/78fcfde5dd5346568974db8628e33763?v=2d22870525f4456987760bdb7305133f&pvs=4', label: 'Reading', position: 'left'},
         ],
@@ -112,7 +112,7 @@ const config = {
                 to: '/docs/intro',
               },{
                 label: 'Blog',
-                to: '/blog',
+                to: '/blog/intro',
               },{
                 label: 'Projects',
                 to: '/projects',
@@ -127,7 +127,7 @@ const config = {
             items: [
               {
                 label: 'LinkedIn',
-                href: 'https://www.linkedin.com/in/retsnom-z-96703120a/',
+                href: 'https://www.linkedin.com/in/chan-yuting-b80218366/',
               },
               {
                 label: 'Instagram',

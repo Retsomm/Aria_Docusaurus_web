@@ -6,30 +6,32 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #8b5191;
-  --ifm-color-primary-dark: #8b5191;
-  --ifm-color-primary-darker: #8b5191;
-  --ifm-color-primary-darkest: #8b5191;
-  --ifm-color-primary-light: #835097;
-  --ifm-color-primary-lighter: #835097;
-  --ifm-color-primary-lightest: #835097;
+  --ifm-color-primary: #e7a2ba;
+  --ifm-color-primary-dark: #e7a2ba;
+  --ifm-color-primary-darker: #e7a2ba;
+  --ifm-color-primary-darkest: #e7a2ba;
+  --ifm-color-primary-light: #e7a2ba;
+  --ifm-color-primary-lighter: #e7a2ba;
+  --ifm-color-primary-lightest: #e7a2ba;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #b67dd6;
-  --ifm-color-primary-dark: #b67dd6;
-  --ifm-color-primary-darker: #b67dd6;
-  --ifm-color-primary-darkest: #b67dd6;
-  --ifm-color-primary-light: #bb90df;
-  --ifm-color-primary-lighter: #bb90df;
-  --ifm-color-primary-lightest: #bb90df;
+[data-theme="dark"] {
+  --ifm-color-primary: #997482;
+  --ifm-color-primary-dark: #997482;
+  --ifm-color-primary-darker: #997482;
+  --ifm-color-primary-darkest: #997482;
+  --ifm-color-primary-light: #997482;
+  --ifm-color-primary-lighter: #997482;
+  --ifm-color-primary-lightest: #f6e1e8;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
 /* 套用自訂字體 */
 body {
-  font-family: Optimistic Display, -apple-system, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: Optimistic Display, -apple-system, ui-sans-serif, system-ui,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
 }

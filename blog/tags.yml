@@ -1,19 +1,39 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+movie:
+  label: movie
+  permalink: /movie
+  description: movie tag description
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+life:
+  label: life
+  permalink: /life
+  description: life tag description
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+drama:
+  label: drama
+  permalink: /drama
+  description: drama tag description
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+animate:
+  label: animate
+  permalink: /animate
+  description: animate tag description
+
+interview:
+  label: interview
+  permalink: /interview
+  description: interview tag description
+
+note-taking:
+  label: note-taking
+  permalink: /note-taking
+  description: note-taking tag description
+
+reading:
+  label: reading
+  permalink: /reading
+  description: reading tag description
+  
+heptabase:
+  label: heptabase
+  permalink: /heptabase
+  description: heptabase tag description
