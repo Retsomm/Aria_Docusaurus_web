@@ -1,6 +1,6 @@
 ---
 title: 基礎財商課心得與筆記-奶雞money
-tags: [lesson, money]
+tags: ["lesson", "money"]
 date: 2025-04/27
 showFullContent: false
 ---
