@@ -1,0 +1,46 @@
+{
+    "theme.blog.paginator.navAriaLabel": {
+        "message": "Blog list page navigation",
+        "description": "The ARIA label for the blog pagination navigation"
+    },
+    "theme.blog.paginator.newerEntries": {
+        "message": "上一頁",
+        "description": "The label used to navigate to the newer blog posts page (previous page)"
+    },
+    "theme.blog.paginator.olderEntries": {
+        "message": "下一頁",
+        "description": "The label used to navigate to the older blog posts page (next page)"
+    },
+    "theme.docs.paginator.navAriaLabel": {
+        "message": "Docs pages navigation",
+        "description": "The ARIA label for the docs pagination navigation"
+    },
+    "theme.docs.paginator.previous": {
+        "message": "上一頁",
+        "description": "The label used to navigate to the previous doc"
+    },
+    "theme.docs.paginator.next": {
+        "message": "下一頁",
+        "description": "The label used to navigate to the next doc"
+    },
+    "theme.common.editThisPage": {
+        "message": "編輯此頁面",
+        "description": "The label for the edit this page button"
+    },
+    "theme.common.headingLinkTitle": {
+        "message": "Direct link to heading",
+        "description": "The title attribute for anchor links"
+    },
+    "theme.lastUpdated.atDate": {
+        "message": "on {date}",
+        "description": "The prefix for the last updated date"
+    },
+    "theme.lastUpdated.byUser": {
+        "message": "by {user}",
+        "description": "The prefix for the last updated user"
+    },
+    "theme.lastUpdated.lastUpdatedAtBy": {
+        "message": "Last updated {atDate} {byUser}",
+        "description": "The label for the last updated date and user"
+    }
+}

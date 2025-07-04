@@ -14,7 +14,7 @@ const config = {
   tagline: '嗨，我是Aria，一位正在學習程式語言的人類，渴望能在厲害的團隊中一起打造理想中的產品。我走在自己的人生規劃中，走在自己的時區，儘管緩慢，也在持續成長。我是一位高敏感人也是一位左撇子，喜歡伊隆馬斯克並決定要跟他一起死在火星上。' ,
   favicon: 'img/retsnom-favion.PNG',
 
-  url: 'https://docusaurus-web.vercel.app/',
+  url: 'https://aria-web-theta.vercel.app/',
   baseUrl: '/',
 
   organizationName: 'facebook', 
