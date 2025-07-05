@@ -10,7 +10,7 @@ keywords:
     String,
     Boolean,
     Undefined,
-    Null,
+    "Null",
     Symbol,
     BigInt,
     資料型別,
