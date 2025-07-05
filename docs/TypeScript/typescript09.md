@@ -1,7 +1,18 @@
 ---
 title: 在TypeScript專案中混用JavaScript
-description: A short description of this page
-keywords: ["TypeScript", "JavaScript"]
+description: 學習如何在 TypeScript 專案中整合 JavaScript 檔案，包含編譯器選項設定、型別檢查、漸進式遷移策略
+keywords:
+  [
+    TypeScript,
+    JavaScript,
+    混用,
+    allowJs,
+    checkJs,
+    漸進式遷移,
+    型別檢查,
+    編譯器選項,
+    專案整合,
+  ]
 ---
 
 ### 1\. 在專案中包含 JavaScript 原始檔並檢查型別：啟用 allowJs 與 checkJs 的編譯器選項
@@ -306,7 +317,7 @@ console.log(result);
    npm install --save-dev @types/套件名稱
    ```
 
-    範例：安裝 lodash 的型別定義：
+   範例：安裝 lodash 的型別定義：
 
    ```tsx
    npm install --save-dev @types/lodash

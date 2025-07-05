@@ -1,8 +1,20 @@
 ---
 title: 在TypeScript中使用函式
-description: A short description of this page
-keywords: ["TypeScript", "JavaScript"]
+description: 學習 TypeScript 函式的定義與使用，包含函式型別、參數型別、回傳型別、可選參數、預設參數等功能
+keywords:
+  [
+    TypeScript,
+    函式,
+    函式型別,
+    參數型別,
+    回傳型別,
+    可選參數,
+    預設參數,
+    函式簽名,
+    型別註記,
+  ]
 ---
+
 ### 1\. **在 TypeScript 中使用函式，並啟用 noUnusedParameters 設定**
 
 **說明**：
@@ -399,11 +411,11 @@ console.log(combine(42, "數字")); // 輸出：數字: 42
 
 - 三個簽名分別定義了：
 
-   1. 單個 number 參數，回傳 number。
+  1.  單個 number 參數，回傳 number。
 
-   2. 兩個 string 參數，回傳 string。
+  2.  兩個 string 參數，回傳 string。
 
-   3. 一個 number 和一個 string，回傳 string。
+  3.  一個 number 和一個 string，回傳 string。
 
 - 實現中使用 typeof 和條件檢查來處理不同情況。
 
@@ -485,11 +497,11 @@ console.log(buildMessage(100)); // 輸出：數字訊息: 100
 
 - 三個簽名定義了：
 
-   1. 單個 string，回傳 string。
+  1.  單個 string，回傳 string。
 
-   2. 兩個 string（message 和 prefix），回傳 string。
+  2.  兩個 string（message 和 prefix），回傳 string。
 
-   3. 單個 number，回傳 string。
+  3.  單個 number，回傳 string。
 
 - 實現中檢查 message 的型別和 prefix 是否存在，根據情況返回不同格式。
 
@@ -550,15 +562,15 @@ console.log(describeItem(product)); // 輸出：產品: P001, 價格: 100
 
    - 確保你的 tsconfig.json 包含以下設定：
 
-      ```tsx
-      {
-        "compilerOptions": {
-          "strict": true,
-          "noUnusedParameters": true,
-          "noImplicitReturns": true
-        }
-      }
-      ```
+     ```tsx
+     {
+       "compilerOptions": {
+         "strict": true,
+         "noUnusedParameters": true,
+         "noImplicitReturns": true
+       }
+     }
+     ```
 
 2. **儲存程式碼**：
 

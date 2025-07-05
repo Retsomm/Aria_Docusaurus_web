@@ -1,13 +1,14 @@
 ---
 title: React useState 狀態管理：獨立計數 vs. 共享計數
-description: A short description of this page
-keywords: [react, useState]
+description: 學習 React useState Hook 的基本用法，了解元件狀態管理、獨立計數與共享計數的差異與實作方式
+keywords:
+  [React, useState, Hook, 狀態管理, 元件狀態, 獨立計數, 共享計數, 狀態提升]
 ---
 
 ## 獨立計數
 
 ```jsx
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function MyApp() {
   return (
@@ -26,11 +27,7 @@ function MyButton() {
     setCount(count + 1);
   }
 
-  return (
-    <button onClick={handleClick}>
-      Clicked {count} times
-    </button>
-  );
+  return <button onClick={handleClick}>Clicked {count} times</button>;
 }
 ```
 
@@ -62,7 +59,7 @@ Clicked 2 times
 ## 共享計數
 
 ```jsx
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function MyApp() {
   const [count, setCount] = useState(0);
@@ -81,11 +78,7 @@ export default function MyApp() {
 }
 
 function MyButton({ count, onClick }) {
-  return (
-    <button onClick={onClick}>
-      Clicked {count} times
-    </button>
-  );
+  return <button onClick={onClick}>Clicked {count} times</button>;
 }
 ```
 
@@ -118,11 +111,11 @@ Clicked 3 times
 
 ## **總結**
 
-|  | 第一段（獨立計數） | 第二段（同步計數） | 
-|---|---|---|
-| `useState` 位置 | `MyButton` 組件內部 | `MyApp` 組件內部 | 
-| 狀態範圍 | 每個按鈕各自擁有獨立的 `count` | `count` 由 `MyApp` 控制，所有按鈕共用 | 
-| 影響範圍 | 點擊一個按鈕**不影響**另一個 | 點擊一個按鈕會**同步影響**所有按鈕 | 
+|                 | 第一段（獨立計數）             | 第二段（同步計數）                    |
+| --------------- | ------------------------------ | ------------------------------------- |
+| `useState` 位置 | `MyButton` 組件內部            | `MyApp` 組件內部                      |
+| 狀態範圍        | 每個按鈕各自擁有獨立的 `count` | `count` 由 `MyApp` 控制，所有按鈕共用 |
+| 影響範圍        | 點擊一個按鈕**不影響**另一個   | 點擊一個按鈕會**同步影響**所有按鈕    |
 
 這兩種方式適用於不同的需求：
 

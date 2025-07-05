@@ -1,8 +1,20 @@
 ---
 title: 在 TypeScript 中使用泛型
-description: A short description of this page
-keywords: ["TypeScript", "JavaScript"]
+description: 深入了解 TypeScript 泛型的概念與應用，包含泛型函式、泛型類別、泛型介面、條件約束等進階技巧
+keywords:
+  [
+    TypeScript,
+    泛型,
+    Generics,
+    泛型函式,
+    泛型類別,
+    泛型介面,
+    型別參數,
+    型別約束,
+    型別安全,
+  ]
 ---
+
 ## 1\. 定義一個可以安全操作不同型別資料的類別或函式：定義一個泛型參數
 
 泛型（Generics）允許我們在定義類別或函式時，使用一個「佔位型別」（泛型參數），讓程式碼可以靈活處理不同型別的資料，並保持型別安全。
@@ -14,7 +26,7 @@ keywords: ["TypeScript", "JavaScript"]
 ```tsx
 // 定義一個泛型函式，T 是泛型參數
 function identity<T>(value: T): T {
-    return value;
+  return value;
 }
 
 // 使用範例
@@ -42,19 +54,19 @@ console.log(booleanResult); // 輸出: true
 ```tsx
 // 定義一個泛型類別
 class Box<T> {
-    private content: T;
+  private content: T;
 
-    constructor(value: T) {
-        this.content = value;
-    }
+  constructor(value: T) {
+    this.content = value;
+  }
 
-    getContent(): T {
-        return this.content;
-    }
+  getContent(): T {
+    return this.content;
+  }
 
-    setContent(value: T): void {
-        this.content = value;
-    }
+  setContent(value: T): void {
+    this.content = value;
+  }
 }
 
 // 使用範例
@@ -84,13 +96,13 @@ console.log(numberBox.getContent()); // 輸出: 100
 ```tsx
 // 泛型函式
 function merge<T, U>(obj1: T, obj2: U): T & U {
-    return { ...obj1, ...obj2 };
+  return { ...obj1, ...obj2 };
 }
 
 // 明確指定 T 為 { name: string }，U 為 { age: number }
 const merged = merge<{ name: string }, { age: number }>(
-    { name: "Alice" },
-    { age: 25 }
+  { name: "Alice" },
+  { age: 25 }
 );
 console.log(merged); // 輸出: { name: "Alice", age: 25 }
 
@@ -104,15 +116,15 @@ console.log(inferred); // 輸出: { name: "Bob", age: 30 }
 ```tsx
 // 定義泛型類別
 class Stack<T> {
-    private items: T[] = [];
+  private items: T[] = [];
 
-    push(item: T): void {
-        this.items.push(item);
-    }
+  push(item: T): void {
+    this.items.push(item);
+  }
 
-    pop(): T | undefined {
-        return this.items.pop();
-    }
+  pop(): T | undefined {
+    return this.items.pop();
+  }
 }
 
 // 明確指定型別
@@ -139,13 +151,13 @@ TypeScript 的型別推斷是一種自動推導變數或物件型別的功能，
 
 ```tsx
 class Stack<T> {
-    private items: T[] = [];
-    push(item: T): void {
-        this.items.push(item);
-    }
-    pop(): T | undefined {
-        return this.items.pop();
-    }
+  private items: T[] = [];
+  push(item: T): void {
+    this.items.push(item);
+  }
+  pop(): T | undefined {
+    return this.items.pop();
+  }
 }
 ```
 
@@ -224,17 +236,17 @@ stack.push(123); // 不會報錯，因為 T 被推斷為 any
 ```tsx
 // 定義泛型類別 Stack<T>
 class Stack<T> {
-    private items: T[] = []; // 儲存 T 型別的陣列
+  private items: T[] = []; // 儲存 T 型別的陣列
 
-    // 將 item 推入堆疊
-    push(item: T): void {
-        this.items.push(item);
-    }
+  // 將 item 推入堆疊
+  push(item: T): void {
+    this.items.push(item);
+  }
 
-    // 從堆疊彈出並返回頂端元素
-    pop(): T | undefined {
-        return this.items.pop();
-    }
+  // 從堆疊彈出並返回頂端元素
+  pop(): T | undefined {
+    return this.items.pop();
+  }
 }
 
 // 明確指定型別為 number
@@ -300,37 +312,37 @@ stringStack.push(123); // 錯誤：TypeScript 會報錯，因為 123 不是 stri
 ```tsx
 // 定義泛型父類別
 class Container<T> {
-    protected item: T;
+  protected item: T;
 
-    constructor(item: T) {
-        this.item = item;
-    }
+  constructor(item: T) {
+    this.item = item;
+  }
 
-    getItem(): T {
-        return this.item;
-    }
+  getItem(): T {
+    return this.item;
+  }
 }
 
 // 沿用泛型型別
 class StringContainer extends Container<string> {
-    constructor(item: string) {
-        super(item);
-    }
+  constructor(item: string) {
+    super(item);
+  }
 
-    describe(): string {
-        return `This is a string container with value: ${this.item}`;
-    }
+  describe(): string {
+    return `This is a string container with value: ${this.item}`;
+  }
 }
 
 // 限制泛型型別
 interface Printable {
-    print(): string;
+  print(): string;
 }
 
 class PrintableContainer<T extends Printable> extends Container<T> {
-    printItem(): string {
-        return this.item.print();
-    }
+  printItem(): string {
+    return this.item.print();
+  }
 }
 
 // 使用範例
@@ -338,10 +350,10 @@ const stringContainer = new StringContainer("Test");
 console.log(stringContainer.describe()); // 輸出: This is a string container with value: Test
 
 class Book implements Printable {
-    constructor(private title: string) {}
-    print(): string {
-        return `Book: ${this.title}`;
-    }
+  constructor(private title: string) {}
+  print(): string {
+    return `Book: ${this.title}`;
+  }
 }
 
 const bookContainer = new PrintableContainer(new Book("TypeScript Guide"));
@@ -367,21 +379,21 @@ console.log(bookContainer.printItem()); // 輸出: Book: TypeScript Guide
 ```tsx
 // 定義一個介面
 interface Animal {
-    makeSound(): string;
+  makeSound(): string;
 }
 
 // 型別謂詞函式
 function isString<T>(value: T): value is T & string {
-    return typeof value === "string";
+  return typeof value === "string";
 }
 
 // 泛型函式使用型別防衛
 function processValue<T>(value: T): string {
-    if (isString(value)) {
-        // 在此分支中，TypeScript 知道 value 是 string
-        return `String value: ${value.toUpperCase()}`;
-    }
-    return `Non-string value: ${value}`;
+  if (isString(value)) {
+    // 在此分支中，TypeScript 知道 value 是 string
+    return `String value: ${value.toUpperCase()}`;
+  }
+  return `Non-string value: ${value}`;
 }
 
 // 使用範例
@@ -405,19 +417,19 @@ console.log(processValue(123)); // 輸出: Non-string value: 123
 
 ```tsx
 class Repository<T> {
-    private items: T[] = [];
+  private items: T[] = [];
 
-    static createEmpty<T>(): Repository<T> {
-        return new Repository<T>();
-    }
+  static createEmpty<T>(): Repository<T> {
+    return new Repository<T>();
+  }
 
-    add(item: T): void {
-        this.items.push(item);
-    }
+  add(item: T): void {
+    this.items.push(item);
+  }
 
-    getAll(): T[] {
-        return this.items;
-    }
+  getAll(): T[] {
+    return this.items;
+  }
 }
 
 // 使用範例
@@ -449,20 +461,20 @@ console.log(stringRepo.getAll()); // 輸出: ["Apple", "Banana"]
 ```tsx
 // 定義泛型介面
 interface DataProcessor<T> {
-    process(data: T): T;
+  process(data: T): T;
 }
 
 // 實作泛型介面
 class StringProcessor implements DataProcessor<string> {
-    process(data: string): string {
-        return data.toUpperCase();
-    }
+  process(data: string): string {
+    return data.toUpperCase();
+  }
 }
 
 class NumberProcessor implements DataProcessor<number> {
-    process(data: number): number {
-        return data * 2;
-    }
+  process(data: number): number {
+    return data * 2;
+  }
 }
 
 // 使用範例
@@ -489,16 +501,16 @@ console.log(numberProcessor.process(5)); // 輸出: 10
 
 - **操作步驟建議**：
 
-   1. 定義泛型時，使用 `<T>`（或其他字母）作為型別佔位符。
+  1.  定義泛型時，使用 `<T>`（或其他字母）作為型別佔位符。
 
-   2. 在使用時，根據需要明確指定型別或依賴 TypeScript 推斷。
+  2.  在使用時，根據需要明確指定型別或依賴 TypeScript 推斷。
 
-   3. 繼承泛型類別時，考慮是否需要鎖定或限制型別（例如 extends）。
+  3.  繼承泛型類別時，考慮是否需要鎖定或限制型別（例如 extends）。
 
-   4. 使用型別謂詞來縮小型別範圍，增強型別檢查的靈活性。
+  4.  使用型別謂詞來縮小型別範圍，增強型別檢查的靈活性。
 
-   5. 在類別中加入靜態方法來提供便利的初始化或工具功能。
+  5.  在類別中加入靜態方法來提供便利的初始化或工具功能。
 
-   6. 使用泛型介面來定義抽象功能，方便不同類別實現。
+  6.  使用泛型介面來定義抽象功能，方便不同類別實現。
 
 - **實務建議**：在前端開發中，泛型常用於處理 API 回應資料、表單資料結構或元件屬性（props）。建議從簡單的泛型函式開始練習，逐步應用到類別和介面。

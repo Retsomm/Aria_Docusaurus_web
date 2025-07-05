@@ -1,7 +1,19 @@
 ---
 title: TypeScript 類別與介面使用說明
-description: A short description of this page
-keywords: ["TypeScript", "JavaScript"]
+description: 深入學習 TypeScript 類別與介面的定義與使用，包含建構子、繼承、實作、存取修飾符等物件導向程式設計概念
+keywords:
+  [
+    TypeScript,
+    類別,
+    介面,
+    Class,
+    Interface,
+    建構子,
+    繼承,
+    實作,
+    存取修飾符,
+    物件導向,
+  ]
 ---
 
 ## 1\. 建立一致的物件：使用建構子函式或定義一個類別

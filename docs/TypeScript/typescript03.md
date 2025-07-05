@@ -1,7 +1,8 @@
 ---
 title: TypeScript 靜態型別
-description: A short description of this page
-keywords: ["TypeScript", "JavaScript"]
+description: 深入了解 TypeScript 靜態型別系統，包含型別註記、型別推論、基本型別、聯合型別、介面等核心概念
+keywords:
+  [TypeScript, 靜態型別, 型別註記, 型別推論, 基本型別, 聯合型別, 介面, 型別系統]
 ---
 
 ### 1\. **指定型別：使用型別註記 (Type Annotation) 或允許編譯器推論型別**

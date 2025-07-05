@@ -1,12 +1,13 @@
 ---
-title: useEffect 
-description: A short description of this page
-keywords: [react, useEffect]
+title: useEffect
+description: 深入了解 React useEffect Hook 的使用方法，包含副作用處理、生命週期替代、清理函數、依賴陣列等核心概念
+keywords:
+  [React, useEffect, Hook, 副作用, 生命週期, 清理函數, 依賴陣列, side effects]
 ---
 
 主要用來處理副作用（side effects），這些副作用包括但不限於 **非同步請求（如 API 呼叫）、訂閱（subscription）、DOM 操作** 等。但 `useEffect` 本身**不會強制要求非同步功能**，你可以在其中執行同步或非同步的操作。
 
-###  **常見適用於 `useEffect` 的情境**
+### **常見適用於 `useEffect` 的情境**
 
 1. **非同步請求（API 呼叫）**
 
@@ -18,18 +19,19 @@ keywords: [react, useEffect]
 
 5. **修改 `document.title` 或 `localStorage`**
 
-###  **錯誤用法：直接將 `useEffect` 設為 `async`**
+### **錯誤用法：直接將 `useEffect` 設為 `async`**
 
 雖然 `useEffect` 經常用來執行非同步操作，但它本身**不能**直接標記為 `async`，因為 `useEffect` 期望回傳 `undefined` 或 `cleanup function`，但 `async function` 會回傳 `Promise`，導致 React 產生錯誤。
 
 ```jsx
-useEffect(async () => {  // ❌ 錯誤：useEffect 不能是 async
+useEffect(async () => {
+  // ❌ 錯誤：useEffect 不能是 async
   const data = await fetchData();
   setState(data);
 }, []);
 ```
 
-###  **正確使用方式**
+### **正確使用方式**
 
 如果 `useEffect` 內部需要執行非同步函式，應該在 `useEffect` 內部**定義一個 `async` 函式，然後執行它**：
 
@@ -57,11 +59,11 @@ function MyComponent() {
 }
 ```
 
-###  **補充：如何正確處理 `useEffect` 清除（Cleanup Function）**
+### **補充：如何正確處理 `useEffect` 清除（Cleanup Function）**
 
 如果 `useEffect` 內有訂閱或計時器，記得在 return 內回傳**清理函式**來避免記憶體洩漏。
 
-####  **監聽事件並清除**
+#### **監聽事件並清除**
 
 ```jsx
 useEffect(() => {
@@ -73,10 +75,9 @@ useEffect(() => {
     window.removeEventListener("resize", handleResize); // ✅ 清除監聽事件
   };
 }, []);
-
 ```
 
-####  **WebSocket 訂閱**
+#### **WebSocket 訂閱**
 
 ```jsx
 useEffect(() => {
@@ -92,15 +93,11 @@ useEffect(() => {
 
 ### **結論**
 
- `useEffect` **不一定要執行非同步功能**，但很適合處理副作用（像是 API 請求、事件監聽等）。\
-  不能直接讓 `useEffect` 變成 `async`，而是要在內部定義 `async function` 來執行非同步操作。\
-  **如果有訂閱或計時器，一定要在 `return` 內清除它，以避免記憶體洩漏。**
-
-
+`useEffect` **不一定要執行非同步功能**，但很適合處理副作用（像是 API 請求、事件監聽等）。\
+ 不能直接讓 `useEffect` 變成 `async`，而是要在內部定義 `async function` 來執行非同步操作。\
+ **如果有訂閱或計時器，一定要在 `return` 內清除它，以避免記憶體洩漏。**
 
 ## 副作用的實際案例
-
-
 
 在 React 中，**副作用（Side Effects）** 是指元件渲染過程中會影響外部環境的行為。例如：
 
@@ -137,7 +134,9 @@ function FetchDataComponent() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/posts/1"
+        );
         const result = await response.json();
         setData(result);
       } catch (error) {
@@ -157,16 +156,15 @@ function FetchDataComponent() {
 }
 
 export default FetchDataComponent;
-
 ```
 
 **剖析**
 
 - `useEffect(() => { fetchData(); }, [])`：
 
-   - `fetchData` 是一個 `async` 函式，發送 API 請求並更新 `state`。
+  - `fetchData` 是一個 `async` 函式，發送 API 請求並更新 `state`。
 
-   - `[]` 代表**只有元件掛載時執行一次**，不會重複執行。
+  - `[]` 代表**只有元件掛載時執行一次**，不會重複執行。
 
 ---
 
@@ -206,18 +204,17 @@ function WindowResizeComponent() {
 }
 
 export default WindowResizeComponent;
-
 ```
 
 **剖析**
 
 - `window.addEventListener("resize", handleResize);`
 
-   - 監聽視窗大小變化，當 `resize` 事件發生時，更新 `width`。
+  - 監聽視窗大小變化，當 `resize` 事件發生時，更新 `width`。
 
 - `return () => { window.removeEventListener("resize", handleResize); }`
 
-   - **重要！** React 會重新執行 `useEffect`（例如 `setState` 觸發重新渲染），所以在元件卸載時，React 會清除這個監聽，避免記憶體洩漏。
+  - **重要！** React 會重新執行 `useEffect`（例如 `setState` 觸發重新渲染），所以在元件卸載時，React 會清除這個監聽，避免記憶體洩漏。
 
 ---
 
@@ -249,15 +246,15 @@ function ClockComponent() {
 }
 
 export default ClockComponent;
-
 ```
+
 **剖析**
 
 - `setInterval` 每秒更新 `time`。
 
 - `return () => clearInterval(interval);`
 
-   - **確保元件卸載時，清除計時器，避免記憶體洩漏。**
+  - **確保元件卸載時，清除計時器，避免記憶體洩漏。**
 
 ---
 
@@ -299,15 +296,15 @@ export default WebSocketComponent;
 
 - `const socket = new WebSocket("wss://`[`example.com/socket`](example.com/socket)`");`
 
-   - 建立 WebSocket 連線。
+  - 建立 WebSocket 連線。
 
 - `socket.onmessage = (event) => { setMessage(`[`event.data`](event.data)`); }`
 
-   - 當接收到新訊息時，更新 `message`。
+  - 當接收到新訊息時，更新 `message`。
 
 - `return () => { socket.close(); }`
 
-   - **確保元件卸載時，關閉 WebSocket 連線，避免資源浪費。**
+  - **確保元件卸載時，關閉 WebSocket 連線，避免資源浪費。**
 
 ---
 
@@ -346,7 +343,7 @@ export default TitleComponent;
 
 - `document.title = "未讀訊息數：" + count;`
 
-   - 修改網頁標題來反映未讀訊息數。
+  - 修改網頁標題來反映未讀訊息數。
 
 - `useEffect` **依賴 `count`，只有 `count` 更新時才會執行**。
 
@@ -354,14 +351,14 @@ export default TitleComponent;
 
 **總結**
 
-| 副作用類型 | 使用情境 | 清理方式 | 
-|---|---|---|
-| **API 請求** | 取得遠端資料 | 無需清理，但可取消請求 | 
-| **事件監聽** | `resize`、`scroll` | `removeEventListener` | 
-| **計時器** | `setTimeout`、`setInterval` | `clearTimeout`、`clearInterval` | 
-| **WebSocket** | 即時通訊 | `socket.close()` | 
-| **修改 DOM** | `document.title`、`localStorage` | 無需清理 | 
-|  |  |  | 
+| 副作用類型    | 使用情境                         | 清理方式                        |
+| ------------- | -------------------------------- | ------------------------------- |
+| **API 請求**  | 取得遠端資料                     | 無需清理，但可取消請求          |
+| **事件監聽**  | `resize`、`scroll`               | `removeEventListener`           |
+| **計時器**    | `setTimeout`、`setInterval`      | `clearTimeout`、`clearInterval` |
+| **WebSocket** | 即時通訊                         | `socket.close()`                |
+| **修改 DOM**  | `document.title`、`localStorage` | 無需清理                        |
+|               |                                  |                                 |
 
 **重點**
 

@@ -1,7 +1,8 @@
 ---
 title: 如果副作用不放在useEffect裡面，會發生什麼問題呢?
-description: A short description of this page
-keywords: [react, useEffect]
+description: 深入探討 React 副作用處理的重要性，了解為什麼必須使用 useEffect 來管理副作用，避免效能問題與無限迴圈
+keywords:
+  [React, useEffect, 副作用, 效能最佳化, 無限迴圈, 重複渲染, 生命週期, Hook]
 ---
 
 ## 1. 副作用在每次渲染時都會執行
@@ -16,7 +17,9 @@ function FetchDataComponent() {
 
   //  每次重新渲染時都會執行 API 請求
   async function fetchData() {
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+    const response = await fetch(
+      "https://jsonplaceholder.typicode.com/posts/1"
+    );
     const result = await response.json();
     setData(result);
   }
@@ -48,7 +51,9 @@ function FetchDataComponent() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+      const response = await fetch(
+        "https://jsonplaceholder.typicode.com/posts/1"
+      );
       const result = await response.json();
       setData(result);
     }
@@ -121,7 +126,7 @@ function WindowResizeComponent() {
 
 ---
 
-## 3. 計時器 (`setInterval` / `setTimeout`) 無法正確清除**
+## 3. 計時器 (`setInterval` / `setTimeout`) 無法正確清除\*\*
 
 如果你直接在函式元件內呼叫 `setInterval`，那麼 **每次渲染時都會啟動一個新的計時器**，而不是重新使用現有的。
 
@@ -150,6 +155,7 @@ function ClockComponent() {
 ---
 
 **正確作法：使用 `useEffect`**
+
 ```jsx
 function ClockComponent() {
   const [time, setTime] = useState(new Date().toLocaleTimeString());
@@ -219,4 +225,5 @@ function WebSocketComponent() {
   return <h2>WebSocket 訊息：{message}</h2>;
 }
 ```
+
 #### 這樣確保 WebSocket **只在元件掛載時建立**，並且 **在元件卸載時關閉連線**，避免資源浪費。

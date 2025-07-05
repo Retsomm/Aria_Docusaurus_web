@@ -156,18 +156,6 @@ const config = {
         darkTheme: prismThemes.dracula,
         additionalLanguages: ['sass'],
       },
-      metadata: [
-        { name: 'google-analytics', content: 'G-7KJZMT5GD8' },
-      ],
-      scripts: [
-        {
-          src: 'https://www.googletagmanager.com/gtag/js?id=G-7KJZMT5GD8',
-          async: true,
-        },
-        {
-          src: '/gtag.js',
-        },
-      ],
     }),
 };
 

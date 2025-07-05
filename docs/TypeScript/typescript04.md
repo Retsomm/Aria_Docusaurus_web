@@ -1,8 +1,10 @@
 ---
 title: TypeScript中陣列、Tuple與列舉的使用
-description: A short description of this page
-keywords: ["TypeScript", "JavaScript"]
+description: 深入學習 TypeScript 中陣列型別定義、Tuple 元組使用、列舉 Enum 的宣告與應用技巧
+keywords:
+  [TypeScript, 陣列, Tuple, 列舉, Enum, 型別定義, 型別註記, 元組, 陣列型別]
 ---
+
 ### 1\. 限制陣列包含的型別
 
 在 TypeScript 中，陣列的型別可以用兩種方式定義：
@@ -82,7 +84,7 @@ console.log(student[2]); // true
 
 **說明**：
 
-- Tuple 使用 \[型別1, 型別2, ...\] 語法定義，長度固定，且每個位置的型別明確。
+- Tuple 使用 \[型別 1, 型別 2, ...\] 語法定義，長度固定，且每個位置的型別明確。
 
 - 適合用於表示結構固定的資料，例如一個人的基本資訊 \[姓名, 年齡, 是否為學生\]。
 
@@ -105,7 +107,7 @@ enum Weekday {
   Thursday,
   Friday,
   Saturday,
-  Sunday
+  Sunday,
 }
 
 // 使用列舉
@@ -116,7 +118,7 @@ console.log(today); // 輸出：0（列舉的預設值從 0 開始）
 enum Status {
   Pending = "PENDING",
   Success = "SUCCESS",
-  Failed = "FAILED"
+  Failed = "FAILED",
 }
 
 let taskStatus: Status = Status.Success;
@@ -179,13 +181,13 @@ type User = {
 let user1: User = {
   name: "小明",
   age: 20,
-  isActive: true
+  isActive: true,
 };
 
 let user2: User = {
   name: "小華",
   age: 25,
-  isActive: false
+  isActive: false,
 };
 
 // 結合陣列或 Tuple
@@ -210,13 +212,13 @@ let user3: UserTuple = ["小美", 22, true];
 
 以下是各項功能的用途與適用場景：
 
-| 功能 | 用途 | 適用場景 | 
-|---|---|---|
-| **陣列** | 限制陣列元素的型別 | 動態長度的資料集合，例如使用者名稱清單 | 
-| **Tuple** | 固定長度且每個元素型別明確 | 固定結構的資料，例如 \[姓名, 年齡\] | 
-| **列舉（Enum）** | 為一組相關值命名 | 固定選項的集合，例如星期、狀態碼 | 
-| **字面值型別** | 限制為特定值 | 簡單的固定值，例如方向 ("up" | 
-| **型別別名** | 簡化複雜型別 | 重複使用的物件結構或組合型別 | 
+| 功能             | 用途                       | 適用場景                               |
+| ---------------- | -------------------------- | -------------------------------------- |
+| **陣列**         | 限制陣列元素的型別         | 動態長度的資料集合，例如使用者名稱清單 |
+| **Tuple**        | 固定長度且每個元素型別明確 | 固定結構的資料，例如 \[姓名, 年齡\]    |
+| **列舉（Enum）** | 為一組相關值命名           | 固定選項的集合，例如星期、狀態碼       |
+| **字面值型別**   | 限制為特定值               | 簡單的固定值，例如方向 ("up"           |
+| **型別別名**     | 簡化複雜型別               | 重複使用的物件結構或組合型別           |
 
 ### 實作練習
 

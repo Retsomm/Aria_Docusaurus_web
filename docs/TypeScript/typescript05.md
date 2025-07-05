@@ -1,7 +1,18 @@
 ---
 title: TypeScript 物件型別操作
-description: A short description of this page
-keywords: ["TypeScript", "JavaScript"]
+description: 學習 TypeScript 物件型別的定義與操作，包含形狀型別、可選屬性、型別別名、介面等進階應用
+keywords:
+  [
+    TypeScript,
+    物件型別,
+    形狀型別,
+    可選屬性,
+    型別別名,
+    介面,
+    物件結構,
+    型別定義,
+    屬性型別,
+  ]
 ---
 
 ### 1\. **對 TypeScript 編譯器描述共用物件的型別：使用形狀型別**

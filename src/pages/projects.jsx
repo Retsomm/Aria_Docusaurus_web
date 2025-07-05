@@ -11,6 +11,7 @@ import ibest from "../../static/img/project/project6.png";
 import frog from "../../static/img/project/project7.png";
 import movie from "../../static/img/project/project8.png";
 import EMW from "../../static/img/project/project9.png";
+import MTF from "../../static/img/project/project10.png";
 import Link from "@docusaurus/Link";
 
 function ProjectHeader() {
@@ -46,43 +47,14 @@ function ProjectHeader() {
               </Link>
             </div>
           </div>
-          <div className={styles.card}>
-            <div className={styles.img}>
-              <img src={adoption} alt="" />
-            </div>
-            <div className={styles.tags}>
-              <div className={styles.tag}>React native</div>
-              <div className={styles.tag}>expo</div>
-              <div className={styles.tag}>firebase</div>
-            </div>
-            <div className={styles.text}>
-              <p>
-                這是一個動物領養網頁，串接API，具有篩選條件以及Gmail登入功能，登入之後可以儲存你的收藏資料，適合在手機上瀏覽。
-              </p>
-            </div>
-            <div className={styles.buttons}>
-              <Link
-                className={clsx("button button--secondary", styles.button)}
-                to="https://github.com/Retsomm/animal-adoption-app"
-              >
-                github
-              </Link>
-              <Link
-                className={clsx("button button--secondary", styles.button)}
-                to="https://animal-adoption-82e5f.web.app/"
-              >
-                live
-              </Link>
-            </div>
-          </div>
+          
           <div className={styles.card}>
             <div className={styles.img}>
               <img src={pied_piper} alt="" />
             </div>
             <div className={styles.tags}>
-              <div className={styles.tag}>react</div>
-              <div className={styles.tag}>material UI</div>
-              <div className={styles.tag}>RWD</div>
+              <div className={styles.tag}>React</div>
+              <div className={styles.tag}>MaterialUI</div>
             </div>
             <div className={styles.text}>
               <p>
@@ -113,7 +85,6 @@ function ProjectHeader() {
             <div className={styles.tags}>
               <div className={styles.tag}>Bootstrap</div>
               <div className={styles.tag}>GSAP</div>
-              <div className={styles.tag}>RWD</div>
             </div>
             <div className={styles.text}>
               <p>
@@ -223,9 +194,9 @@ function ProjectHeader() {
               <img src={movie} alt="" />
             </div>
             <div className={styles.tags}>
-              <div className={styles.tag}>vite</div>
-              <div className={styles.tag}>react</div>
-              <div className={styles.tag}>appwrite</div>
+              <div className={styles.tag}>Vite</div>
+              <div className={styles.tag}>React</div>
+              <div className={styles.tag}>Appwrite</div>
               <div className={styles.tag}>TMDB API</div>
             </div>
             <div className={styles.text}>
@@ -248,12 +219,42 @@ function ProjectHeader() {
           </div>
           <div className={styles.card}>
             <div className={styles.img}>
+              <img src={adoption} alt="" />
+            </div>
+            <div className={styles.tags}>
+              <div className={styles.tag}>React</div>
+              <div className={styles.tag}>Vite</div>
+              <div className={styles.tag}>DaisyUI</div>
+              <div className={styles.tag}>Firebase</div>
+            </div>
+            <div className={styles.text}>
+              <p>
+                一個現代化的動物收養平台，讓使用者能夠瀏覽、收藏和了解待收養的動物資訊。
+              </p>
+            </div>
+            <div className={styles.buttons}>
+              <Link
+                className={clsx("button button--secondary", styles.button)}
+                to="https://github.com/Retsomm/Pet-And-Meet"
+              >
+                github
+              </Link>
+              <Link
+                className={clsx("button button--secondary", styles.button)}
+                to="https://animal-adoption-vite-app-fb2f5.web.app/"
+              >
+                live
+              </Link>
+            </div>
+          </div>
+          <div className={styles.card}>
+            <div className={styles.img}>
               <img src={EMW} alt="" />
             </div>
             <div className={styles.tags}>
-              <div className={styles.tag}>vite</div>
-              <div className={styles.tag}>react</div>
-              <div className={styles.tag}>daisyui</div>
+              <div className={styles.tag}>Vite</div>
+              <div className={styles.tag}>React</div>
+              <div className={styles.tag}>DaisyUI</div>
               <div className={styles.tag}>Firebase</div>
             </div>
             <div className={styles.text}>
@@ -269,6 +270,34 @@ function ProjectHeader() {
               <Link
                 className={clsx("button button--secondary", styles.button)}
                 to="https://vite-react-elon-5dae6.web.app/"
+              >
+                live
+              </Link>
+            </div>
+          </div>
+          <div className={styles.card}>
+            <div className={styles.img}>
+              <img src={MTF} alt="" />
+            </div>
+            <div className={styles.tags}>
+              <div className={styles.tag}>Nextjs</div>
+              <div className={styles.tag}>React</div>
+              <div className={styles.tag}>Vercel</div>
+              <div className={styles.tag}>NextAuth</div>
+            </div>
+            <div className={styles.text}>
+              <p>一個專為追蹤個人成長和量化目標進度而設計的內容管理系統。</p>
+            </div>
+            <div className={styles.buttons}>
+              <Link
+                className={clsx("button button--secondary", styles.button)}
+                to="https://github.com/Retsomm/Meet_The_Futute"
+              >
+                github
+              </Link>
+              <Link
+                className={clsx("button button--secondary", styles.button)}
+                to="https://meetthefuture.vercel.app/"
               >
                 live
               </Link>
