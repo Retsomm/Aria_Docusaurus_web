@@ -1,0 +1,42 @@
+{
+    "name": "Retsnom Learning Coding",
+    "short_name": "Retsnom",
+    "description": "嗨，我是Aria，一位正在學習程式語言的人類，渴望能在厲害的團隊中一起打造理想中的產品。",
+    "theme_color": "#25c2a0",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/img/retsnom-logo.PNG",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/img/retsnom-logo.PNG",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/img/retsnom-logo.PNG",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/img/retsnom-logo.PNG",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/img/retsnom-logo.PNG",
+            "sizes": "120x120",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

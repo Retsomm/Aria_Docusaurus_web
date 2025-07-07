@@ -37,3 +37,13 @@ heptabase:
   label: heptabase
   permalink: /heptabase
   description: heptabase tag description
+
+lesson:
+  label: lesson
+  permalink: /lesson
+  description: lesson tag description
+
+money:
+  label: money
+  permalink: /money
+  description: money tag description
