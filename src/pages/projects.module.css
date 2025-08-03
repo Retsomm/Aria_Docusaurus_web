@@ -10,7 +10,7 @@
 .title {
   margin-bottom: 30px;
   font-size: 3rem;
-} 
+}
 .wrap {
   display: flex;
   justify-content: center;
@@ -27,8 +27,7 @@
   font-weight: 800;
   border-radius: 5px;
   margin: 10px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2),
-              4px 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), 4px 4px 10px rgba(0, 0, 0, 0.1);
 }
 .img {
   max-width: 100%;
@@ -43,7 +42,7 @@
   flex-wrap: wrap;
 }
 .tag {
-  border: solid 3px;
+  border: solid 1px;
   border-radius: 10px;
   padding: 5px 10px;
   margin-left: 5px;
@@ -61,13 +60,28 @@
   width: 100%;
   margin-left: 5px;
   margin-right: 5px;
-  borer: solid 3px black;
+  &:hover {
+    scale: 1.2;
+    transition: all 0.2s ease-in-out;
+  }
+}
+.button.button--secondary {
+  /* Light mode: 藍色字、白底 */
+  color: var(--ifm-color-primary);
+  background-color: #fff;
+}
+html[data-theme="dark"] .button.button--secondary {
+  /* Dark mode: 白色字、深底 */
+  color: #fff;
+  background-color: var(--ifm-background-surface-color, #222c36);
+}
+html[data-theme="dark"] .button.button--secondary {
+  /* Dark mode: 白色字 */
+  color: #fff;
 }
 @media screen and (max-width: 996px) {
   .title {
     margin-bottom: 30px;
     font-size: 2rem;
-    
-  } 
+  }
 }
-

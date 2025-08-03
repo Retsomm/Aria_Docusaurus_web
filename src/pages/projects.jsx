@@ -30,17 +30,17 @@ function ProjectHeader() {
               <div className={styles.tag}>CSS</div>
             </div>
             <div className={styles.text}>
-              <p>這是一個使用html與css製作的簡易互動角色。</p>
+              <p>一隻可愛的Groru。</p>
             </div>
-            <div className={styles.buttons}>
+            <div className={styles.buttons }>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/grogu"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://retsomm.github.io/grogu/"
               >
                 live
@@ -55,23 +55,22 @@ function ProjectHeader() {
             <div className={styles.tags}>
               <div className={styles.tag}>React</div>
               <div className={styles.tag}>MaterialUI</div>
+              <div className={styles.tag}>video tutorial</div>
             </div>
             <div className={styles.text}>
               <p>
-                這是一個使用react與material
-                UI製作的部落格介面，以此網站致敬影集Silicon
-                Valley，目前只有簡單的切換主題、按喜歡、RWD等等，待更新發文功能。
+                一個部落格介面，以此網站致敬影集Silicon
               </p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/pied_piper"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://retsomm.github.io/pied_piper/"
               >
                 live
@@ -88,19 +87,18 @@ function ProjectHeader() {
             </div>
             <div className={styles.text}>
               <p>
-                這是一個使用Bootstrap與GSAP製作的網頁，介紹「水星領航員」這部日本動漫，在火星上打造如地球威尼斯的生活，人們在那邊邂逅美好的相遇，也延伸到spaceX，Elon
-                Musk對於宇宙探險以及火星殖民的願景。
+                一個介紹「水星領航員」這部日本動漫的一頁式網站。
               </p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/ARIA/tree/gh-pages"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://retsomm.github.io/ARIA/"
               >
                 live
@@ -116,18 +114,18 @@ function ProjectHeader() {
             </div>
             <div className={styles.text}>
               <p>
-                這是一個使用Vue製作的大心菜單，可以篩選價格以及透過關鍵字搜尋。
+                這是一個大心菜單，有著美味的泰式料理。
               </p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/bheartnoodles-menu/tree/gh-pages"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://retsomm.github.io/bheartnoodles-menu/"
               >
                 live
@@ -144,17 +142,17 @@ function ProjectHeader() {
               <div className={styles.tag}>RWD</div>
             </div>
             <div className={styles.text}>
-              <p>這是一個使用html、css的切版面試作品。</p>
+              <p>一個切版面試作品。</p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/ibest-test-web"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://retsomm.github.io/ibest-test-web/"
               >
                 live
@@ -172,17 +170,17 @@ function ProjectHeader() {
               <div className={styles.tag}>GSAP</div>
             </div>
             <div className={styles.text}>
-              <p>這是一個使用html、css的切版面試作品。</p>
+              <p>一個切版面試作品。</p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/frog-design/tree/gh-pages"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://retsomm.github.io/frog-design/"
               >
                 live
@@ -198,19 +196,21 @@ function ProjectHeader() {
               <div className={styles.tag}>React</div>
               <div className={styles.tag}>Appwrite</div>
               <div className={styles.tag}>TMDB API</div>
+              <div className={styles.tag}>TMDB API</div>
+              <div className={styles.tag}>video tutorial</div>
             </div>
             <div className={styles.text}>
-              <p>這是一個與YT影片實作的電影搜尋網頁。</p>
+              <p>一個電影搜尋網頁。</p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/react-moodflix"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://retsomm.github.io/react-moodflix/"
               >
                 live
@@ -226,21 +226,22 @@ function ProjectHeader() {
               <div className={styles.tag}>Vite</div>
               <div className={styles.tag}>DaisyUI</div>
               <div className={styles.tag}>Firebase</div>
+              <div className={styles.tag}>vibe coding</div>
             </div>
             <div className={styles.text}>
               <p>
-                一個現代化的動物收養平台，讓使用者能夠瀏覽、收藏和了解待收養的動物資訊。
+                一個現代化的動物收養平台。
               </p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/Pet-And-Meet"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://animal-adoption-vite-app-fb2f5.web.app/"
               >
                 live
@@ -256,19 +257,20 @@ function ProjectHeader() {
               <div className={styles.tag}>React</div>
               <div className={styles.tag}>DaisyUI</div>
               <div className={styles.tag}>Firebase</div>
+              <div className={styles.tag}>vibe coding</div>
             </div>
             <div className={styles.text}>
-              <p>這是一個伊隆馬斯克資訊網。</p>
+              <p>一個伊隆馬斯克資訊網。</p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/EMW"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://vite-react-elon-5dae6.web.app/"
               >
                 live
@@ -284,19 +286,20 @@ function ProjectHeader() {
               <div className={styles.tag}>React</div>
               <div className={styles.tag}>Vercel</div>
               <div className={styles.tag}>NextAuth</div>
+              <div className={styles.tag}>vibe coding</div>
             </div>
             <div className={styles.text}>
               <p>一個專為追蹤個人成長和量化目標進度而設計的內容管理系統。</p>
             </div>
             <div className={styles.buttons}>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://github.com/Retsomm/Meet_The_Futute"
               >
                 github
               </Link>
               <Link
-                className={clsx("button button--secondary", styles.button)}
+                className={clsx("button", styles.button)}
                 to="https://meetthefuture.vercel.app/"
               >
                 live
