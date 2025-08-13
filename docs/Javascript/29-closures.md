@@ -9,17 +9,138 @@ keywords:
 
 閉包的核心是**作用域（Scope）**。在 JavaScript 中，每個函式都有自己的作用域，而閉包讓內部函式可以存取外部函式的變數，即使外部函式已經執行完畢。這種特性讓閉包非常適合用來：
 
-封裝私有變數
+- 封裝私有變數
 
-建立資料隱藏
+- 建立資料隱藏
 
-實現模組化程式碼
+- 實現模組化程式碼
+
+```javascript
+function add(num) {
+  function func(x = 0) {
+    return num + x
+  }
+  return func
+}
+let addFive = add(5)
+console.log(addFive(8)) //13
+```
+
+add是一個接收num、回傳函數func的函數。由於JS引擎內有自動執行的記憶體回收機制，理論上在函數執行完畢、建構函數的環境被回收後，也會移並將該函數刪除，函數所占用的記憶體空間也就因此被釋放；但在此處的範例中，可以看到參數num在add執行完畢後仍然可以被回傳出去的函數使用，沒有跟著add一起被回收掉。
+
+這種把外層變數包在內層保留，以供後續使用的機制，也就是閉包。
+
+閉包發生的時機是在函數被建立時，每當新的函數建立出來，JS會將函數所在位置的執行環境及函數外層的作用域鏈記錄下來，以供新函數內部使用。
+
+## 執行環境
+
+執行環境(Excution Context，EC)，指的是JS底層在程式準備執行時，針對全域及函數所建立的一個內部物件，主要儲存：
+
+- 內部的變數(Variable Object，VO，也就是Hoisting發生的原因)
+
+- 外部環境&作用域鏈(Scope Chain)
+
+- 這個環境的this值
+
+圖9-1
+
+### 範例一：無閉包的情境
+
+```javascript
+var a = 0
+function b() {
+  var a = 10
+  function c() {
+    console.log(a)
+  }
+  c()
+}
+b() //10
+```
+
+可以想像EC會長成：
+
+圖9-2
+
+當執行時，依序會進行下面的事情：
+
+- 建立Global EC，預留變數a的空間，建立函數b物件，並記錄函數b的作用域鏈
+
+- 變數a賦值a=0，接著呼叫函數b()
+
+- 準備函數b，建立函數c的作用域鏈
+
+- 執行b()，區域變數a賦值a =10，接著呼叫函數c()
+
+- 準備函數c，建立function c() EC，並依照作用域鏈找到function b() EC中的區域變數a
+
+- 執行 c()，呼叫console.log(a)；印出10
+
+- c()執行結束，消除function c() EC
+
+- b()執行結束，消除function b() EC
+
+- 程式執行結束
+
+在沒有發生閉包的情境下，JS會依照呼叫的先後次序，一一建立EC，並在執行完成後將EC消除，釋放記憶體空間。
+
+### 範例二：有閉包的情境
+
+修改讓函數b回傳函數c：
+
+```javascript
+var a = 0
+function b() {
+  var a = 10
+  function c() {
+    console.log(a)
+  }
+  return c
+}
+var func = b()
+console.log(a) // 0
+func() // 10
+```
+
+圖9-3
+
+- 建立Global EC，預留變數a、**func**的空間，建立函數b物件，並記錄函數b的作用域鏈
+
+- **執行Global EC**，變數 a 賦值 a=0，呼叫函數b()
+
+- 準備函數b，建立 function b() EC，預留區域變數 a 的空間，建立函數 c 物件，並記錄函數c的作用域鏈
+
+- 執行b()，區域變數a賦值a =10，回傳函數c()
+
+- b()執行結束，消除function b() EC
+
+執行到這裡時，function b() EC內的a被回傳的函數c閉包了
+
+- 變數func賦值成函數b()的執行結果———函數c
+
+- 執行console.log(a)，印出Global EC中的a:1；接著呼叫func()
+
+- 準備函數c，建立function c() EC，並依照作用域鏈找到function b() EC中的區域變數a
+
+- 執行func()，執行console.log(a)；印出10
+
+- func()執行結束，消除function c() EC
+
+- 程式執行結束
+
+由於閉包，在b()執行結束時，其中的區域變數a並未跟著function b()的EC一起消失，而是留給建立a變數參照的function c() EC使用，直到c()執行完畢，參照消失，a變數所占用的記憶體才會跟著一起被釋放。
+
+### 延伸閱讀
+
+「閉包」這個詞其實有許多定義，本文撰寫時所採用的說法是較偏向實際開發時會考慮的情境，也就是將「內層函數引用外層參數」的行為稱呼為閉包。
+
+但在MDN及Wiki中都有提到類似的定義：「閉包是由函數和與其相關的參照環境組合而成的實體」，而實際上在JS底層的行為中，每一個函數建立都會記錄他所在的作用域環境，因此也可以說，所有函數是閉包。
 
 ---
 
 ### 閉包的運作原理
 
-假設你有一個外部函式，裡面定義了一些變數和一個內部函式。內部函式可以存取這些變數，即使外部函式已經執行完，內部函式仍然「記得」這些變數。這是因為 JavaScript 的詞法作用域（Lexical Scope）規則，讓內部函式保留了對外部變數的參考。
+假設你有一個外部函式，裡面定義了一些變數和一個內部函式。內部函式可以存取這些變數，即使外部函式已經執行完，內部函式仍然「記得」這些變數。這是因為 JavaScript 的\*\*詞法作用域（Lexical Scope）\*\*規則，讓內部函式保留了對外部變數的參考。
 
 ---
 
@@ -29,13 +150,13 @@ keywords:
 
 ```javascript
 function outerFunction() {
-  let outerVariable = "我是一個外部變數";
+    let outerVariable = '我是一個外部變數';
 
-  function innerFunction() {
-    console.log(outerVariable); // 內部函式可以存取外部變數
-  }
+    function innerFunction() {
+        console.log(outerVariable); // 內部函式可以存取外部變數
+    }
 
-  return innerFunction; // 回傳內部函式
+    return innerFunction; // 回傳內部函式
 }
 
 const myClosure = outerFunction(); // 執行外部函式，得到內部函式
@@ -70,14 +191,14 @@ myClosure(); // 執行內部函式，輸出：我是一個外部變數
 
 ```javascript
 function createCounter() {
-  let count = 0; // 私有變數，只有內部函式可以存取
+    let count = 0; // 私有變數，只有內部函式可以存取
 
-  function increment() {
-    count++; // 遞增 count
-    console.log("計數器目前值：", count);
-  }
+    function increment() {
+        count++; // 遞增 count
+        console.log('計數器目前值：', count);
+    }
 
-  return increment; // 回傳內部函式
+    return increment; // 回傳內部函式
 }
 
 const counter = createCounter(); // 建立一個計數器
@@ -112,19 +233,19 @@ counter(); // 輸出：計數器目前值：3
 
 ```javascript
 function greet(name) {
-  let greeting = "你好，" + name + "！";
+    let greeting = '你好，' + name + '！';
 
-  function sayHello() {
-    console.log(greeting);
-  }
+    function sayHello() {
+        console.log(greeting);
+    }
 
-  return sayHello;
+    return sayHello;
 }
 
-const greetJohn = greet("John"); // 傳入參數 'John'
+const greetJohn = greet('John'); // 傳入參數 'John'
 greetJohn(); // 輸出：你好，John！
 
-const greetMary = greet("Mary"); // 傳入參數 'Mary'
+const greetMary = greet('Mary'); // 傳入參數 'Mary'
 greetMary(); // 輸出：你好，Mary！
 ```
 
@@ -152,19 +273,19 @@ greetMary(); // 輸出：你好，Mary！
 
 1. **資料隱藏與封裝**：
 
-   像範例 2 的計數器，外部無法直接修改 count，只能透過回傳的函式操作，確保資料安全。
+   - 像範例 2 的計數器，外部無法直接修改 count，只能透過回傳的函式操作，確保資料安全。
 
 2. **模組化程式碼**：
 
-   閉包可以用來模擬物件導向的私有屬性，像是模組模式（Module Pattern）。
+   - 閉包可以用來模擬物件導向的私有屬性，像是模組模式（Module Pattern）。
 
 3. **非同步操作**：
 
-   在事件監聽器、setTimeout 或 API 呼叫中，閉包能確保變數在非同步執行時仍然有效。
+   - 在事件監聽器、setTimeout 或 API 呼叫中，閉包能確保變數在非同步執行時仍然有效。
 
 4. **函式工廠**：
 
-   像範例 3，根據不同參數產生不同功能的函式。
+   - 像範例 3，根據不同參數產生不同功能的函式。
 
 ---
 
@@ -172,11 +293,11 @@ greetMary(); // 輸出：你好，Mary！
 
 1. **記憶體使用**：
 
-   閉包會保留外部變數的參考，如果不小心使用，可能導致記憶體洩漏。例如，事件監聽器未移除可能導致變數一直被保留。
+   - 閉包會保留外部變數的參考，如果不小心使用，可能導致記憶體洩漏。例如，事件監聽器未移除可能導致變數一直被保留。
 
 2. **小心全域變數**：
 
-   如果不小心把變數定義在全域作用域，可能導致閉包失去封裝的優勢。
+   - 如果不小心把變數定義在全域作用域，可能導致閉包失去封裝的優勢。
 
 ---
 
@@ -186,28 +307,28 @@ greetMary(); // 輸出：你好，Mary！
 
 ```javascript
 function createPerson() {
-  let name = "小明";
-  let age = 25;
+    let name = '小明';
+    let age = 25;
 
-  return {
-    getName: function () {
-      return name;
-    },
-    setName: function (newName) {
-      name = newName;
-    },
-    getAge: function () {
-      return age;
-    },
-    setAge: function (newAge) {
-      age = newAge;
-    },
-  };
+    return {
+        getName: function() {
+            return name;
+        },
+        setName: function(newName) {
+            name = newName;
+        },
+        getAge: function() {
+            return age;
+        },
+        setAge: function(newAge) {
+            age = newAge;
+        }
+    };
 }
 
 const person = createPerson();
 console.log(person.getName()); // 輸出：小明
-person.setName("小華");
+person.setName('小華');
 console.log(person.getName()); // 輸出：小華
 console.log(person.getAge()); // 輸出：25
 ```
@@ -218,14 +339,14 @@ console.log(person.getAge()); // 輸出：25
 
 2. 試著呼叫 person.setAge(30)，然後用 person.getAge() 檢查結果。
 
-3. 試著直接存取 `person.name` 或 `person.age`，看看會發生什麼？（提示：應該會得到 undefined，因為這些變數是私有的）
+3. 試著直接存取 person.name 或 person.age，看看會發生什麼？（提示：應該會得到 undefined，因為這些變數是私有的）
 
 ---
 
 ### 總結
 
-**閉包的核心**：內部函式記住外部函式的變數，即使外部函式執行完畢。
+- **閉包的核心**：內部函式記住外部函式的變數，即使外部函式執行完畢。
 
-**使用場景**：資料隱藏、模組化、非同步操作等。
+- **使用場景**：資料隱藏、模組化、非同步操作等。
 
-**操作建議**：透過 Console 練習以上範例，觀察閉包如何「記住」變數，並嘗試修改程式碼來加深理解。
+- **操作建議**：透過 Console 練習以上範例，觀察閉包如何「記住」變數，並嘗試修改程式碼來加深理解。
