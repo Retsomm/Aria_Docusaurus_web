@@ -35,3 +35,15 @@ body {
     sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
     Noto Color Emoji;
 }
+
+/* 隱藏 footer 的 Private Blog 入口按鈕 */
+.footer-hidden-link {
+  opacity: 0;
+  pointer-events: auto;
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 40px;
+  height: 40px;
+  z-index: 9999;
+}

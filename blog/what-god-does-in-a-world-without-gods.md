@@ -1,6 +1,6 @@
 ---
 title: 【在無神世界裡進行傳教活動】觀後感
-tags: [interview]
+tags: [animate]
 date: 2023-09-03
 ---
 <!--truncate-->
