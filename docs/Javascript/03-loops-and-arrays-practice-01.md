@@ -2,6 +2,7 @@
 title: JS迴圈與陣列練習01
 description: JavaScript 迴圈與陣列的基礎練習題，包含陣列數字總和、最大值查找、偶數篩選等實作練習
 keywords: [JavaScript, 迴圈, 陣列, for迴圈, 陣列操作, 練習題, 程式練習]
+tags: [JavaScript, 迴圈, 陣列, for迴圈, 陣列操作, 練習題, 程式練習]
 ---
 
 ```js title="script.js"
