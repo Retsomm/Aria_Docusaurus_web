@@ -6,6 +6,8 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "build:fast": "cross-env NODE_OPTIONS=--max-old-space-size=4096 docusaurus build",
+    "build:prod": "cross-env NODE_OPTIONS=--max-old-space-size=4096 docusaurus build --locale en",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -29,8 +31,11 @@
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
+    "@docusaurus/faster": "^3.8.1",
     "@docusaurus/module-type-aliases": "^3.8.1",
-    "@docusaurus/types": "^3.8.1"
+    "@docusaurus/types": "^3.8.1",
+    "cross-env": "^10.0.0",
+    "esbuild-loader": "^4.3.0"
   },
   "browserslist": {
     "production": [

@@ -56,15 +56,21 @@ const config = {
           priority: 0.5,
           ignorePatterns: ['/tags/**', '/private-blog/**'],
           filename: 'sitemap.xml',
-          createSitemapItems: async (params) => {
-            const {defaultCreateSitemapItems, ...rest} = params;
-            const items = await defaultCreateSitemapItems(rest);
-            return items.filter((item) => !item.url.includes('/page/'));
-          },
+          // Remove the custom sitemap items function to improve performance
         },
       }),      
     ],
   ],
+
+  // Performance optimizations (disabled experimental_faster due to rspack panic)
+  future: {
+    v4: true,
+  },
+
+  // Temporarily removing webpack optimizations to test standard build
+  markdown: {
+    mermaid: true,
+  },
     plugins: [
       [
         '@docusaurus/plugin-content-blog',
@@ -92,7 +98,7 @@ const config = {
       [
         '@docusaurus/plugin-pwa',
         {
-          debug: true,
+          debug: process.env.NODE_ENV === 'development',
           offlineModeActivationStrategies: [
             'appInstalled',
             'standalone',
@@ -123,54 +129,6 @@ const config = {
               tagName: 'meta',
               name: 'apple-mobile-web-app-status-bar-style',
               content: '#000',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '57x57',
-              href: '/img/retsnom-logo.PNG',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '60x60',
-              href: '/img/retsnom-logo.PNG',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '72x72',
-              href: '/img/retsnom-logo.PNG',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '76x76',
-              href: '/img/retsnom-logo.PNG',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '114x114',
-              href: '/img/retsnom-logo.PNG',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '120x120',
-              href: '/img/retsnom-logo.PNG',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '144x144',
-              href: '/img/retsnom-logo.PNG',
-            },
-            {
-              tagName: 'link',
-              rel: 'apple-touch-icon',
-              sizes: '152x152',
-              href: '/img/retsnom-logo.PNG',
             },
             {
               tagName: 'link',
