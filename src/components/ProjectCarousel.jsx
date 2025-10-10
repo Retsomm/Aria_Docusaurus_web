@@ -33,7 +33,7 @@ export default function ProjectCarousel() {
       tags: ['React native', 'expo', 'firebase'],
       links: [
         { label: 'github', url: 'https://github.com/Retsomm/animal-adoption-app' },
-        { label: 'live', url: 'https://animal-adoption-82e5f.web.app/' }
+        { label: 'live', url: 'https://animal-adoption-vite-app.web.app/' }
       ]
     },
     {
@@ -53,7 +53,7 @@ export default function ProjectCarousel() {
       tags: ['Bootstrap', 'Skrollr'],
       links: [
         { label: 'github', url: 'https://github.com/Retsomm/ARIA/tree/gh-pages' },
-        { label: 'live', url: 'https://retsomm.github.io/ARIA/' }
+        { label: 'live', url: 'https://the-aria-company.vercel.app/' }
       ]
     },
     {
