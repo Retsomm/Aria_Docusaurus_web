@@ -20,14 +20,20 @@
 .card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 10px;
   border: solid 3px;
   width: 300px;
-  height: auto;
+  height: 370px;
   font-weight: 800;
   border-radius: 5px;
   margin: 10px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), 6px 6px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out ;
 }
 .img {
   max-width: 100%;

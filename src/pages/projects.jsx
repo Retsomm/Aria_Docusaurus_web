@@ -57,7 +57,7 @@ const projects = [
   {
     id: "BYD",
     img: BYD,
-    tags: ["HTML", "CSS", "RWD", "React","Redux","TypeScript"],
+    tags: ["HTML", "CSS", "RWD", "React", "Redux", "TypeScript"],
     text: "一個買的到商店。",
     github: "https://github.com/Retsomm/Buy_You_Desire",
     live: "https://retsomm.github.io/Buy_You_Desire",
@@ -99,30 +99,34 @@ const projects = [
 function ProjectCard({ project }) {
   return (
     <div className={styles.card}>
-      <div className={styles.img}>
-        <img src={project.img} alt="" />
+      <div className={styles.top}>
+        <div className={styles.img}>
+          <img src={project.img} alt="" />
+        </div>
+        <div className={styles.tags}>
+          {project.tags.map((t, i) => (
+            <div key={i} className={styles.tag}>
+              {t}
+            </div>
+          ))}
+        </div>
+        <div className={styles.text}>
+          <p>{project.text}</p>
+        </div>
       </div>
-      <div className={styles.tags}>
-        {project.tags.map((t, i) => (
-          <div key={i} className={styles.tag}>
-            {t}
-          </div>
-        ))}
-      </div>
-      <div className={styles.text}>
-        <p>{project.text}</p>
-      </div>
-      <div className={styles.buttons}>
-        {project.github && (
-          <Link className={clsx("button", styles.button)} to={project.github}>
-            github
-          </Link>
-        )}
-        {project.live && (
-          <Link className={clsx("button", styles.button)} to={project.live}>
-            live
-          </Link>
-        )}
+      <div className={styles.bottom}>
+        <div className={styles.buttons}>
+          {project.github && (
+            <Link className={clsx("button", styles.button)} to={project.github}>
+              github
+            </Link>
+          )}
+          {project.live && (
+            <Link className={clsx("button", styles.button)} to={project.live}>
+              live
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );
