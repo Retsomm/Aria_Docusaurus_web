@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
+    "prestart": "yarn generate:tags",
     "start": "docusaurus start",
+    "generate:tags": "node scripts/generate-tags.js",
     "build": "docusaurus build",
     "build:fast": "cross-env NODE_OPTIONS=--max-old-space-size=4096 docusaurus build",
     "build:prod": "cross-env NODE_OPTIONS=--max-old-space-size=4096 docusaurus build --locale en",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
+    "cms:proxy": "npx netlify-cms-proxy-server",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids"

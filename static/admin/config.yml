@@ -2,6 +2,11 @@
 backend:
   name: git-gateway
   branch: main # 確保這是你的 GitHub 分支名稱（通常是 main）
+  # Also set local_backend under backend for compatibility with some CMS builds
+  local_backend: true
+
+# 在本地開發時啟用 local_backend 可避免跳出 Netlify Identity 登入畫面
+local_backend: true
 
 # 2. 媒體檔案設定
 media_folder: "static/img/uploads"
@@ -11,11 +16,60 @@ public_folder: "/img/uploads"
 collections:
   - name: "blog"
     label: "Blog 文章"
-    folder: "blog" 
+    folder: "blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "標題", name: "title", widget: "string" }
       - { label: "日期", name: "date", widget: "datetime" }
       - { label: "摘要", name: "description", widget: "string", required: false }
+      - label: "標籤"
+        name: "tags"
+        widget: "tags"
+        required: false
+        suggestions: ["背景", "程式練習", "單位", "迴圈", "練習題", "前綴字", "屬性繼承", "通用關鍵字", "響應式設計", "陣列", "陣列操作", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
+      - { label: "內文", name: "body", widget: "markdown" }
+
+  - name: "blog-private"
+    label: "私密 Blog 文章"
+    folder: "blog-private"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "標題", name: "title", widget: "string" }
+      - { label: "日期", name: "date", widget: "datetime" }
+      - { label: "摘要", name: "description", widget: "string", required: false }
+      - label: "標籤"
+        name: "tags"
+        widget: "tags"
+        required: false
+        suggestions: ["背景", "程式練習", "單位", "迴圈", "練習題", "前綴字", "屬性繼承", "通用關鍵字", "響應式設計", "陣列", "陣列操作", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
+      - { label: "內文", name: "body", widget: "markdown" }
+
+  - name: "docs"
+    label: "Docs 文件"
+    folder: "docs"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    # Enable nested collection UI so subfolders under `docs/` are shown
+    # `subfolders: false` matches the repo layout (files inside subfolders).
+    nested:
+      depth: 10
+      subfolders: false
+      summary: "{{title}}"
+    # allow editing the path (optional) — useful when moving docs between subfolders
+    meta:
+      path:
+        widget: string
+        label: "Path"
+        index_file: "_index"
+    fields:
+      - { label: "標題", name: "title", widget: "string" }
+      - { label: "日期", name: "date", widget: "datetime", required: false }
+      - { label: "摘要", name: "description", widget: "string", required: false }
+      - label: "標籤"
+        name: "tags"
+        widget: "tags"
+        required: false
+        suggestions: ["背景", "程式練習", "單位", "迴圈", "練習題", "前綴字", "屬性繼承", "通用關鍵字", "響應式設計", "陣列", "陣列操作", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
       - { label: "內文", name: "body", widget: "markdown" }
