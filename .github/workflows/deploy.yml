@@ -1,4 +1,4 @@
-name: Build and Deploy to Vercel
+name: CI — Build and Test
 
 on:
   push:
@@ -56,36 +56,4 @@ jobs:
           fi
           echo "Build successful! ✅"
 
-  deploy-to-vercel:
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: yarn
-
-      - name: Install dependencies (Yarn)
-        run: |
-          echo "Installing dependencies..."
-          yarn install --frozen-lockfile
-
-      - name: Build website
-        run: |
-          echo "Building for deployment..."
-          yarn build
-          echo "Build completed!"
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
-          working-directory: ./build
+# deploy-to-vercel job removed to avoid duplicate deployments (Netlify handles deploys now).
