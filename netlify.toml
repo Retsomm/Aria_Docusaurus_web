@@ -1,3 +1,13 @@
+[build]
+  publish = "build"
+  functions = "netlify/functions"
+
+[[redirects]]
+  # ensure Netlify serves the CMS config YAML file directly (avoid SPA rewrite)
+  from = "/admin/config.yml"
+  to = "/admin/config.yml"
+  status = 200
+
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"

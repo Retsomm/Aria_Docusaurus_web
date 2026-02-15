@@ -1,0 +1,470 @@
+.heroBanner {
+  padding: 4rem 0;
+  min-height: calc(100vh - var(--ifm-navbar-height));
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 3rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.booksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ifm-background-surface-color);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), 4px 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2), 6px 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.5rem;
+}
+
+.coverContainer {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.bookTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ifm-color-primary);
+}
+
+.author {
+  font-size: 1rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+}
+
+.metadata {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-reading,
+.status-閱讀中 {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-completed,
+.status-已完成,
+.status-finished {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-to-read,
+.status-想讀 {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.rating {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  background: transparent;
+  transition: all 0.12s ease;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.tag:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-color: var(--ifm-color-primary);
+}
+
+.tag:focus { outline: 3px solid rgba(2,6,23,0.12); }
+
+/* filter bar 在列表頁上方的 tag 篩選 */
+.filterBar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.filterTagActive {
+  background: var(--ifm-color-primary);
+  color: white !important;
+  border-color: var(--ifm-color-primary) !important;
+}
+
+.clearFilter {
+  background: transparent;
+  border: 1px dashed var(--ifm-color-emphasis-300);
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.notes {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.notes p {
+  margin: 0;
+}
+
+/* Notion block content styles */
+.notionContent {
+  margin-top: 1rem;
+  line-height: 1.8;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.notionContent img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.notionCallout {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+  border-left: 4px solid var(--ifm-color-primary);
+}
+
+.notionCode pre {
+  background: #0b1220;
+  color: #e6eef8;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.notionQuote {
+  margin: 0.75rem 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-600);
+  font-style: italic;
+}
+
+.notionChildren { margin-left: 1rem; border-left: 2px dashed var(--ifm-color-emphasis-100); padding-left: 12px; }
+
+/* inline TOC (位於文章上方，手機可見) */
+.inlineToc { margin-top: 16px; padding: 12px; border-radius: 8px; background: var(--ifm-color-emphasis-100); border: 1px solid var(--ifm-color-emphasis-200); }
+.inlineTocList { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.inlineTocItem { font-size: 13px; color: var(--ifm-color-primary); text-decoration: none; background: transparent; padding: 6px 8px; border-radius: 6px; border: 1px solid transparent; }
+.inlineTocItem:hover { background: rgba(0,0,0,0.02); border-color: var(--ifm-color-emphasis-200); }
+
+/* 返回頂部按鈕 */
+.backToTop {
+  position: fixed;
+  right: 20px;
+  bottom: 28px;
+  z-index: 60;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border: none;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.2);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backToTop:hover {
+  transform: translateY(-3px);
+}
+
+@media screen and (max-width: 600px) {
+  .backToTop {
+    right: 12px;
+    bottom: 18px;
+    font-size: 18px;
+  }
+}
+
+/* 隱藏狀態（滾動小於閾值時） */
+.backToTopHidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+/* 右側章節導覽 */
+.tocToggle {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 80;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.2);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.tocPanel {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  z-index: 79;
+  width: min(320px, 90vw);
+  max-height: calc(100vh - 160px);
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+  transition: transform 180ms ease, opacity 180ms ease;
+  opacity: 1;
+}
+
+.tocPanelHidden { opacity: 0; transform: translateY(-50%) translateX(28px); pointer-events: none; }
+.tocPanelOpen { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
+
+.tocPanelHeader { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px; border-bottom: 1px solid var(--ifm-color-emphasis-100); }
+.tocPanelClose { background: transparent; border: none; cursor: pointer; font-size: 14px; }
+.tocPanelList { padding: 8px 12px; overflow-y: auto; max-height: calc(100vh - 240px); display: flex; flex-direction: column; gap: 6px; }
+.tocPanelItem { display: flex; gap: 8px; align-items: center; background: transparent; border: none; cursor: pointer; padding: 6px 8px; border-radius: 6px; text-align: left; }
+.tocPanelItem:hover { background: rgba(0,0,0,0.03); }
+
+.tocButton {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 13px;
+}
+
+.tocButton:hover { background: rgba(0,0,0,0.03); }
+.tocDot { width: 8px; height: 8px; background: var(--ifm-color-primary); border-radius: 50%; display: inline-block; }
+.tocLabel { display: inline-block; max-width: 140px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+@media screen and (max-width: 996px) {
+  .tocToggle { right: 12px; width: 44px; height: 44px; }
+  .tocPanel { right: 12px; width: min(320px, 96vw); }
+}
+
+/* 書籍每欄位單行顯示 */
+.bookMeta { display: flex; flex-direction: column; gap: 8px; }
+.metaRow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.metaLabel { min-width: 84px; color: var(--ifm-color-emphasis-600); font-weight: 700; }
+.metaValue { color: var(--ifm-color-emphasis-700); }
+.link { color: var(--ifm-color-primary); word-break: break-all; }
+
+/* meta 上的純文字 tag（無邊框、無背景、無 hover 樣式）
+   用於：分類、偏愛程度中的文字顯示 */
+.metaPlainTag {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  background: transparent !important;
+  border: none !important;
+  color: var(--ifm-color-emphasis-700);
+  font-weight: 600;
+}
+.metaPlainTag:hover,
+.metaPlainTag:focus {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.dates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-600);
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.loading,
+.empty,
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.loading p,
+.empty p {
+  font-size: 1.2rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.error {
+  color: var(--ifm-color-danger);
+}
+
+.error h2 {
+  margin-bottom: 1rem;
+}
+
+/* Dark mode adjustments */
+html[data-theme="dark"] .card {
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+html[data-theme="dark"] .status-reading,
+html[data-theme="dark"] .status-閱讀中 {
+  background-color: #78350f;
+  color: #fef3c7;
+}
+
+html[data-theme="dark"] .status-completed,
+html[data-theme="dark"] .status-已完成,
+html[data-theme="dark"] .status-finished {
+  background-color: #064e3b;
+  color: #d1fae5;
+}
+
+html[data-theme="dark"] .status-to-read,
+html[data-theme="dark"] .status-想讀 {
+  background-color: #1e3a8a;
+  color: #dbeafe;
+}
+
+/* Responsive design */
+@media screen and (max-width: 996px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .booksGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .booksGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroBanner {
+    padding: 2rem 0;
+  }
+}

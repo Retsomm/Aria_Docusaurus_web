@@ -27,8 +27,8 @@ const config: Config = {
       'classic',
       ({
         docs: {
-          // keep using the existing JS sidebar file for runtime resolution
-          sidebarPath: './sidebars.js',
+          // point to the TypeScript sidebar file that exists in the repo
+          sidebarPath: require.resolve('./sidebars.ts'),
         },
         blog: {
           showReadingTime: true,
@@ -124,7 +124,7 @@ const config: Config = {
         {to: '/docs/intro', position: 'left', label: 'Note'},
         {to: '/blog/intro', label: 'Blog', position: 'left'},
         {to: '/projects', label: 'Projects', position: 'left'},
-        {to: 'https://proud-wax-361.notion.site/78fcfde5dd5346568974db8628e33763?v=2d22870525f4456987760bdb7305133f&pvs=4', label: 'Reading', position: 'left'},
+        {to: '/reading', label: 'Reading', position: 'left'},
       ],
     },
     footer: {
@@ -136,7 +136,7 @@ const config: Config = {
             {label: 'Note', to: '/docs/intro'},
             {label: 'Blog', to: '/blog/intro'},
             {label: 'Projects', to: '/projects'},
-            {label: 'Reading', to: 'https://proud-wax-361.notion.site/78fcfde5dd5346568974db8628e33763?v=2d22870525f4456987760bdb7305133f&pvs=4'},
+            {label: 'Reading', to: '/reading'},
             {label: 'Private Blog', to: '/private-blog', className: 'footer-hidden-link'},
           ],
         },

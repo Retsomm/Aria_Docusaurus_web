@@ -3,10 +3,190 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="language" content="zh-TW" />
     <title>Content Manager</title>
+    <style>
+      /* 修復中文輸入法（IME）問題 */
+      /* 確保編輯器容器正確處理文字方向 */
+      [contenteditable="true"],
+      .cm-editor,
+      .CodeMirror,
+      .CodeMirror-scroll,
+      .CodeMirror-lines,
+      textarea,
+      input[type="text"] {
+        direction: ltr !important;
+        unicode-bidi: embed !important;
+        text-align: left !important;
+      }
+
+      /* 修復 IME 候選框位置 */
+      .CodeMirror-code,
+      .cm-content,
+      .CodeMirror-line {
+        position: relative;
+      }
+
+      /* 確保 Slate 編輯器（Decap CMS 使用）正確處理 IME */
+      [data-slate-editor="true"] {
+        direction: ltr !important;
+        text-align: left !important;
+      }
+
+      /* 修復 Rich Text 編輯器 */
+      .nc-controlPane-widget,
+      .nc-visualEditor-editor {
+        direction: ltr !important;
+      }
+    </style>
   </head>
   <body>
     <!-- Minimal Decap/Netlify CMS admin entry -->
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+    <!-- Prevent service worker / cache from serving an outdated admin config YAML -->
+    <script>
+      // Unregister any service workers (prevents SW from serving cached index.html
+      // when the CMS requests /admin/config.yml). Safe to run on modern browsers.
+      if ('serviceWorker' in navigator) {
+        try {
+          navigator.serviceWorker.getRegistrations().then(function (regs) {
+            regs.forEach(function (r) { r.unregister(); });
+          });
+        } catch (e) {
+          /* ignore */
+        }
+      }
+
+      // prevent aggressive caching for the admin entry during development
+      (function () {
+        var meta = document.createElement('meta');
+        meta.httpEquiv = 'Cache-Control';
+        meta.content = 'no-store, no-cache, must-revalidate, proxy-revalidate';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+      })();
+
+      // Tell Netlify CMS not to auto-init; we'll fetch and validate the YAML first.
+      window.CMS_MANUAL_INIT = true;
+    </script>
+
+    <!-- js-yaml to parse YAML -> JS object for manual CMS.init -->
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+    <!--
+      Robust config loader: fetch /admin/config.yml (no-cache, cache-bust if needed),
+      verify it is YAML (not an HTML page from a SW/rewrite), then call CMS.init({config}).
+      If fetch/parse fails we still load the stock netlify-cms script so the built-in
+      error UI appears.
+    -->
+    <script>
+      (async function loadCmsConfig() {
+        const tryFetch = async (url) => {
+          const res = await fetch(url, { cache: 'no-store', headers: { Accept: 'text/yaml' } });
+          const text = await res.text();
+          return { ok: res.ok, text };
+        };
+
+        // attempt to fetch the config; if we receive HTML, retry with cache-bust
+        let result = await tryFetch('/admin/config.yml');
+        if (result.text && result.text.trim().startsWith('<')) {
+          // probably a cached index.html; retry with query-string bust
+          result = await tryFetch('/admin/config.yml?bust=' + Date.now());
+        }
+
+        // load Decap CMS (Netlify CMS 的繼任者，支援更好的中文輸入)
+        const cmsScript = document.createElement('script');
+        cmsScript.src = 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js';
+        document.body.appendChild(cmsScript);
+
+        if (!result.ok || !result.text) {
+          // let Netlify CMS show its own error UI
+          return;
+        }
+
+        const raw = result.text;
+        if (raw.trim().startsWith('<')) {
+          // still HTML -> force user to clear SW/cache (cannot proceed safely)
+          console.error('CMS config fetch returned HTML. Please unregister Service Worker and clear site data.');
+          return;
+        }
+
+        // parse YAML -> JS object
+        let cfg = null;
+        try {
+          cfg = window.jsyaml && window.jsyaml.load ? window.jsyaml.load(raw) : null;
+          console.log('Parsed admin/config.yml:', cfg);
+
+          // --- Local dev override: when running on localhost use proxy backend ---
+          if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.info('Localhost detected — overriding CMS backend to proxy (http://localhost:8081/api/v1)');
+            cfg = cfg || {};
+            // set top-level local_backend (already in file but ensure runtime)
+            cfg.local_backend = true;
+            cfg.backend = cfg.backend || {};
+            cfg.backend.name = 'proxy';
+            cfg.backend.proxy_url = 'http://localhost:8081/api/v1';
+            // keep the configured branch if present, otherwise default to main
+            cfg.backend.branch = cfg.backend.branch || 'main';
+          }
+
+        } catch (e) {
+          console.error('Failed to parse admin/config.yml:', e);
+          return;
+        }
+
+        // wait for Decap CMS to be available, then init with the parsed config
+        const initWhenReady = () => {
+          if (window.CMS && typeof window.CMS.init === 'function') {
+            window.CMS.init({ config: cfg });
+
+            // 修復中文輸入法（IME）問題 - 針對 Decap CMS 的 Slate 編輯器
+            setTimeout(() => {
+              // 監聽編輯器加載
+              const observer = new MutationObserver(() => {
+                // 查找所有編輯器元素（包括 Slate 編輯器）
+                const editors = document.querySelectorAll(
+                  '[contenteditable="true"], .CodeMirror, .cm-editor, [data-slate-editor="true"], .nc-visualEditor-editor'
+                );
+
+                editors.forEach(editor => {
+                  // 確保文字方向為 ltr
+                  editor.style.direction = 'ltr';
+                  editor.style.unicodeBidi = 'embed';
+                  editor.style.textAlign = 'left';
+
+                  // 為編輯器設置語言屬性
+                  editor.setAttribute('lang', 'zh-TW');
+
+                  // 為 Slate 編輯器添加特殊處理
+                  if (editor.hasAttribute('data-slate-editor')) {
+                    // 確保 Slate 編輯器的 IME 事件正確處理
+                    editor.addEventListener('compositionstart', function(e) {
+                      this.isComposing = true;
+                    }, { capture: true });
+
+                    editor.addEventListener('compositionend', function(e) {
+                      this.isComposing = false;
+                    }, { capture: true });
+                  }
+                });
+              });
+
+              // 監聽 DOM 變化
+              observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['contenteditable', 'data-slate-editor']
+              });
+
+              // 10秒後停止監聽（編輯器應該已經加載完成）
+              setTimeout(() => observer.disconnect(), 10000);
+            }, 500);
+          } else {
+            setTimeout(initWhenReady, 50);
+          }
+        };
+        initWhenReady();
+      })();
+    </script>
   </body>
 </html>
