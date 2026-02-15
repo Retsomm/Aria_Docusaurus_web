@@ -28,7 +28,7 @@
 
 ### 環境要求
 
-- Node.js 18+
+- Node.js 20+ (必須，Docusaurus v3 要求)
 - Yarn（建議；本專案已改用 Yarn 作為套件管理器）
 
 ### 安裝與啟動
