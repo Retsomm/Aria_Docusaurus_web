@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@site/*": ["./*"]
+    }
+    ,
+    "types": ["node", "react", "react-dom"]
+  },
+  "include": [
+    "src",
+    "scripts",
+    "docusaurus.config.ts",
+    "sidebars.ts",
+    "types.d.ts"
+  ],
+  "exclude": ["node_modules", "build"]
+}

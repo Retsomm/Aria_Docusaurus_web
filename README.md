@@ -29,16 +29,16 @@
 ### 環境要求
 
 - Node.js 18+
-- npm 或 yarn
+- Yarn（建議；本專案已改用 Yarn 作為套件管理器）
 
 ### 安裝與啟動
 
 ```bash
-# 安裝依賴
-npm install
+# 安裝依賴（Yarn）
+yarn
 
 # 啟動開發服務器
-npm start
+yarn start
 
 # 開啟瀏覽器預覽
 # http://localhost:3000
@@ -48,10 +48,10 @@ npm start
 
 ```bash
 # 建構生產版本
-npm run build
+yarn build
 
 # 本地預覽建構結果
-npm run serve
+yarn serve
 ```
 
 ## 專案結構

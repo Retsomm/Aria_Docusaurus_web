@@ -25,18 +25,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: npm
+          cache: yarn
 
-      - name: Install dependencies
+      - name: Install dependencies (Yarn)
         run: |
           echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          npm ci
+          echo "Yarn version: $(yarn --version)"
+          yarn install --frozen-lockfile
+
+      - name: Type-check (TypeScript)
+        run: |
+          echo "Running TypeScript type-check..."
+          yarn type-check
 
       - name: Build website
         run: |
           echo "Building Docusaurus..."
-          npm run build
+          yarn build
           echo "Build completed!"
 
       - name: Test build output
@@ -63,17 +68,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: npm
+          cache: yarn
 
-      - name: Install dependencies
+      - name: Install dependencies (Yarn)
         run: |
           echo "Installing dependencies..."
-          npm ci
+          yarn install --frozen-lockfile
 
       - name: Build website
         run: |
           echo "Building for deployment..."
-          npm run build
+          yarn build
           echo "Build completed!"
 
       - name: Deploy to Vercel
