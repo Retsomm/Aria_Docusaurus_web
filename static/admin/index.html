@@ -128,6 +128,10 @@
             cfg.backend.branch = cfg.backend.branch || 'main';
           }
 
+          // Prevent Decap CMS from also fetching config.yml automatically,
+          // which would duplicate every collection and cause "names must be unique".
+          cfg.load_config_file = false;
+
         } catch (e) {
           console.error('Failed to parse admin/config.yml:', e);
           return;
