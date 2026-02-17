@@ -1,6 +1,8 @@
 ---
 title: 【舞伎家的料理人】觀後感
+description: "故事內容是在講述兩個女孩從青森到京都，準備成為藝妓的故事。"
 tags: [drama]
+keywords: ["舞伎家的料理人", "Makanai", "Netflix日劇", "京都舞伎", "料理", "是枝裕和"]
 date: 2023-02-05
 ---
 <!--truncate-->

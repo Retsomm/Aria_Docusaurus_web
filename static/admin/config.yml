@@ -6,7 +6,6 @@ backend:
   local_backend: true
 
 # 在本地開發時啟用 local_backend 可避免跳出 Netlify Identity 登入畫面
-local_backend: true
 
 # 語系設定（修復中文輸入問題）
 locale: "zh_Hant"
@@ -36,6 +35,7 @@ collections:
           name: "tag"
           widget: "select"
           options: ["生活", "教學", "筆記", "開發", "前端", "後端", "JavaScript", "React", "CSS", "工具", "專案", "心得", "面試", "資源", "公告"]
+        suggestions: ["背景", "程式練習", "單位", "迴圈", "練習題", "前綴字", "屬性繼承", "通用關鍵字", "響應式設計", "陣列", "陣列操作", "專案", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
       - { label: "內文", name: "body", widget: "markdown" }
 
   - name: "blog-private"

@@ -1,6 +1,8 @@
 ---
 title: 【混沌少年時】觀後感，青少年與資訊的無邊界失控
+description: "是一部探討青少年霸凌議題的一部短篇影集。"
 tags: [drama]
+keywords: ["混沌少年時", "Adolescence", "影集觀後感", "青少年霸凌", "英國影集", "Netflix", "社群媒體"]
 date: 2025-03-24
 showFullContent: false
 ---

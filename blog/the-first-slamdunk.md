@@ -1,6 +1,8 @@
 ---
 title: 【灌籃高手電影】觀後感
+description: "在花了不到一個禮拜把灌籃高手的漫畫追完之後，當天就進電影院看了熱映中的電影版。"
 tags: [movie]
+keywords: ["灌籃高手", "The First Slam Dunk", "電影觀後感", "籃球動畫", "井上雄彥", "熱血運動"]
 date: 2023-01-30
 ---
 <!--truncate-->

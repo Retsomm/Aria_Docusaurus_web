@@ -1,6 +1,8 @@
 ---
 title: 【電馭叛客：邊緣行者】觀後感
+description: "2077 年，一個少年在貴族學校有著好成績與格格不入的存在感，與一位工作忙碌的母親相依為命。"
 tags: [animate]
+keywords: ["電馭叛客邊緣行者", "Cyberpunk Edgerunners", "動畫觀後感", "賽博朋克", "Netflix動畫", "科幻動畫"]
 date: 2023-02-16
 ---
 <!--truncate-->

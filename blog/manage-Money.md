@@ -1,6 +1,8 @@
 ---
 title: 基礎財商課心得與筆記-奶雞money
+description: "這個課程費用為 300 塊台幣，過程禁止錄音、錄影跟拍照。"
 tags: ["lesson", "money"]
+keywords: ["理財", "財商", "理財課程", "投資理財", "個人財務", "奶雞money", "心得筆記"]
 date: 2025-04/27
 showFullContent: false
 ---

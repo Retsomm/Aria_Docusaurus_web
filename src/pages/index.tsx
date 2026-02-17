@@ -46,7 +46,7 @@ export default function Home(): React.ReactElement {
   const { siteConfig } = useDocusaurusContext();
   const LayoutAny = Layout as any;
   return (
-    <LayoutAny description="Description will go into a meta tag in <head />">
+    <LayoutAny description="Aria 的前端學習筆記與生活記錄。這裡有 React、JavaScript、CSS、TypeScript 等技術文章，也有讀書心得與生活感悟。">
       <HomepageHeader />
       <HomepageSection />
       <main></main>

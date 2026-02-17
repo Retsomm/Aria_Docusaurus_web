@@ -3,23 +3,22 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 // Docusaurus config in TypeScript
 const config: Config = {
-  title: 'underreact',
-  tagline:
-    '嗨，我是Aria，一位正在學習程式語言的人類，渴望能在厲害的團隊中一起打造理想中的產品。我走在自己的人生規劃中，走在自己的時區，儘管緩慢，也在持續成長。我是一位高敏感人也是一位左撇子，喜歡伊隆馬斯克並決定要跟他一起死在火星上。',
+  title: 'Retsnom | 前端學習筆記',
+  tagline: 'Aria 的程式學習筆記、技術分享與生活記錄',
   favicon: 'img/retsnom-favion.PNG',
 
-  url: 'https://aria-web-theta.vercel.app/',
+  url: 'https://aria-web-theta.vercel.app',
   baseUrl: '/',
 
-  organizationName: 'facebook',
-  projectName: 'docusaurus',
+  organizationName: 'Retsomm',
+  projectName: 'Retsnom',
 
   onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'zh-TW',
+    locales: ['zh-TW'],
   },
 
   presets: [
@@ -34,9 +33,14 @@ const config: Config = {
           showReadingTime: true,
           truncateMarker: /<!--\s*(truncate)\s*-->/,
           postsPerPage: 5,
+          blogTitle: 'Retsnom Blog',
+          blogDescription: 'Aria 的生活記錄、讀書心得與技術分享',
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
+            title: 'Retsnom Blog',
+            description: 'Aria 的生活記錄、讀書心得與技術分享',
+            copyright: `Copyright © ${new Date().getFullYear()} Retsnom`,
           },
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -49,7 +53,15 @@ const config: Config = {
           lastmod: 'date',
           changefreq: 'weekly',
           priority: 0.5,
-          ignorePatterns: ['/tags/**', '/private-blog/**'],
+          ignorePatterns: [
+            '/tags/**',
+            '/private-blog/**',
+            '/blog/tags/**',
+            '/docs/tags/**',
+            '/blog/archive',
+            '/blog/authors/**',
+            '/markdown-page',
+          ],
           filename: 'sitemap.xml',
         },
       } as any),
@@ -110,6 +122,13 @@ const config: Config = {
   ],
 
   themeConfig: {
+    metadata: [
+      {name: 'keywords', content: '前端開發, React, JavaScript, CSS, TypeScript, 程式學習, 技術筆記, Aria, Retsnom'},
+      {name: 'twitter:card', content: 'summary_large_image'},
+      {name: 'og:type', content: 'website'},
+      {name: 'og:locale', content: 'zh_TW'},
+      {name: 'author', content: 'Aria'},
+    ],
     algolia: {
       appId: 'KOYF7XQ73V',
       apiKey: '00759781d7603d19b126467e6cb509b9',
