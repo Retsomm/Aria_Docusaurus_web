@@ -8,8 +8,6 @@ import {
   BlogSidebarItemList,
 } from '@docusaurus/plugin-content-blog/client';
 import BlogSidebarContent from '@theme/BlogSidebar/Content';
-import type {Props as BlogSidebarContentProps} from '@theme/BlogSidebar/Content';
-import type {Props} from '@theme/BlogSidebar/Desktop';
 import styles from './styles.module.css';
 
 const BLOG_TAGS = [
@@ -25,7 +23,7 @@ const BLOG_TAGS = [
   {label: 'money', path: '/blog/tags/money'},
 ];
 
-const ListComponent: BlogSidebarContentProps['ListComponent'] = ({items}) => {
+const ListComponent = ({items}: {items: any[]}) => {
   return (
     <BlogSidebarItemList
       items={items}
@@ -37,7 +35,7 @@ const ListComponent: BlogSidebarContentProps['ListComponent'] = ({items}) => {
   );
 };
 
-function BlogSidebarDesktop({sidebar}: Props) {
+function BlogSidebarDesktop({sidebar}: {sidebar: any}) {
   const items = useVisibleBlogSidebarItems(sidebar.items);
   const location = useLocation();
   const isPrivateBlog = location.pathname.startsWith('/private-blog');
