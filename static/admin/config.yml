@@ -23,6 +23,7 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "標題", name: "title", widget: "string" }
+      - { label: "草稿", name: "draft", widget: "boolean", default: false, required: false }
       - { label: "日期", name: "date", widget: "datetime" }
       - { label: "摘要", name: "description", widget: "string", required: false }
       - label: "標籤"
@@ -36,6 +37,18 @@ collections:
           widget: "select"
           options: ["生活", "教學", "筆記", "開發", "前端", "後端", "JavaScript", "React", "CSS", "工具", "專案", "心得", "面試", "資源", "公告"]
         suggestions: ["背景", "程式練習", "單位", "迴圈", "練習題", "前綴字", "屬性繼承", "通用關鍵字", "響應式設計", "陣列", "陣列操作", "專案", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
+      - label: "封面圖片"
+        name: "cover_image"
+        widget: "image"
+        required: false
+      - label: "圖片位置"
+        name: "image_position"
+        widget: "select"
+        options:
+          - { label: "內容最前面", value: "top" }
+          - { label: "內容最後面", value: "bottom" }
+        default: "top"
+        required: false
       - { label: "內文", name: "body", widget: "markdown" }
 
   - name: "blog-private"

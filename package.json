@@ -15,11 +15,12 @@
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
-    "cms:proxy": "npx netlify-cms-proxy-server",
+    "cms:proxy": "npx decap-server",
+    "dev": "yarn generate:tags && concurrently --kill-others-on-fail -n cms,web -c cyan,green \"npx decap-server\" \"docusaurus start\"",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
-    "write-heading-ids": "docusaurus write-heading-ids"
-    ,"type-check": "tsc --noEmit"
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@docusaurus/core": "^3.8.1",
@@ -43,6 +44,7 @@
     "@types/node": "^25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "concurrently": "^9.2.1",
     "cross-env": "^10.0.0",
     "esbuild-loader": "^4.3.0",
     "typescript": "^5.9.3"
