@@ -49,7 +49,13 @@ collections:
           - { label: "內容最後面", value: "bottom" }
         default: "top"
         required: false
-      - { label: "內文", name: "body", widget: "markdown" }
+      - label: "內文"
+        name: "body"
+        widget: "markdown"
+        modes: ["rich_text"]
+        editor_components: []
+        sanitize_preview: true
+        default: "<!-- truncate -->\n\n"
 
   - name: "blog-private"
     label: "私密 Blog 文章"
@@ -70,7 +76,12 @@ collections:
           name: "tag"
           widget: "select"
           options: ["生活", "教學", "筆記", "開發", "前端", "後端", "JavaScript", "React", "CSS", "工具", "專案", "心得", "面試", "資源", "公告"]
-      - { label: "內文", name: "body", widget: "markdown" }
+      - label: "內文"
+        name: "body"
+        widget: "markdown"
+        modes: ["rich_text"]
+        editor_components: []
+        sanitize_preview: true
 
   - name: "docs"
     label: "Docs 文件"
@@ -103,4 +114,9 @@ collections:
           name: "tag"
           widget: "select"
           options: ["Firebase", "HTML", "Javascript", "Jquery", "Nextjs", "Others", "React", "TypeScript", "backend", "css", "npm"]
-      - { label: "內文", name: "body", widget: "markdown" }
+      - label: "內文"
+        name: "body"
+        widget: "markdown"
+        modes: ["rich_text"]
+        editor_components: []
+        sanitize_preview: true

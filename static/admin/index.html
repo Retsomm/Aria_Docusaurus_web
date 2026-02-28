@@ -142,6 +142,44 @@
           if (window.CMS && typeof window.CMS.init === 'function') {
             window.CMS.init({ config: cfg });
 
+            // 修復 Markdown 編輯器 - 防止自動添加 ```markdown 包裝
+            setTimeout(() => {
+              // 註冊事件監聽器來攔截保存操作
+              window.CMS.registerEventListener({
+                name: 'preSave',
+                handler: function(entry) {
+                  // 處理 blog 文章內容
+                  if (entry && entry.get && entry.get('body')) {
+                    let content = entry.get('body');
+                    
+                    // 移除多餘的 ```markdown 包裝
+                    if (typeof content === 'string') {
+                      // 移除開頭的 ```markdown 和結尾的 ```
+                      content = content.replace(/^\s*```\s*markdown\s*\n/, '');
+                      content = content.replace(/\n\s*```\s*$/, '');
+                      
+                      // 確保有 <!-- truncate --> 標記（如果還沒有的話）
+                      if (!content.includes('<!-- truncate -->')) {
+                        // 在 frontmatter 結束後添加 truncate 標記
+                        const frontmatterEnd = content.indexOf('---', 3);
+                        if (frontmatterEnd > 0) {
+                          const beforeTruncate = content.substring(0, frontmatterEnd + 3);
+                          const afterTruncate = content.substring(frontmatterEnd + 3);
+                          content = beforeTruncate + '\n<!-- truncate -->\n' + afterTruncate;
+                        } else {
+                          content = '<!-- truncate -->\n\n' + content;
+                        }
+                      }
+                      
+                      // 更新條目內容
+                      entry = entry.set('body', content);
+                    }
+                  }
+                  return entry;
+                }
+              });
+            }, 1000);
+
             // 修復中文輸入法（IME）問題 - 針對 Decap CMS 的 Slate 編輯器
             setTimeout(() => {
               // 監聽編輯器加載

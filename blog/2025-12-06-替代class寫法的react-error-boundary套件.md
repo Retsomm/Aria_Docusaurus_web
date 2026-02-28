@@ -12,7 +12,7 @@ image_position: top
 
 原本寫法：
 
-```
+```typescript
 //ErrorBoundary.tsx
 import React, { ErrorInfo, ReactNode } from "react";
 
@@ -95,11 +95,11 @@ export default ErrorBoundary;
 
 替代寫法：
 
-```
+```bash
 yarn add react-error-boundary
 ```
 
-```
+```typescript
 //ErrorPage.tsx
 import React from 'react';
 import type { FallbackProps } from 'react-error-boundary';
@@ -135,24 +135,26 @@ const ErrorPage: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) => {
 };
 
 export default ErrorPage;
-
 ```
 
-```
+```typescript
 // src/App.tsx
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import ErrorPage from 'components/ErrorPage';
 
-...
+// ...
 
 const App: FC = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ReactErrorBoundary FallbackComponent={ErrorPage}>
-        //...
+        {/* ... */}
+      </ReactErrorBoundary>
+    </Suspense>
+  );
+};
 
 export default App;
-
 ```
 
 輕鬆搞定。

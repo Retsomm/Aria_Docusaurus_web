@@ -8,9 +8,9 @@ image_position: top
 ---
 <!--truncate-->
 
-圖片來源：<https://blog.miniasp.com/post/2020/05/24/Setup-git-ignore-alias-to-download-gitignore-templates>
+圖片來源：[MiniASP 範例文章](https://blog.miniasp.com/post/2020/05/24/Setup-git-ignore-alias-to-download-gitignore-templates)
 
-找圖片時意外發現的網站：<https://www.toptal.com/developers/gitignore>
+找圖片時意外發現的網站：[Toptal gitignore generator](https://www.toptal.com/developers/gitignore)
 
 只要輸入IDE跟程式語言就會自動生成.gitignore檔案
 

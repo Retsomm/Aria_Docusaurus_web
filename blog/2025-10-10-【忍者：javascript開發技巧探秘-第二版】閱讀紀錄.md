@@ -15,7 +15,7 @@ image_position: top
 1. 箭頭函式在寫React時，幾乎都會用到箭頭函式寫法，當初在學習的時候，時常分不清楚()跟{}的使用時機
    在寫React時，幾乎都會用到箭頭函式寫法，當初在學習的時候，時常分不清楚()跟{}的使用時機
 
-```
+```javascript
 //零個或大於一個參數時()是必要
 (param1, param2) => expression
 //只有一個參數時可省略()
@@ -28,7 +28,7 @@ param1 => {
 
 相較於使用函式表達式，箭頭函式可以避免提升問題以外，對於Hooks的應用也會更好搭配
 
-```
+```javascript
 // 箭頭函式可以直接作為 useCallback 的參數
 const handleClick = useCallback(() => {
   // ... 函式邏輯
@@ -37,7 +37,7 @@ const handleClick = useCallback(() => {
 
 使用map、filter和reduce，也能看見箭頭函式的身影
 
-```
+```javascript
 array
   .map(i => i * 5)
   .filter(i => i > 10)
@@ -46,7 +46,7 @@ array
 
 2 . 閉包(Closure)
 
-```
+```javascript
 function animate(elementId) {
   // 1. 取得元素
   var elem = document.getElementById(elementId);
