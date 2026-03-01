@@ -35,8 +35,8 @@ collections:
           label: "標籤"
           name: "tag"
           widget: "select"
-          options: ["生活", "教學", "筆記", "開發", "前端", "後端", "JavaScript", "React", "CSS", "工具", "專案", "心得", "面試", "資源", "公告"]
-        suggestions: ["背景", "程式練習", "單位", "迴圈", "練習題", "前綴字", "屬性繼承", "通用關鍵字", "響應式設計", "陣列", "陣列操作", "專案", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
+          options: ["生活", "教學", "筆記", "開發", "前端", "後端", "寫作練習", "murmur", "情緒抒發", "工具", "專案", "心得", "面試", "Heptabase", "超級個體"]
+        suggestions: ["背景", "程式練習", "單位", "迴圈", "開發", "練習題", "前端", "前綴字", "生活", "屬性繼承", "通用關鍵字", "響應式設計", "寫作練習", "心得", "陣列", "陣列操作", "專案", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
       - label: "封面圖片"
         name: "cover_image"
         widget: "image"
@@ -53,7 +53,7 @@ collections:
         name: "body"
         widget: "markdown"
         modes: ["rich_text"]
-        editor_components: []
+        editor_components: ["image", "code-block"]
         sanitize_preview: true
         default: "<!-- truncate -->\n\n"
 
@@ -75,12 +75,12 @@ collections:
           label: "標籤"
           name: "tag"
           widget: "select"
-          options: ["生活", "教學", "筆記", "開發", "前端", "後端", "JavaScript", "React", "CSS", "工具", "專案", "心得", "面試", "資源", "公告"]
+          options: ["生活", "教學", "筆記", "開發", "前端", "後端", "寫作練習", "murmur", "情緒抒發", "工具", "專案", "心得", "面試", "Heptabase", "超級個體"]
       - label: "內文"
         name: "body"
         widget: "markdown"
         modes: ["rich_text"]
-        editor_components: []
+        editor_components: ["image", "code-block"]
         sanitize_preview: true
 
   - name: "docs"
