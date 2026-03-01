@@ -1,49 +1,94 @@
-movie:
-  label: movie
-  permalink: /movie
-  description: movie tag description
+電影:
+  label: 電影
+  permalink: /電影
+  description: 電影 相關文章
 
-life:
-  label: life
-  permalink: /life
-  description: life tag description
+生活:
+  label: 生活
+  permalink: /生活
+  description: 生活 相關文章
 
-drama:
-  label: drama
-  permalink: /drama
-  description: drama tag description
+影集:
+  label: 影集
+  permalink: /影集
+  description: 影集 / 電視劇 相關文章
 
-animate:
-  label: animate
-  permalink: /animate
-  description: animate tag description
+動畫:
+  label: 動畫
+  permalink: /動畫
+  description: 動畫 相關文章
 
-interview:
-  label: interview
-  permalink: /interview
-  description: interview tag description
+筆記:
+  label: 筆記
+  permalink: /筆記
+  description: 筆記、筆記法相關文章
 
-note-taking:
-  label: note-taking
-  permalink: /note-taking
-  description: note-taking tag description
+閱讀:
+  label: 閱讀
+  permalink: /閱讀
+  description: 閱讀 相關文章
 
-reading:
-  label: reading
-  permalink: /reading
-  description: reading tag description
-  
-heptabase:
-  label: heptabase
-  permalink: /heptabase
-  description: heptabase tag description
+學習:
+  label: 學習
+  permalink: /學習
+  description: 學習 / 教訓 類文章
 
-lesson:
-  label: lesson
-  permalink: /lesson
-  description: lesson tag description
+理財:
+  label: 理財
+  permalink: /理財
+  description: 理財 / 金錢 管理相關文章
 
-money:
-  label: money
-  permalink: /money
-  description: money tag description
+前端:
+  label: 前端
+  permalink: /前端
+  description: 前端 開發 相關文章
+
+開發:
+  label: 開發
+  permalink: /開發
+  description: 軟體 開發 相關文章
+
+專案:
+  label: 專案
+  permalink: /專案
+  description: 專案 相關文章
+
+心得:
+  label: 心得
+  permalink: /心得
+  description: 個人心得、感想
+
+寫作練習:
+  label: 寫作練習
+  permalink: /寫作練習
+  description: 寫作 練習與草稿
+
+面試:
+  label: 面試
+  permalink: /面試
+  description: 面試 經驗與題目
+
+Heptabase:
+  label: Heptabase
+  permalink: /Heptabase
+  description: Heptabase 筆記相關
+
+murmur:
+  label: murmur
+  permalink: /murmur
+  description: murmur 類文章
+
+情緒抒發:
+  label: 情緒抒發
+  permalink: /情緒抒發
+  description: 情緒 抒發 類文章
+
+工具:
+  label: 工具
+  permalink: /工具
+  description: 工具 與 工作流程
+
+超級個體:
+  label: 超級個體
+  permalink: /超級個體
+  description: 超級個體 主題文章

@@ -10,18 +10,14 @@ import {
 import BlogSidebarContent from '@theme/BlogSidebar/Content';
 import styles from './styles.module.css';
 
-const BLOG_TAGS = [
-  {label: 'movie', path: '/blog/tags/movie'},
-  {label: 'life', path: '/blog/tags/life'},
-  {label: 'drama', path: '/blog/tags/drama'},
-  {label: 'animate', path: '/blog/tags/animate'},
-  {label: 'interview', path: '/blog/tags/interview'},
-  {label: 'note-taking', path: '/blog/tags/note-taking'},
-  {label: 'reading', path: '/blog/tags/reading'},
-  {label: 'heptabase', path: '/blog/tags/heptabase'},
-  {label: 'lesson', path: '/blog/tags/lesson'},
-  {label: 'money', path: '/blog/tags/money'},
+// Use a merged list of preferred Chinese tags (editor defaults) and common tags.
+const TAG_LABELS = [
+  '生活', '教學', '筆記', '開發', '前端', '後端', '寫作練習', 'murmur', '情緒抒發', '工具', '專案', '心得', '面試', 'Heptabase', '超級個體',
+  // legacy/common tags that appeared in the site — keep them for backwards compatibility
+  '電影', '動畫', '影集', '閱讀', '學習', '理財',
 ];
+
+const BLOG_TAGS = TAG_LABELS.map((label) => ({ label, path: `/blog/tags/${encodeURIComponent(label)}` }));
 
 const ListComponent = ({items}: {items: any[]}) => {
   return (
