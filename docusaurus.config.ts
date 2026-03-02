@@ -1,13 +1,12 @@
 import type {Config} from '@docusaurus/types';
 import {themes as prismThemes} from 'prism-react-renderer';
 
-// Docusaurus config in TypeScript
 const config: Config = {
   title: 'Retsnom | 前端學習筆記',
   tagline: 'Aria 的程式學習筆記、技術分享與生活記錄',
   favicon: 'img/retsnom-favion.PNG',
 
-  url: 'https://aria-web-theta.vercel.app',
+  url: 'https://ariadocusauruswed.netlify.app',
   baseUrl: '/',
 
   organizationName: 'Retsomm',
@@ -32,7 +31,6 @@ const config: Config = {
       'classic',
       ({
         docs: {
-          // point to the TypeScript sidebar file that exists in the repo
           sidebarPath: require.resolve('./sidebars.ts'),
         },
         blog: {
@@ -166,7 +164,6 @@ const config: Config = {
           title: 'Community',
           items: [
             {label: 'LinkedIn', href: 'https://www.linkedin.com/in/chan-yuting-b80218366/'},
-            {label: 'Instagram', href: 'https://www.instagram.com/reading_retsnom'},
             {label: 'GitHub', href: 'https://github.com/Retsomm'},
           ],
         },
