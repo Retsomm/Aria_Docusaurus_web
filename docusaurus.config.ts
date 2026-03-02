@@ -14,12 +14,12 @@ const config: Config = {
   projectName: 'Retsnom',
 
   onBrokenLinks: 'ignore',
-  // migrated from deprecated root config to markdown hooks
-  // onBrokenMarkdownLinks: 'warn',
+
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
+    mermaid: true, 
   },
 
   i18n: {
@@ -78,9 +78,6 @@ const config: Config = {
     v4: true,
   },
 
-  markdown: {
-    mermaid: true,
-  },
 
   plugins: [
     [
