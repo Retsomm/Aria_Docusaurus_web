@@ -30,5 +30,5 @@ image_position: top
 
 今天因為有940要跳轉到960的需求，所以先在960弄了驗證跳轉的設定，不過還沒深入研究，依稀記得是跟sso驗證相關的，亦開始跳轉雖然有成功，但是API都顯示錯誤，因為缺少token，所以才開始問940是怎麼跳轉登入認證問題，在弄到960，之後也要開一張卡片去做。
 
-<https://ithelp.ithome.com.tw/articles/10366258>
+[https://ithelp.ithome.com.tw/articles/10366258](https://ithelp.ithome.com.tw/articles/10366258)
 搜尋sso驗證竟然找到去年上台北的JSDC的講師，當時他是介紹[react+electron](https://ithelp.ithome.com.tw/users/20149301/ironman/8048) ，世界真小。

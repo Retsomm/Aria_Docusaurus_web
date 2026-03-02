@@ -14,7 +14,13 @@ const config: Config = {
   projectName: 'Retsnom',
 
   onBrokenLinks: 'ignore',
-  onBrokenMarkdownLinks: 'warn',
+  // migrated from deprecated root config to markdown hooks
+  // onBrokenMarkdownLinks: 'warn',
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+    },
+  },
 
   i18n: {
     defaultLocale: 'zh-TW',
