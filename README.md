@@ -121,7 +121,7 @@ yarn seo:keywords
 
 專案部署在 **Netlify**，推送到 `main` 分支會自動觸發重新部署。
 
-- **網站網址**：https://aria-web-theta.vercel.app
+- **網站網址**：https://ariadocusauruswed.netlify.app/
 - **Netlify CMS**：`/admin` — 可在網頁端直接新增與編輯文章
 - **Sitemap**：自動產生於 `/sitemap.xml`
 
