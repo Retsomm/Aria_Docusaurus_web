@@ -39,8 +39,10 @@ jobs:
           yarn type-check
 
       - name: Build website
+        env:
+          ALGOLIA_APP_ID: KOYF7XQ73V
         run: |
-          echo "Building Docusaurus..."
+          echo "Building Docusaurus and updating Algolia index..."
           yarn build
           echo "Build completed!"
 
