@@ -41,6 +41,7 @@ jobs:
       - name: Build website
         env:
           ALGOLIA_APP_ID: KOYF7XQ73V
+          ALGOLIA_ADMIN_API_KEY: ${{ secrets.ALGOLIA_ADMIN_API_KEY || '' }}
         run: |
           echo "Building Docusaurus and updating Algolia index..."
           yarn build
