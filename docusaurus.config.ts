@@ -8,6 +8,7 @@ const config: Config = {
 
   url: 'https://ariadocusauruswed.netlify.app',
   baseUrl: '/',
+  trailingSlash: true,
 
   organizationName: 'Retsomm',
   projectName: 'Retsnom',
@@ -37,6 +38,7 @@ const config: Config = {
           showReadingTime: true,
           truncateMarker: /<!--\s*(truncate)\s*-->/,
           postsPerPage: 5,
+          blogSidebarCount: 10,
           blogTitle: 'Retsnom Blog',
           blogDescription: 'Aria 的生活記錄、讀書心得與技術分享',
           feedOptions: {
@@ -129,11 +131,12 @@ const config: Config = {
       {name: 'og:type', content: 'website'},
       {name: 'og:locale', content: 'zh_TW'},
       {name: 'author', content: 'Aria'},
+      {name: 'algolia-site-verification', content: '8F1F53B72A9A2D51'},
     ],
     algolia: {
       appId: 'KOYF7XQ73V',
       apiKey: '00759781d7603d19b126467e6cb509b9',
-      indexName: 'aria-web-theta',
+      indexName: 'ariadocusauruswed.netlify.app',
       contextualSearch: true,
       debug: false,
     },

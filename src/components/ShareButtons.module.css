@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.5rem 0;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  flex-wrap: wrap;
+}
+
+.label {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-600);
+  white-space: nowrap;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1.5px solid var(--brand-color);
+  color: var(--brand-color);
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.button:hover {
+  background: var(--brand-color);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* X 和 Threads 深色模式下 hover 背景為白色，文字需反轉為黑色 */
+[data-theme='dark'] .button--mono:hover {
+  color: #000;
+}

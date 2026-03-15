@@ -26,10 +26,53 @@ type NotionBook = {
 
 const NETLIFY_FUNCTION_URL = '/.netlify/functions/notion-books';
 
-// helper: 把 Notion rich_text array 轉成純文字
+// ── Client-side localStorage cache ──────────────────────────────────────────
+const BOOK_CACHE_TTL = 7 * 24 * 60 * 60 * 1000; // 1 week
+
+function getCachedBook(id: string): { book: NotionBook; blocks: any[] } | null {
+  try {
+    const raw = localStorage.getItem(`notion_book_v1_${id}`);
+    if (!raw) return null;
+    const { data, expiresAt } = JSON.parse(raw);
+    if (Date.now() > expiresAt) return null;
+    return data as { book: NotionBook; blocks: any[] };
+  } catch {
+    return null;
+  }
+}
+
+function setCachedBook(id: string, book: NotionBook, blocks: any[]): void {
+  try {
+    localStorage.setItem(
+      `notion_book_v1_${id}`,
+      JSON.stringify({ data: { book, blocks }, expiresAt: Date.now() + BOOK_CACHE_TTL }),
+    );
+  } catch {
+    // ignore QuotaExceededError or SSR
+  }
+}
+
+// helper: 把 Notion rich_text array 轉成純文字（用於 heading id 等純文字場合）
 function richTextToString(richTextArray: any[] | undefined) {
   if (!richTextArray || !Array.isArray(richTextArray)) return '';
   return richTextArray.map((r) => r.plain_text || '').join('');
+}
+
+// helper: 把 Notion rich_text array 轉成 React nodes（支援 bold/italic/code/strikethrough/underline/link）
+function richTextToReact(richTextArray: any[] | undefined): React.ReactNode {
+  if (!richTextArray || !Array.isArray(richTextArray)) return null;
+  return richTextArray.map((r, i) => {
+    const text = r.plain_text || '';
+    const a = r.annotations || {};
+    let inner: React.ReactNode = text;
+    if (a.code) inner = <code>{inner}</code>;
+    if (a.bold) inner = <strong>{inner}</strong>;
+    if (a.italic) inner = <em>{inner}</em>;
+    if (a.strikethrough) inner = <s>{inner}</s>;
+    if (a.underline) inner = <u>{inner}</u>;
+    if (r.href) inner = <a href={r.href} target="_blank" rel="noreferrer">{inner}</a>;
+    return <React.Fragment key={i}>{inner}</React.Fragment>;
+  });
 }
 
 // slugify（用於 heading id）
@@ -51,26 +94,26 @@ function renderBlock(block: any, idx: number) {
 
   switch (type) {
     case 'paragraph':
-      return <p key={block.id || idx}>{richTextToString(block.paragraph.rich_text)}</p>;
+      return <p key={block.id || idx}>{richTextToReact(block.paragraph.rich_text)}</p>;
     case 'heading_1': {
       const txt = richTextToString(block.heading_1.rich_text);
       const id = `${slugify(txt)}-${(block.id || '').slice(0, 8)}`;
-      return <h1 key={block.id || idx} id={id}>{txt}</h1>;
+      return <h1 key={block.id || idx} id={id}>{richTextToReact(block.heading_1.rich_text)}</h1>;
     }
     case 'heading_2': {
       const txt = richTextToString(block.heading_2.rich_text);
       const id = `${slugify(txt)}-${(block.id || '').slice(0, 8)}`;
-      return <h2 key={block.id || idx} id={id}>{txt}</h2>;
+      return <h2 key={block.id || idx} id={id}>{richTextToReact(block.heading_2.rich_text)}</h2>;
     }
     case 'heading_3': {
       const txt = richTextToString(block.heading_3.rich_text);
       const id = `${slugify(txt)}-${(block.id || '').slice(0, 8)}`;
-      return <h3 key={block.id || idx} id={id}>{txt}</h3>;
+      return <h3 key={block.id || idx} id={id}>{richTextToReact(block.heading_3.rich_text)}</h3>;
     }
     case 'quote':
       return (
         <blockquote key={block.id || idx} className={styles.notionQuote}>
-          {richTextToString(block.quote.rich_text)}
+          {richTextToReact(block.quote.rich_text)}
         </blockquote>
       );
     case 'code':
@@ -94,7 +137,7 @@ function renderBlock(block: any, idx: number) {
       return (
         <div key={block.id || idx} className={styles.notionCallout}>
           <span style={{ marginRight: 8 }}>{icon}</span>
-          <div>{richTextToString(block.callout.rich_text)}</div>
+          <div>{richTextToReact(block.callout.rich_text)}</div>
         </div>
       );
     }
@@ -102,7 +145,7 @@ function renderBlock(block: any, idx: number) {
       return (
         <label key={block.id || idx} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
           <input type="checkbox" checked={!!block.to_do.checked} readOnly />
-          <span>{richTextToString(block.to_do.rich_text)}</span>
+          <span>{richTextToReact(block.to_do.rich_text)}</span>
         </label>
       );
     case 'divider':
@@ -142,7 +185,12 @@ function renderBlocks(blocks: any[]): React.ReactNode[] {
         React.createElement(
           listType,
           { key: `list-${i}` },
-          items.map((it: any) => <li key={it.id}>{richTextToString(it[it.type].rich_text)}</li>),
+          items.map((it: any) => (
+            <li key={it.id}>
+              {richTextToReact(it[it.type].rich_text)}
+              {it.children && it.children.length > 0 && renderBlocks(it.children)}
+            </li>
+          )),
         ),
       );
       continue;
@@ -209,9 +257,10 @@ export default function BookDetail(): React.ReactElement {
       return;
     }
 
-    async function fetchBook() {
+    async function fetchBook(isBackground = false) {
       try {
-        setLoading(true);
+        if (!isBackground) setLoading(true);
+
         const res = await fetch(NETLIFY_FUNCTION_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -227,23 +276,32 @@ export default function BookDetail(): React.ReactElement {
         const found: NotionBook | null = data.book || (data.books && data.books[0]) || null;
         const fetchedBlocks: any[] = data.blocks || [];
 
-        if (!found) {
-          throw new Error('未找到該書籍');
-        }
+        if (!found) throw new Error('未找到該書籍');
 
         setBook(found);
         setBlocks(fetchedBlocks);
+        setCachedBook(id, found, fetchedBlocks);
         setError(null);
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('Error fetching book detail:', err);
-        setError((err as Error).message || '載入失敗');
+        if (!isBackground) {
+          console.error('Error fetching book detail:', err);
+          setError((err as Error).message || '載入失敗');
+        }
       } finally {
-        setLoading(false);
+        if (!isBackground) setLoading(false);
       }
     }
 
-    fetchBook();
+    // stale-while-revalidate：有快取就立即顯示，同時背景更新
+    const cached = getCachedBook(id);
+    if (cached) {
+      setBook(cached.book);
+      setBlocks(cached.blocks);
+      setLoading(false);
+      fetchBook(true); // 背景靜默更新
+    } else {
+      fetchBook(false);
+    }
   }, []);
 
   // 顯示返回頂部按鈕：滾動超過 100px 時顯示

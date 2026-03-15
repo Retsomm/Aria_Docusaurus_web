@@ -27,6 +27,33 @@ type NotionBook = {
 // Netlify Function endpoint
 const NETLIFY_FUNCTION_URL = '/.netlify/functions/notion-books';
 
+// ── Client-side localStorage cache ──────────────────────────────────────────
+const BOOKS_CACHE_KEY = 'notion_books_list_v1';
+const BOOKS_CACHE_TTL = 7 * 24 * 60 * 60 * 1000; // 1 week
+
+function getCachedBooks(): NotionBook[] | null {
+  try {
+    const raw = localStorage.getItem(BOOKS_CACHE_KEY);
+    if (!raw) return null;
+    const { data, expiresAt } = JSON.parse(raw);
+    if (Date.now() > expiresAt) return null;
+    return data as NotionBook[];
+  } catch {
+    return null;
+  }
+}
+
+function setCachedBooks(books: NotionBook[]): void {
+  try {
+    localStorage.setItem(
+      BOOKS_CACHE_KEY,
+      JSON.stringify({ data: books, expiresAt: Date.now() + BOOKS_CACHE_TTL }),
+    );
+  } catch {
+    // ignore QuotaExceededError or SSR
+  }
+}
+
 function BookCard({ book, onTagClick }: { book: NotionBook; onTagClick?: (tag: string) => void }) {
   return (
     <Link to={`/reading/book?id=${encodeURIComponent(book.id)}`} aria-label={`查看 ${book.title} 詳細`}>
@@ -208,39 +235,43 @@ export default function Reading(): React.ReactElement {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchBooks() {
+    async function fetchBooks(isBackground = false) {
       try {
-        setLoading(true);
+        if (!isBackground) setLoading(true);
 
-        // 調用 Netlify Function
         const response = await fetch(NETLIFY_FUNCTION_URL, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
 
-        if (!response.ok) {
-          throw new Error(`API 錯誤: ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`API 錯誤: ${response.status}`);
 
         const data = await response.json();
+        if (data.error) throw new Error(data.message || '無法載入資料');
 
-        if (data.error) {
-          throw new Error(data.message || '無法載入資料');
-        }
-
-        setBooks(data.books || []);
+        const books = data.books || [];
+        setBooks(books);
+        setCachedBooks(books);
         setError(null);
       } catch (err) {
-        console.error('Error fetching books:', err);
-        setError('無法載入讀書筆記，請稍後再試');
+        if (!isBackground) {
+          console.error('Error fetching books:', err);
+          setError('無法載入讀書筆記，請稍後再試');
+        }
       } finally {
-        setLoading(false);
+        if (!isBackground) setLoading(false);
       }
     }
 
-    fetchBooks();
+    // stale-while-revalidate：有快取就立即顯示，同時背景更新
+    const cached = getCachedBooks();
+    if (cached) {
+      setBooks(cached);
+      setLoading(false);
+      fetchBooks(true); // 背景靜默更新
+    } else {
+      fetchBooks(false);
+    }
   }, []);
 
   const LayoutAny = Layout as any;

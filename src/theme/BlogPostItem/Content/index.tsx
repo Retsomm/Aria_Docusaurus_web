@@ -3,6 +3,8 @@ import BlogPostItemContent from '@theme-original/BlogPostItem/Content';
 import type BlogPostItemContentType from '@theme/BlogPostItem/Content';
 import type {WrapperProps} from '@docusaurus/types';
 import {useBlogPost} from '@docusaurus/plugin-content-blog/client';
+import ShareButtons from '../../../components/ShareButtons';
+import GiscusComment from '../../../components/GiscusComment';
 
 type Props = WrapperProps<typeof BlogPostItemContentType>;
 
@@ -36,6 +38,12 @@ export default function BlogPostItemContentWrapper(props: Props): ReactNode {
           alt=""
           style={{width: '100%', marginTop: '1.5rem', display: 'block'}}
         />
+      )}
+      {isBlogPostPage && (
+        <>
+          <ShareButtons />
+          <GiscusComment />
+        </>
       )}
     </>
   );
