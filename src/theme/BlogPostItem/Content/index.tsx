@@ -3,6 +3,7 @@ import BlogPostItemContent from '@theme-original/BlogPostItem/Content';
 import type BlogPostItemContentType from '@theme/BlogPostItem/Content';
 import type {WrapperProps} from '@docusaurus/types';
 import {useBlogPost} from '@docusaurus/plugin-content-blog/client';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Head from '@docusaurus/Head';
 import ShareButtons from '../../../components/ShareButtons';
 import GiscusComment from '../../../components/GiscusComment';
@@ -16,6 +17,7 @@ type CustomFrontMatter = {
 
 export default function BlogPostItemContentWrapper(props: Props): ReactNode {
   const {isBlogPostPage, metadata} = useBlogPost();
+  const {siteConfig} = useDocusaurusContext();
   const frontMatter = metadata.frontMatter as typeof metadata.frontMatter &
     CustomFrontMatter;
   const coverImage = frontMatter.cover_image;
@@ -23,14 +25,22 @@ export default function BlogPostItemContentWrapper(props: Props): ReactNode {
 
   const showImage = !!coverImage && isBlogPostPage;
 
+  const absoluteImageUrl = coverImage
+    ? coverImage.startsWith('http')
+      ? coverImage
+      : `${siteConfig.url}${coverImage}`
+    : undefined;
+  const absolutePageUrl = `${siteConfig.url}${metadata.permalink}`;
+
   return (
     <>
       {/* Inject og:image from cover_image so social share previews show the correct thumbnail.
           Only on the actual post page (not the blog list) to avoid conflicts. */}
-      {isBlogPostPage && coverImage && (
+      {isBlogPostPage && absoluteImageUrl && (
         <Head>
-          <meta property="og:image" content={coverImage} />
-          <meta name="twitter:image" content={coverImage} />
+          <meta property="og:image" content={absoluteImageUrl} />
+          <meta name="twitter:image" content={absoluteImageUrl} />
+          <meta property="og:url" content={absolutePageUrl} />
         </Head>
       )}
       {showImage && imagePosition === 'top' && (
