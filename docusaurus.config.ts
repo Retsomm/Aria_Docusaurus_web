@@ -136,7 +136,7 @@ const config: Config = {
     algolia: {
       appId: 'KOYF7XQ73V',
       apiKey: '00759781d7603d19b126467e6cb509b9',
-      indexName: 'ariadocusauruswed.netlify.app',
+      indexName: 'ariadocusauruswed_netlify_app_pages',
       contextualSearch: true,
       debug: false,
     },
