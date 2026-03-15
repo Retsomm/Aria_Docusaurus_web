@@ -3,6 +3,7 @@ import BlogPostItemContent from '@theme-original/BlogPostItem/Content';
 import type BlogPostItemContentType from '@theme/BlogPostItem/Content';
 import type {WrapperProps} from '@docusaurus/types';
 import {useBlogPost} from '@docusaurus/plugin-content-blog/client';
+import Head from '@docusaurus/Head';
 import ShareButtons from '../../../components/ShareButtons';
 import GiscusComment from '../../../components/GiscusComment';
 
@@ -24,6 +25,14 @@ export default function BlogPostItemContentWrapper(props: Props): ReactNode {
 
   return (
     <>
+      {/* Inject og:image from cover_image so social share previews show the correct thumbnail.
+          Only on the actual post page (not the blog list) to avoid conflicts. */}
+      {isBlogPostPage && coverImage && (
+        <Head>
+          <meta property="og:image" content={coverImage} />
+          <meta name="twitter:image" content={coverImage} />
+        </Head>
+      )}
       {showImage && imagePosition === 'top' && (
         <img
           src={coverImage}

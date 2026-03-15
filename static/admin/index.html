@@ -142,6 +142,48 @@
           if (window.CMS && typeof window.CMS.init === 'function') {
             window.CMS.init({ config: cfg });
 
+            // --- Auto-generate slug from title (translate Chinese → kebab-case English) ---
+            async function generateSlug(title) {
+              if (!title) return null;
+              try {
+                // If title is already ASCII (no CJK), just kebab-case it directly
+                if (!/[\u3000-\u9fff\uf900-\ufaff]/.test(title)) {
+                  return title.toLowerCase().trim()
+                    .replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                }
+                const resp = await fetch(
+                  'https://api.mymemory.translated.net/get?q=' +
+                  encodeURIComponent(title) + '&langpair=zh-TW|en'
+                );
+                const json = await resp.json();
+                const translated = (json.responseData && json.responseData.translatedText) || title;
+                return translated.toLowerCase().trim()
+                  .replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+                  .replace(/^-+|-+$/g, '');
+              } catch (e) {
+                console.error('Slug translation failed:', e);
+                return null;
+              }
+            }
+
+            window.CMS.registerEventListener({
+              name: 'preSave',
+              handler: async function({ entry }) {
+                var data = entry.get('data');
+                var existingSlug = data.get('slug');
+                // Only auto-generate if slug field is empty
+                if (!existingSlug) {
+                  var title = data.get('title');
+                  var slug = await generateSlug(title);
+                  if (slug) {
+                    return data.set('slug', slug);
+                  }
+                }
+                return data;
+              }
+            });
+
             // 修復中文輸入法（IME）問題 - 針對 Decap CMS 的 Slate 編輯器
             setTimeout(() => {
               // 監聽編輯器加載
