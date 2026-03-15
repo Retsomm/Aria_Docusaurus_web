@@ -137,7 +137,7 @@ const config: Config = {
       appId: 'KOYF7XQ73V',
       apiKey: 'd3374679dcf92f236a4e93f8277d4a56',
       indexName: 'ariadocusauruswed_netlify_app_pages',
-      contextualSearch: true,
+      contextualSearch: false,
       debug: false,
     },
     image: 'img/docusaurus-social-card.jpg',
