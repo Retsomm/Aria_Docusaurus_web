@@ -13,6 +13,8 @@ import BYD from '../../static/img/project/project7.png';
 import movie from '../../static/img/project/project8.png';
 import EMW from '../../static/img/project/project9.png';
 import MTF from '../../static/img/project/project10.png';
+import AA from '../../static/img/project/project11.png';
+import OHT from '../../static/img/project/project12.png';
 import Link from '@docusaurus/Link';
 
 type Project = {
@@ -35,6 +37,8 @@ const projects: Project[] = [
   { id: 'adoption', img: adoption, tags: ['React', 'Vite', 'DaisyUI', 'Firebase', 'vibe coding'], text: '一個現代化的動物收養平台。', github: 'https://github.com/Retsomm/Pet-And-Meet', live: 'https://animal-adoption-vite-app.web.app/' },
   { id: 'EMW', img: EMW, tags: ['Vite', 'React', 'DaisyUI', 'Firebase', 'vibe coding'], text: '一個伊隆馬斯克資訊網。', github: 'https://github.com/Retsomm/EMW', live: 'https://vite-react-elon-5dae6.web.app/' },
   { id: 'MTF', img: MTF, tags: ['Nextjs', 'React', 'Vercel', 'NextAuth', 'vibe coding'], text: '一個專為追蹤個人成長和量化目標進度而設計的內容管理系統。', github: 'https://github.com/Retsomm/Meet_The_Futute', live: 'https://meetthefuture.vercel.app/' },
+  { id: 'AA', img: AA, tags: ['Vite', 'React', 'Vercel', 'GoogleAuth', 'Render.com', 'Supabase','Nodejs','TypeScript','TailwindCSS'], text: '一個專為無障礙打造的地圖。', github: 'https://github.com/Retsomm/AlwaysAccessibility', live: 'https://always-accessibility-client.vercel.app/' },
+  { id: 'OHT', img: OHT, tags: ['Vite', 'React', 'Vercel', 'OAuth 2.0', 'Render.com', 'Supabase','Nodejs','TypeScript','TailwindCSS'], text: '一個專為追蹤個人成長並結合八角框架的習慣追蹤系統。', github: 'https://github.com/Retsomm/OctalysisHabitTracker', live: 'https://octalysis-habit-tracker.vercel.app/' },
 ];
 
 function ProjectCard({ project }: { project: Project }) {
