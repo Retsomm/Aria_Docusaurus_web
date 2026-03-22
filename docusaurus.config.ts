@@ -13,7 +13,7 @@ const config: Config = {
   organizationName: 'Retsomm',
   projectName: 'Retsnom',
 
-  onBrokenLinks: 'ignore',
+  onBrokenLinks: 'warn',
 
   markdown: {
     hooks: {
@@ -128,8 +128,13 @@ const config: Config = {
     metadata: [
       {name: 'keywords', content: '前端開發, React, JavaScript, CSS, TypeScript, 程式學習, 技術筆記, Aria, Retsnom'},
       {name: 'twitter:card', content: 'summary_large_image'},
-      {name: 'og:type', content: 'website'},
-      {name: 'og:locale', content: 'zh_TW'},
+      {name: 'twitter:site', content: '@Retsnom'},
+      {property: 'og:type', content: 'website'},
+      {property: 'og:locale', content: 'zh_TW'},
+      {property: 'og:site_name', content: 'Retsnom | 前端學習筆記'},
+      {property: 'og:image', content: 'https://ariadocusauruswed.netlify.app/img/docusaurus-social-card.jpg'},
+      {property: 'og:image:width', content: '1200'},
+      {property: 'og:image:height', content: '630'},
       {name: 'author', content: 'Aria'},
       {name: 'algolia-site-verification', content: '8F1F53B72A9A2D51'},
     ],

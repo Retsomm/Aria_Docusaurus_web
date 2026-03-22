@@ -1,5 +1,6 @@
 ---
 title: 【忍者：JavaScript開發技巧探秘 第二版】閱讀紀錄
+description: 閱讀《忍者：JavaScript開發技巧探秘》第二版的讀書心得，分享箭頭函式與非同步等重要觀念的學習紀錄。
 draft: false
 date: 2025-10-10T14:19:00.000+08:00
 tags: []

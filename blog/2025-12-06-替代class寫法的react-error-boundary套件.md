@@ -1,5 +1,6 @@
 ---
 title: 替代class寫法的react-error-boundary套件
+description: 介紹 react-error-boundary 套件如何取代繁瑣的 class 寫法，讓 Error Boundary 的實作更加簡潔優雅的技術筆記。
 draft: false
 date: 2025-12-06T14:00:00.000+08:00
 tags:

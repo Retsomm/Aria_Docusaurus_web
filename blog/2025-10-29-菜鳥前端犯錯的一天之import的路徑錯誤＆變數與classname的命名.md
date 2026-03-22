@@ -1,5 +1,6 @@
 ---
 title: 菜鳥前端犯錯的一天之.gitignore錯誤
+description: 記錄因 .gitignore 設定錯誤，誤將快取資料夾推上 MR，以及 git rebase 操作失誤導致一連串問題的慘烈一天。
 date: 2025-10-28T14:11:00.000+08:00
 tags:
   - 前端

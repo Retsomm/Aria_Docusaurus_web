@@ -72,10 +72,9 @@ function ProjectHeader() {
 }
 
 export default function Project(): React.ReactElement {
-  const { siteConfig } = useDocusaurusContext();
   const LayoutAny = Layout as any;
   return (
-    <LayoutAny title={`Hello from ${siteConfig.title}`} description="Description will go into a meta tag in <head />">
+    <LayoutAny title="我的專案" description="Aria 的前端開發作品集，涵蓋 React、Vue、TypeScript、Firebase 等多種技術的個人專案展示。">
       <main>
         <ProjectHeader />
       </main>

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /private-blog/
+Disallow: /admin/
+
+Sitemap: https://ariadocusauruswed.netlify.app/sitemap.xml
+
+# Algolia-Crawler-Verif: 8F1F53B72A9A2D51

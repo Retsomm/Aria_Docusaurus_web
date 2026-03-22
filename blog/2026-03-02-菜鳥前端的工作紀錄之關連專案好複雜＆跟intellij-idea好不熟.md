@@ -1,5 +1,6 @@
 ---
 title: 菜鳥前端的工作紀錄之關連專案好複雜＆跟IntelliJ IDEA好不熟
+description: 記錄在工作中處理醫療帳號功能缺失的過程，以及與尚不熟悉的 IntelliJ IDEA 開發環境磨合的工作日誌。
 draft: false
 date: 2026-03-02T20:11:00.000+08:00
 tags:

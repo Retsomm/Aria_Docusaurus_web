@@ -8,6 +8,16 @@
   port = 8888
   functions = "netlify/functions"
 
+[[headers]]
+  for = "/private-blog/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[redirects]]
   # ensure Netlify serves the CMS config YAML file directly (avoid SPA rewrite)
   from = "/admin/config.yml"
