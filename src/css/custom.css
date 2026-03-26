@@ -6,6 +6,8 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  --ifm-font-family-base: 'jf-openhuninn', -apple-system, ui-sans-serif, system-ui, sans-serif;
+  --ifm-heading-font-family: 'jf-openhuninn', -apple-system, ui-sans-serif, system-ui, sans-serif;
   --ifm-color-primary: #e7a2ba;
   --ifm-color-primary-dark: #e7a2ba;
   --ifm-color-primary-darker: #e7a2ba;
@@ -29,9 +31,16 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+/* 載入 jf open 粉圓字體 */
+@font-face {
+  font-family: 'jf-openhuninn';
+  src: url('https://cdn.jsdelivr.net/gh/justfont/open-huninn-font@master/font/jf-openhuninn-2.1.ttf') format('truetype');
+  font-display: swap;
+}
+
 /* 套用自訂字體 */
 body {
-  font-family: Optimistic Display, -apple-system, ui-sans-serif, system-ui,
+  font-family: 'jf-openhuninn', -apple-system, ui-sans-serif, system-ui,
     sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
     Noto Color Emoji;
 }
