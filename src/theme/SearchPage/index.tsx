@@ -29,10 +29,45 @@ import {
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
+
+interface DocsSearchVersionsHelpers {
+  allDocsData: Record<string, any>;
+  versioningEnabled: boolean;
+  searchVersions: Record<string, string>;
+  setSearchVersion: (pluginId: string, searchVersion: string) => void;
+}
+
+interface SearchVersionSelectListProps {
+  docsSearchVersionsHelpers: DocsSearchVersionsHelpers;
+}
+
+interface SearchResultItem {
+  title: string;
+  url: string;
+  summary: string;
+  breadcrumbs: string[];
+}
+
+interface SearchResultState {
+  items: SearchResultItem[];
+  query: string | null;
+  totalResults: number | null;
+  totalPages: number | null;
+  lastPage: number | null;
+  hasMore: boolean | null;
+  loading: boolean | null;
+}
+
+type SearchResultAction = 
+  | { type: 'reset' }
+  | { type: 'loading' }
+  | { type: 'update'; value: SearchResultState }
+  | { type: 'advance' };
+
 // Very simple pluralization: probably good enough for now
 function useDocumentsFoundPlural() {
   const {selectMessage} = usePluralForm();
-  return (count) =>
+  return (count: number) =>
     selectMessage(
       count,
       translate(
@@ -46,7 +81,8 @@ function useDocumentsFoundPlural() {
       ),
     );
 }
-function useDocsSearchVersionsHelpers() {
+
+function useDocsSearchVersionsHelpers(): DocsSearchVersionsHelpers {
   const allDocsData = useAllDocsData();
   // State of the version select menus / algolia facet filters
   // docsPluginId -> versionName map
@@ -56,14 +92,14 @@ function useDocsSearchVersionsHelpers() {
         ...acc,
         [pluginId]: pluginData.versions[0].name,
       }),
-      {},
+      {} as Record<string, string>,
     ),
   );
   // Set the value of a single select menu
-  const setSearchVersion = (pluginId, searchVersion) =>
+  const setSearchVersion = (pluginId: string, searchVersion: string) =>
     setSearchVersions((s) => ({...s, [pluginId]: searchVersion}));
   const versioningEnabled = Object.values(allDocsData).some(
-    (docsData) => docsData.versions.length > 1,
+    (docsData: any) => docsData.versions.length > 1,
   );
   return {
     allDocsData,
@@ -72,8 +108,9 @@ function useDocsSearchVersionsHelpers() {
     setSearchVersion,
   };
 }
+
 // We want to display one select per versioned docs plugin instance
-function SearchVersionSelectList({docsSearchVersionsHelpers}) {
+function SearchVersionSelectList({docsSearchVersionsHelpers}: SearchVersionSelectListProps) {
   const versionedPluginEntries = Object.entries(
     docsSearchVersionsHelpers.allDocsData,
   )
@@ -87,7 +124,7 @@ function SearchVersionSelectList({docsSearchVersionsHelpers}) {
         'padding-left--none',
         styles.searchVersionColumn,
       )}>
-      {versionedPluginEntries.map(([pluginId, docsData]) => {
+      {versionedPluginEntries.map(([pluginId, docsData]: [string, any]) => {
         const labelPrefix =
           versionedPluginEntries.length > 1 ? `${pluginId}: ` : '';
         return (
@@ -101,7 +138,7 @@ function SearchVersionSelectList({docsSearchVersionsHelpers}) {
             }
             defaultValue={docsSearchVersionsHelpers.searchVersions[pluginId]}
             className={styles.searchVersionInput}>
-            {docsData.versions.map((version, i) => (
+            {docsData.versions.map((version: any, i: number) => (
               <option
                 key={i}
                 label={`${labelPrefix}${version.label}`}
@@ -114,6 +151,7 @@ function SearchVersionSelectList({docsSearchVersionsHelpers}) {
     </div>
   );
 }
+
 function AlgoliaLogo() {
   return (
     <svg
@@ -172,7 +210,8 @@ function AlgoliaLogo() {
     </svg>
   );
 }
-function getSearchPageTitle(searchQuery) {
+
+function getSearchPageTitle(searchQuery: string): string {
   return searchQuery
     ? translate(
         {
@@ -190,6 +229,7 @@ function getSearchPageTitle(searchQuery) {
         description: 'The search page title for empty query',
       });
 }
+
 function SearchPageContent() {
   const {
     i18n: {currentLocale},
@@ -202,7 +242,7 @@ function SearchPageContent() {
   const docsSearchVersionsHelpers = useDocsSearchVersionsHelpers();
   const [searchQuery, setSearchQuery] = useSearchQueryString();
   const pageTitle = getSearchPageTitle(searchQuery);
-  const initialSearchResultState = {
+  const initialSearchResultState: SearchResultState = {
     items: [],
     query: null,
     totalResults: null,
@@ -212,7 +252,7 @@ function SearchPageContent() {
     loading: null,
   };
   const [searchResultState, searchResultStateDispatcher] = useReducer(
-    (prevState, data) => {
+    (prevState: SearchResultState, data: SearchResultAction): SearchResultState => {
       switch (data.type) {
         case 'reset': {
           return initialSearchResultState;
@@ -230,10 +270,10 @@ function SearchPageContent() {
           };
         }
         case 'advance': {
-          const hasMore = prevState.totalPages > prevState.lastPage + 1;
+          const hasMore = (prevState.totalPages ?? 0) > (prevState.lastPage ?? -1) + 1;
           return {
             ...prevState,
-            lastPage: hasMore ? prevState.lastPage + 1 : prevState.lastPage,
+            lastPage: hasMore ? (prevState.lastPage ?? -1) + 1 : prevState.lastPage,
             hasMore,
             loading: hasMore,
           };
@@ -251,7 +291,7 @@ function SearchPageContent() {
   // 用 useRef 確保 algoliaHelper 只建立一次
   // 若每次 render 都重新建立，會造成 listener 累積，且 result 回來後 state 更新
   // 觸發 re-render，新 helper 沒有搜尋，舊結果也無法正確 dispatch 到新 render 的 state
-  const algoliaHelperRef = useRef(null);
+  const algoliaHelperRef = useRef<any>(null);
   if (!algoliaHelperRef.current) {
     const algoliaClient = liteClient(appId, apiKey);
     algoliaHelperRef.current = algoliaSearchHelper(algoliaClient, indexName, {
@@ -270,32 +310,32 @@ function SearchPageContent() {
   processSearchResultUrlRef.current = processSearchResultUrl;
   // result handler 只在 helper 建立時註冊一次，避免重複 listener
   useEffect(() => {
-    const handler = ({results: {query, hits, page, nbHits, nbPages}}) => {
+    const handler = ({results: {query, hits, page, nbHits, nbPages}}: any) => {
       if (query === '' || !Array.isArray(hits)) {
         dispatcherRef.current({type: 'reset'});
         return;
       }
       // 過濾掉 Algolia 回傳但實際上沒有匹配關鍵字的結果
       // matchLevel: "none" 代表 content 和 hierarchy 都沒有真正匹配
-      const matchedHits = hits.filter(({_highlightResult}) => {
+      const matchedHits = hits.filter(({_highlightResult}: any) => {
         const contentMatch = _highlightResult?.content?.matchLevel;
         const hierarchyMatch = Object.values(_highlightResult?.hierarchy ?? {}).some(
-          (h) => h?.matchLevel && h.matchLevel !== 'none',
+          (h: any) => h?.matchLevel && h.matchLevel !== 'none',
         );
         return contentMatch !== 'none' || hierarchyMatch;
       });
-      const sanitizeValue = (value) =>
+      const sanitizeValue = (value: string) =>
         value.replace(
           /algolia-docsearch-suggestion--highlight/g,
           'search-result-match',
         );
-      const items = matchedHits.map(
+      const items: SearchResultItem[] = matchedHits.map(
         ({
           url,
           hierarchy: rawHierarchy = {},
           _highlightResult: {hierarchy} = {},
           _snippetResult: snippet = {},
-        }) => {
+        }: any) => {
           const titles = Object.keys(hierarchy ?? {})
             .filter((key) => hierarchy[key] != null)
             .map((key) => sanitizeValue(hierarchy[key].value));
@@ -324,21 +364,21 @@ function SearchPageContent() {
           lastPage: page,
           hasMore: nbPages > page + 1,
           loading: false,
-        },
+        } as SearchResultState,
       });
     };
     algoliaHelper.on('result', handler);
     return () => algoliaHelper.removeAllListeners('result');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [loaderRef, setLoaderRef] = useState(null);
+  const [loaderRef, setLoaderRef] = useState<HTMLDivElement | null>(null);
   const prevY = useRef(0);
-  const observer = useRef(
+  const observer = useRef<IntersectionObserver | null>(
     ExecutionEnvironment.canUseIntersectionObserver &&
       new IntersectionObserver(
         // TODO need to fix this React Compiler lint error
         // eslint-disable-next-line react-compiler/react-compiler
-        (entries) => {
+        (entries: IntersectionObserverEntry[]) => {
           const {
             isIntersecting,
             boundingClientRect: {y: currentY},
@@ -349,7 +389,7 @@ function SearchPageContent() {
           prevY.current = currentY;
         },
         {threshold: 1},
-      ),
+      ) || null,
   );
   const makeSearch = useEvent((page = 0) => {
     if (contextualSearch) {
@@ -539,6 +579,7 @@ function SearchPageContent() {
     </Layout>
   );
 }
+
 export default function SearchPage() {
   return (
     <HtmlClassNameProvider className="search-page-wrapper">
