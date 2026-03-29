@@ -56,6 +56,7 @@ interface SearchResultState {
   lastPage: number | null;
   hasMore: boolean | null;
   loading: boolean | null;
+
 }
 
 type SearchResultAction = 
@@ -261,12 +262,16 @@ function SearchPageContent() {
           return {...prevState, loading: true};
         }
         case 'update': {
+          const newItems = data.value.items;
+          const allItems = data.value.lastPage === 0
+            ? newItems
+            : prevState.items.concat(newItems);
+          
           return {
             ...data.value,
-            items:
-              data.value.lastPage === 0
-                ? data.value.items
-                : prevState.items.concat(data.value.items),
+            items: allItems,
+            // totalResults 應該是累積的過濾後結果總數，而不是估計值
+            totalResults: allItems.length,
           };
         }
         case 'advance': {
@@ -322,7 +327,8 @@ function SearchPageContent() {
         const hierarchyMatch = Object.values(_highlightResult?.hierarchy ?? {}).some(
           (h: any) => h?.matchLevel && h.matchLevel !== 'none',
         );
-        return contentMatch !== 'none' || hierarchyMatch;
+        // contentMatch 需要存在且不是 'none'，或者 hierarchyMatch 存在
+        return (contentMatch && contentMatch !== 'none') || hierarchyMatch;
       });
       const sanitizeValue = (value: string) =>
         value.replace(
