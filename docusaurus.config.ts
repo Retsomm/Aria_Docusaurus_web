@@ -74,11 +74,6 @@ const config: Config = {
     ],
   ],
 
-  future: {
-    v4: true,
-  },
-
-
   plugins: [
     [
       '@docusaurus/plugin-content-blog',

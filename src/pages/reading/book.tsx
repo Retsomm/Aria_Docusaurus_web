@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
 import styles from '../reading.module.css';
 
 // 與列表頁相同的型別
@@ -237,7 +235,6 @@ function extractHeadings(blocks: any[]) {
 }
 
 export default function BookDetail(): React.ReactElement {
-  const { siteConfig } = useDocusaurusContext();
   const LayoutAny = Layout as any;
   const [book, setBook] = useState<NotionBook | null>(null);
   const [blocks, setBlocks] = useState<any[]>([]);
@@ -323,7 +320,7 @@ export default function BookDetail(): React.ReactElement {
         <div className={styles.container} style={{ padding: '2.5rem 1rem', textAlign: 'left' }}>
           {loading ? (
             <div className={styles.loading} style={{ paddingTop: 40 }}>
-              <p>載入中...</p>
+              <div className={styles.spinner} />
             </div>
           ) : error ? (
             <div className={styles.error} style={{ paddingTop: 40 }}>
@@ -332,9 +329,9 @@ export default function BookDetail(): React.ReactElement {
             </div>
           ) : book ? (
             <div style={{ maxWidth: 900, margin: '2rem auto' }}>
-              <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start' }}>
+              <div className={styles.bookLayout}>
                 {book.cover && (
-                  <div style={{ width: 220, borderRadius: 8, overflow: 'hidden' }}>
+                  <div style={{ width: 220, overflow: 'hidden' }}>
                     <img src={book.cover} alt={book.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                 )}

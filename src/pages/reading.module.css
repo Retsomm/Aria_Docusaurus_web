@@ -217,6 +217,7 @@
   background: var(--ifm-color-emphasis-100);
   border-radius: 8px;
   border-left: 4px solid var(--ifm-color-primary);
+  flex-direction: column !important;
 }
 
 .notionCode pre {
@@ -354,6 +355,19 @@
   .tocPanel { right: 12px; width: min(320px, 96vw); }
 }
 
+/* 書籍詳細頁：封面 + 資訊橫排，手機改直排 */
+.bookLayout {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+@media screen and (max-width: 600px) {
+  .bookLayout {
+    flex-direction: column;
+  }
+}
+
 /* 書籍每欄位單行顯示 */
 .bookMeta { display: flex; flex-direction: column; gap: 8px; }
 .metaRow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
@@ -388,6 +402,20 @@
   color: var(--ifm-color-emphasis-600);
   margin-top: auto;
   padding-top: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--ifm-color-emphasis-200);
+  border-top-color: var(--ifm-color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 1rem;
 }
 
 .loading,

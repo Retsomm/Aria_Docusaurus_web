@@ -175,7 +175,7 @@ function ReadingHeader({
 
         {loading ? (
           <div className={styles.loading}>
-            <p>載入中...</p>
+            <div className={styles.spinner} />
           </div>
         ) : books.length === 0 ? (
           <div className={styles.empty}>
