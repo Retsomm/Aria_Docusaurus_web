@@ -1,9 +1,10 @@
 ---
 title: 在Docusaurus新增netlify-cms
+slug: add-netlify-cms-in-docusaurus
 date: 2026-02-15T18:44:00.000+08:00
 description: 可以直接在網頁上新增跟編輯文章，降低發文摩擦力
 tags:
-  - 專案
+  - 開發
 keywords:
   - Docusaurus
   - Netlify CMS
