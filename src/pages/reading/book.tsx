@@ -258,11 +258,17 @@ export default function BookDetail(): React.ReactElement {
       try {
         if (!isBackground) setLoading(true);
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
         const res = await fetch(NETLIFY_FUNCTION_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id }),
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));

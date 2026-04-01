@@ -1,0 +1,28 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Prevent committing .env files (except .env.example)
+if git diff --cached --name-only | grep -E '\.env(\.local)?$'; then
+  echo "❌ ERROR: Attempting to commit .env file(s)"
+  echo "🔒 .env files should not be committed to version control!"
+  echo "   Use .env.example to document required variables"
+  exit 1
+fi
+
+# Check for common secrets patterns
+if git diff --cached --unified=0 | grep -E '(PRIVATE|SECRET|KEY|PASSWORD|TOKEN|API_KEY|ALGOLIA_ADMIN).*=' | grep -v '\.example' | grep -v node_modules; then
+  echo "⚠️  WARNING: Potential secrets detected in staged changes"
+  echo "   Review before committing. Use --no-verify to override."
+  exit 1
+fi
+
+# Run type checking
+echo "🔍 Running type check..."
+yarn type-check
+
+if [ $? -ne 0 ]; then
+  echo "❌ Type check failed. Fix errors before committing."
+  exit 1
+fi
+
+echo "✅ Pre-commit checks passed!"

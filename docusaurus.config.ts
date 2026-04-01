@@ -8,7 +8,7 @@ const config: Config = {
 
   url: 'https://ariadocusauruswed.netlify.app',
   baseUrl: '/',
-  trailingSlash: true,
+  trailingSlash: false,
 
   organizationName: 'Retsomm',
   projectName: 'Retsnom',
@@ -57,7 +57,7 @@ const config: Config = {
         },
         sitemap: {
           lastmod: 'date',
-          changefreq: 'weekly',
+          changefreq: 'monthly',
           priority: 0.5,
           ignorePatterns: [
             '/tags/**',

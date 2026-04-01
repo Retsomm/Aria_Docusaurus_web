@@ -55,6 +55,18 @@ export const handler = async (event: any, context: any): Promise<any> => {
   // 如果有快取可以直接回傳（減少對 Notion 的重複呼叫）
   try {
     if (requestBody.id) {
+      // Validate UUID/ID format: allow alphanumeric, hyphens, and underscores, 16-36 chars
+      const idPatternRegex = /^[a-zA-Z0-9_-]{16,36}$/;
+      if (!idPatternRegex.test(String(requestBody.id))) {
+        return {
+          statusCode: 400,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+          body: JSON.stringify({ error: 'Invalid book ID format' }),
+        };
+      }
       const cached = __cache.byId[requestBody.id];
       if (cached && cached.expiresAt > Date.now()) {
         return {
@@ -275,5 +287,3 @@ export const handler = async (event: any, context: any): Promise<any> => {
   }
 };
 
-// keep CommonJS consumers (Netlify) happy
-(exports as any).handler = handler;

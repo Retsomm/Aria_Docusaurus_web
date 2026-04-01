@@ -38,7 +38,7 @@ collections:
           widget: "select"
           options: ["生活", "教學", "筆記", "開發", "前端", "後端", "寫作練習", "murmur", "情緒抒發",'寫作練習', 
            "工具", "專案", "心得", "面試", "Heptabase", "超級個體",'動畫','電影', '影集','閱讀','學習', '理財',]
-        suggestions: ["背景", "程式練習", "單位", "電影", "動畫", "後端", "迴圈", "開發", "練習題", "面試", "前端", "前綴字", "情緒抒發", "生活", "屬性繼承", "通用關鍵字", "響應式設計", "寫作練習", "心得", "影集", "閱讀", "陣列", "陣列操作", "專案", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "JavaScript", "murmur", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
+        suggestions: ["背景", "程式練習", "單位", "電影", "動畫", "後端", "迴圈", "開發", "練習題", "面試", "前端", "前綴字", "情緒抒發", "生活", "屬性繼承", "通用關鍵字", "響應式設計", "寫作練習", "心得", "影集", "閱讀", "陣列", "陣列操作", "專案", "App Router", "background-color", "border-color", "Client Components", "CSS", "currentColor", "Flexbox", "for迴圈", "Heptabase", "JavaScript", "murmur", "Next.js", "overflow-wrap", "Position", "Server Components", "styled-components", "SVG", "tailwind", "Tailwind", "text-align-last:justify", "text-align:justify", "text-overflow", "white-space", "width", "word-break"]
       - label: "封面圖片（也用於分享縮圖）"
         name: "cover_image"
         widget: "image"

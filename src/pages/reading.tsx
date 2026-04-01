@@ -239,10 +239,16 @@ export default function Reading(): React.ReactElement {
       try {
         if (!isBackground) setLoading(true);
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
         const response = await fetch(NETLIFY_FUNCTION_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) throw new Error(`API 錯誤: ${response.status}`);
 

@@ -10,6 +10,9 @@
     "build": "docusaurus build",
     "build:fast": "cross-env NODE_OPTIONS=--max-old-space-size=4096 docusaurus build",
     "build:prod": "cross-env NODE_OPTIONS=--max-old-space-size=4096 docusaurus build --locale zh-TW",
+    "audit": "yarn audit",
+    "audit:fix": "yarn upgrade --audit-level=moderate",
+    "audit:interactive": "yarn upgrade-interactive --latest",
     "seo:fix": "ts-node scripts/fix-seo-descriptions.ts",
     "seo:keywords": "ts-node scripts/add-blog-keywords.ts",
     "swizzle": "docusaurus swizzle",
@@ -20,7 +23,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@docusaurus/core": "^3.8.1",
@@ -48,6 +52,8 @@
     "concurrently": "^9.2.1",
     "cross-env": "^10.0.0",
     "esbuild-loader": "^4.3.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
     "netlify-cli": "^24.2.0",
     "typescript": "^5.9.3"
   },
@@ -65,5 +71,13 @@
   },
   "engines": {
     "node": ">=20.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "tsc --noEmit"
+    ],
+    "*.env*": [
+      "!(*.example)"
+    ]
   }
 }
