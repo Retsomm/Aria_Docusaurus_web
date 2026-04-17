@@ -59,7 +59,7 @@ type DocSearchProps = Omit<
   >;
 };
 
-interface DocSearchV4Props extends DocSearchProps {
+interface DocSearchV4Props extends Omit<DocSearchProps, 'askAi'> {
   indexName: string;
   askAi?: ThemeConfigAlgolia['askAi'];
   translations?: DocSearchTranslations;
@@ -296,7 +296,7 @@ const DocSearch = ({externalUrlRegex, ...props}: DocSearchV4Props) => {
               resultsFooterComponent,
             })}
             placeholder={currentPlaceholder}
-            {...props}
+            {...(props as unknown as DocSearchModalProps)}
             translations={props.translations?.modal ?? translations.modal}
             searchParameters={searchParameters}
             {...extraAskAiProps}

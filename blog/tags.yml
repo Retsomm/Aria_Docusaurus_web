@@ -48,11 +48,6 @@
   permalink: /開發
   description: 軟體 開發 相關文章
 
-專案:
-  label: 專案
-  permalink: /專案
-  description: 專案 相關文章
-
 心得:
   label: 心得
   permalink: /心得
@@ -73,20 +68,10 @@ Heptabase:
   permalink: /Heptabase
   description: Heptabase 筆記相關
 
-murmur:
-  label: murmur
-  permalink: /murmur
-  description: murmur 類文章
-
 情緒抒發:
   label: 情緒抒發
   permalink: /情緒抒發
   description: 情緒 抒發 類文章
-
-工具:
-  label: 工具
-  permalink: /工具
-  description: 工具 與 工作流程
 
 後端:
   label: 後端
@@ -97,3 +82,8 @@ murmur:
   label: 超級個體
   permalink: /超級個體
   description: 超級個體 主題文章
+
+推薦:
+  label: 推薦
+  permalink: /推薦
+  description: 推薦 文章

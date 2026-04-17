@@ -29,6 +29,8 @@
         "npm:concurrently@^9.2.1",
         "npm:cross-env@10",
         "npm:esbuild-loader@^4.3.0",
+        "npm:husky@9",
+        "npm:lint-staged@15",
         "npm:netlify-cli@^24.2.0",
         "npm:prism-react-renderer@^2.3.0",
         "npm:react-dom@19",

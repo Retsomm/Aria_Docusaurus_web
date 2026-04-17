@@ -17,6 +17,7 @@
   targetPort = 3000
   port = 8888
   functions = "netlify/functions"
+  startTimeout = 180
 
 [[headers]]
   for = "/private-blog/*"

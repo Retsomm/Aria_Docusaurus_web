@@ -67,6 +67,10 @@ function BookCard({ book, onTagClick }: { book: NotionBook; onTagClick?: (tag: s
           <div className={styles.info}>
             <h3 className={styles.bookTitle}>{book.title}</h3>
             {book.author && <p className={styles.author}>作者：{book.author}</p>}
+            {book.publisher && <p className={styles.author}>出版社：{book.publisher}</p>}
+            {book.category && book.category.length > 0 && (
+              <p className={styles.author}>分類：{book.category.join('、')}</p>
+            )}
 
             <div className={styles.metadata}>
               {book.status && (

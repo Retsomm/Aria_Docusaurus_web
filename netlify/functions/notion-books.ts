@@ -130,7 +130,7 @@ export const handler = async (event: any, context: any): Promise<any> => {
         id: page.id,
         // page create time（用於排序）
         createdAt: page.created_time || page.last_edited_time || null,
-        title: properties.Name?.title?.[0]?.plain_text || properties.書名?.title?.[0]?.plain_text || '未命名',
+        title: (properties.Name?.title || properties.書名?.title || []).map((t: any) => t.plain_text).join('') || '未命名',
         // author：支援多種 Notion 屬性型別（rich_text / people / multi_select / select / title）
         author:
           ((properties.Author?.rich_text || properties.作者?.rich_text || []).map?.((r: any) => r.plain_text).filter(Boolean).join(' ') ||
