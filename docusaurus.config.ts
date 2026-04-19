@@ -116,15 +116,13 @@ const config: Config = {
   ],
 
   headTags: [
-    {
-      tagName: 'link',
-      attributes: {rel: 'preload', href: '/img/astronaut-animate.svg', as: 'image'},
-    },
+    {tagName: 'link', attributes: {rel: 'preload', href: '/img/astronaut-animate.svg', as: 'image'}},
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://KOYF7XQ73V-dsn.algolia.net', crossorigin: 'anonymous'}},
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://www.googletagmanager.com'}},
+    {tagName: 'link', attributes: {rel: 'dns-prefetch', href: 'https://giscus.app'}},
   ],
 
-  scripts: [
-    {src: 'https://identity.netlify.com/v1/netlify-identity-widget.js', async: true},
-  ],
+  scripts: [],
 
   themeConfig: {
     metadata: [
