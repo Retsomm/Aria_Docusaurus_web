@@ -104,6 +104,7 @@ const config: Config = {
           {tagName: 'link', rel: 'icon', href: '/img/retsnom-logo.PNG'},
           {tagName: 'link', rel: 'manifest', href: '/manifest.json'},
           {tagName: 'meta', name: 'theme-color', content: 'rgb(37, 194, 160)'},
+          {tagName: 'meta', name: 'mobile-web-app-capable', content: 'yes'},
           {tagName: 'meta', name: 'apple-mobile-web-app-capable', content: 'yes'},
           {tagName: 'meta', name: 'apple-mobile-web-app-status-bar-style', content: '#000'},
           {tagName: 'link', rel: 'apple-touch-icon', sizes: '180x180', href: '/img/retsnom-logo.PNG'},

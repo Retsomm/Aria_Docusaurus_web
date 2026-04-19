@@ -9,32 +9,14 @@
     "scope": "/",
     "icons": [
         {
-            "src": "/img/retsnom-logo.PNG",
+            "src": "/img/icon-512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/img/retsnom-logo.PNG",
+            "src": "/img/icon-192.png",
             "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "/img/retsnom-logo.PNG",
-            "sizes": "180x180",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "/img/retsnom-logo.PNG",
-            "sizes": "152x152",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "/img/retsnom-logo.PNG",
-            "sizes": "120x120",
             "type": "image/png",
             "purpose": "any maskable"
         }
