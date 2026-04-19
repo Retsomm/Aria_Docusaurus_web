@@ -70,7 +70,10 @@
     ]
   },
   "resolutions": {
-    "gray-matter/js-yaml": "3.14.1"
+    "gray-matter/js-yaml": "3.14.1",
+    "picomatch": "^4.0.2",
+    "micromatch": "^4.0.8",
+    "braces": "^3.0.3"
   },
   "engines": {
     "node": ">=20.0"

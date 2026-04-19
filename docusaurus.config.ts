@@ -115,6 +115,13 @@ const config: Config = {
     ],
   ],
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {rel: 'preload', href: '/img/astronaut-animate.svg', as: 'image'},
+    },
+  ],
+
   scripts: [
     {src: 'https://identity.netlify.com/v1/netlify-identity-widget.js', async: true},
   ],

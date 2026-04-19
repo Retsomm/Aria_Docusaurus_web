@@ -10,10 +10,10 @@
   gap: 1rem;
 }
 .Astronaut {
-  background: url(/static/img/astronaut-animate.svg) 0 / contain no-repeat;
   height: 600px;
   width: 600px;
   flex: 3;
+  object-fit: contain;
 }
 .right {
   display: flex;

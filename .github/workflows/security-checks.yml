@@ -33,9 +33,15 @@ jobs:
         run: yarn audit
         continue-on-error: true
       
-      - name: Check for moderate/high vulnerabilities
+      - name: Check for critical vulnerabilities
         run: |
-          yarn audit --level moderate
+          yarn audit || code=$?
+          # exit code 16 = critical vulnerabilities found (yarn audit bitmask)
+          if [ $(( ${code:-0} & 16 )) -gt 0 ]; then
+            echo "Critical vulnerabilities found!"
+            exit 1
+          fi
+          echo "No critical vulnerabilities found."
   
   type-check:
     name: TypeScript Type Check

@@ -34,8 +34,9 @@
 /* 載入 jf open 粉圓字體 */
 @font-face {
   font-family: 'jf-openhuninn';
-  src: url('https://cdn.jsdelivr.net/gh/justfont/open-huninn-font@master/font/jf-openhuninn-2.1.ttf') format('truetype');
-  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/justfont/open-huninn-font@master/font/jf-openhuninn-2.1.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/justfont/open-huninn-font@master/font/jf-openhuninn-2.1.ttf') format('truetype');
+  font-display: optional;
 }
 
 /* 套用自訂字體 */
