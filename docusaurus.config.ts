@@ -89,13 +89,6 @@ const config: Config = {
       },
     ],
     [
-      '@docusaurus/plugin-google-gtag',
-      {
-        trackingID: 'G-7KJZMT5GD8',
-        anonymizeIP: true,
-      },
-    ],
-    [
       '@docusaurus/plugin-pwa',
       {
         debug: process.env.NODE_ENV === 'development',
@@ -119,9 +112,9 @@ const config: Config = {
   headTags: [
     {tagName: 'link', attributes: {rel: 'preload', href: '/img/astronaut-animate.svg', as: 'image'}},
     {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://KOYF7XQ73V-dsn.algolia.net', crossorigin: 'anonymous'}},
-    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://www.googletagmanager.com'}},
-    {tagName: 'link', attributes: {rel: 'dns-prefetch', href: 'https://giscus.app'}},
   ],
+
+  clientModules: ['./src/clientModules/analytics.ts'],
 
   scripts: [],
 
