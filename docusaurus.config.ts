@@ -148,7 +148,7 @@ const config: Config = {
     },
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      logo: {alt: 'Retsnom Logo', src: 'img/retsnom-logo.PNG'},
+      logo: {alt: 'Retsnom Logo', src: 'img/retsnom-logo.webp'},
       items: [
         {to: '/docs/intro', position: 'left', label: 'Note'},
         {to: '/blog/intro', label: 'Blog', position: 'left'},
