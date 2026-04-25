@@ -119,21 +119,31 @@ function BookCard({ book, onTagClick }: { book: NotionBook; onTagClick?: (tag: s
             {book.publisher && (
               <>
                 <span className={styles.cardDot}>·</span>
-                <span>{book.publisher}</span>
+                <span className={styles.cardPublisher}>{book.publisher}</span>
               </>
             )}
           </div>
-          <div className={styles.cardMeta}>
-            {book.rating ? <Stars rating={book.rating} /> : null}
-            {book.category && book.category.length > 0 && (
-              <span className={styles.cardCat}>· {book.category[0]}</span>
-            )}
-          </div>
-          {book.tags && book.tags.length > 0 && (
+          {book.rating ? (
+            <div className={styles.cardMeta}>
+              <Stars rating={book.rating} />
+            </div>
+          ) : null}
+          {((book.category && book.category.length > 0) || (book.tags && book.tags.length > 0)) && (
             <div className={styles.cardTags}>
-              {book.tags.map((tag, idx) => (
+              {(book.category || []).map((cat, idx) => (
                 <button
-                  key={idx}
+                  key={`cat-${idx}`}
+                  type="button"
+                  className={styles.cardCatBtn}
+                  onClick={e => { e.stopPropagation(); e.preventDefault(); onTagClick?.(cat); }}
+                  onKeyDown={e => { if (e.key === 'Enter') { e.stopPropagation(); onTagClick?.(cat); } }}
+                >
+                  {cat}
+                </button>
+              ))}
+              {(book.tags || []).map((tag, idx) => (
+                <button
+                  key={`tag-${idx}`}
                   type="button"
                   className={styles.cardTagBtn}
                   onClick={e => { e.stopPropagation(); e.preventDefault(); onTagClick?.(tag); }}
