@@ -4,4 +4,6 @@ Disallow: /admin/
 
 Sitemap: https://ariadocusauruswed.netlify.app/sitemap.xml
 
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
 # Algolia-Crawler-Verif: 8F1F53B72A9A2D51
