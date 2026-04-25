@@ -1,0 +1,33 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0.json",
+  "skills": [
+    {
+      "name": "link-headers",
+      "type": "http-header",
+      "description": "Link response headers for agent discovery per RFC 8288",
+      "url": "https://ariadocusauruswed.netlify.app/.well-known/agent-skills/link-headers/SKILL.md",
+      "sha256": "4890c90a0ecbd7fe3e79dfa31a6024507cf8f4c45938fc0bca68366bba2ba437"
+    },
+    {
+      "name": "markdown-negotiation",
+      "type": "content-negotiation",
+      "description": "Returns HTML pages as Markdown when Accept: text/markdown is requested",
+      "url": "https://ariadocusauruswed.netlify.app/.well-known/agent-skills/markdown-negotiation/SKILL.md",
+      "sha256": "139c88cf41f6dcf9b3e1a5c1735d8af2d1806bbe99873da25b9f89752c72a5c0"
+    },
+    {
+      "name": "content-signals",
+      "type": "robots-txt",
+      "description": "AI content usage preferences declared in robots.txt via Content Signals",
+      "url": "https://ariadocusauruswed.netlify.app/.well-known/agent-skills/content-signals/SKILL.md",
+      "sha256": "f2acb9aed2a4b24e27b87b437b165593d4e8e90c0d86aec3e31ebf7ea30d0c57"
+    },
+    {
+      "name": "api-catalog",
+      "type": "api-discovery",
+      "description": "API catalog for automated resource discovery per RFC 9727",
+      "url": "https://ariadocusauruswed.netlify.app/.well-known/agent-skills/api-catalog/SKILL.md",
+      "sha256": "9a4c5dbf723928ab7b04ce8335bf0746d3a63cfcdeecafcbd98ff5ce6607489c"
+    }
+  ]
+}

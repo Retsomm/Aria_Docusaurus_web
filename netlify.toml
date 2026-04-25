@@ -1,6 +1,7 @@
 [build]
   publish = "build"
   functions = "netlify/functions"
+  edge_functions = "netlify/edge-functions"
   command = "docusaurus build"
 
 [build.processing]
@@ -37,6 +38,19 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://cdn.jsdelivr.net https://giscus.app https://giscus.github.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://giscus.app; font-src 'self' https://cdn.jsdelivr.net https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self' https://api.notion.com https://*.algolia.net https://identity.netlify.com https://api.github.com https://giscus.app https://www.google-analytics.com wss://*; frame-src 'self' https://giscus.app; form-action 'self';"
+    Link = "</.well-known/api-catalog>; rel=\"api-catalog\", </docs/intro>; rel=\"service-doc\""
+    Vary = "Accept"
+
+[[headers]]
+  for = "/.well-known/api-catalog"
+  [headers.values]
+    Content-Type = "application/linkset+json"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/.well-known/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
 
 [[headers]]
   for = "/admin/*"

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "serverInfo": {
+    "name": "Retsnom",
+    "version": "1.0.0",
+    "description": "Aria 的前端學習筆記、技術分享與生活記錄"
+  },
+  "transport": {
+    "type": "http",
+    "url": "https://ariadocusauruswed.netlify.app"
+  },
+  "capabilities": {
+    "resources": true,
+    "tools": false,
+    "prompts": false
+  },
+  "resources": {
+    "docs": "https://ariadocusauruswed.netlify.app/docs/intro",
+    "blog": "https://ariadocusauruswed.netlify.app/blog/intro",
+    "sitemap": "https://ariadocusauruswed.netlify.app/sitemap.xml",
+    "apiCatalog": "https://ariadocusauruswed.netlify.app/.well-known/api-catalog"
+  },
+  "contact": {
+    "url": "https://github.com/Retsomm"
+  }
+}

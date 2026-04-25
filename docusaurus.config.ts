@@ -114,7 +114,7 @@ const config: Config = {
     {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://KOYF7XQ73V-dsn.algolia.net', crossorigin: 'anonymous'}},
   ],
 
-  clientModules: ['./src/clientModules/analytics.ts'],
+  clientModules: ['./src/clientModules/analytics.ts', './src/clientModules/webmcp.ts'],
 
   scripts: [],
 

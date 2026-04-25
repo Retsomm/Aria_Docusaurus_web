@@ -1,0 +1,38 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://ariadocusauruswed.netlify.app",
+      "service-doc": [
+        {
+          "href": "https://ariadocusauruswed.netlify.app/docs/intro",
+          "type": "text/html"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://ariadocusauruswed.netlify.app/sitemap.xml",
+          "type": "application/xml"
+        }
+      ]
+    },
+    {
+      "anchor": "https://ariadocusauruswed.netlify.app/blog",
+      "service-doc": [
+        {
+          "href": "https://ariadocusauruswed.netlify.app/blog/intro",
+          "type": "text/html"
+        }
+      ],
+      "feed": [
+        {
+          "href": "https://ariadocusauruswed.netlify.app/blog/rss.xml",
+          "type": "application/rss+xml"
+        },
+        {
+          "href": "https://ariadocusauruswed.netlify.app/blog/atom.xml",
+          "type": "application/atom+xml"
+        }
+      ]
+    }
+  ]
+}
