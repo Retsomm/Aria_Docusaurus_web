@@ -1,62 +1,167 @@
 import React from 'react';
-import clsx from 'clsx';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import Coding from '@site/static/img/home/Coding-amico.webp';
-import Portfolio from '@site/static/img/home/Portfolio.webp';
-import life from '@site/static/img/home/life.webp';
-import Heading from '@theme/Heading';
+import Link from '@docusaurus/Link';
+import { usePluginData } from '@docusaurus/useGlobalData';
 import styles from './index.module.css';
 
-function HomepageHeader(): React.ReactElement {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className={styles.container}>
-        <img
-          src="/img/astronaut-animate.svg"
-          alt="astronaut"
-          className={styles.Astronaut}
-          fetchPriority="high"
-          width={600}
-          height={600}
-        />
-        <div className={styles.right}>
-          <Heading as="h1" className="hero__title">{siteConfig.title}</Heading>
-          <p className={clsx('hero__subtitle', styles.subtitle)}>{siteConfig.tagline}</p>
-        </div>
-      </div>
-    </header>
-  );
+const FEATURES = [
+  {
+    kind: 'Note',
+    href: '/docs/intro',
+    title: '把學程式的筆記整理在這',
+    desc: 'React、TypeScript、CSS、瀏覽器原理、面試題庫——每一個踩過的坑都寫成可以重讀的長記憶。',
+    count: '120+ 篇筆記',
+    accent: '#CC785C',
+  },
+  {
+    kind: 'Blog',
+    href: '/blog',
+    title: '記錄正在發生的生活',
+    desc: '一週寫一到兩篇——讀書心得、工作雜想、感情、關於成為自己的種種猶豫。',
+    count: '110+ 篇文章',
+    accent: '#7A8C5C',
+  },
+  {
+    kind: 'Projects',
+    href: '/projects',
+    title: '寫過、做過、上線過的東西',
+    desc: '習慣追蹤、無障礙地圖、電子書閱讀器、番茄鐘⋯⋯一些用來練習與解決自己問題的小作品。',
+    count: '14 個作品',
+    accent: '#5C7A8C',
+  },
+  {
+    kind: 'Reading',
+    href: '/reading',
+    title: '書單與閱讀筆記',
+    desc: '讀完的書、正在讀的書、想讀的書——每一本都附上心得與重點摘錄，慢慢累積的閱讀軌跡。',
+    count: '書單持續更新中',
+    accent: '#8C5C7A',
+  },
+];
+
+
+function Pill({ children }: { children: React.ReactNode }) {
+  return <span className={styles.pill}>{children}</span>;
 }
 
-function HomepageSection(): React.ReactElement {
-  return (
-    <div className={styles.Section}>
-      <div className={styles.card}>
-        <img src={Coding} alt="Coding" width={300} height={300} loading="lazy" />
-        <p className="hero__subtitle">在Note中可以看到學程式的筆記</p>
-      </div>
-      <div className={styles.card}>
-        <img src={life} alt="life" width={300} height={300} loading="lazy" />
-        <p className="hero__subtitle">在Blog中可以看到我的生活記錄</p>
-      </div>
-      <div className={styles.card}>
-        <img src={Portfolio} alt="Portfolio" width={300} height={300} loading="lazy" />
-        <p className="hero__subtitle">在Projects中可以看到我的作品</p>
-      </div>
-    </div>
-  );
+type RecentPost = { title: string; date: string; slug: string; permalink: string; tag: string };
+
+function formatPostDate(dateStr: string): string {
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return '';
+  return `${String(d.getMonth() + 1).padStart(2, '0')} · ${String(d.getDate()).padStart(2, '0')}`;
 }
 
 export default function Home(): React.ReactElement {
-  const { siteConfig } = useDocusaurusContext();
   const LayoutAny = Layout as any;
+  const recentPosts = usePluginData('recent-posts') as RecentPost[];
   return (
     <LayoutAny description="Aria 的前端學習筆記與生活記錄。這裡有 React、JavaScript、CSS、TypeScript 等技術文章，也有讀書心得與生活感悟。">
-      <HomepageHeader />
-      <HomepageSection />
-      <main></main>
+
+      {/* ── Hero ── */}
+      <section className={styles.heroSection}>
+        <div className={styles.heroGrid}>
+          <div className={styles.heroLeft}>
+            <div className={styles.statusBadge}>
+              <span className={styles.statusDot} />
+              現在 · 待業 / 自學 / 寫鐵人賽中
+            </div>
+            <h1 className={styles.heroTitle}>
+              Hi, 我是 <em className={styles.heroEm}>Aria</em>。<br />
+              一個活在自己時區裡的
+              學習者。
+            </h1>
+            <p className={styles.heroDesc}>
+              這裡是我的個人網站——程式學習筆記、技術分享、讀書心得，以及還在發生中的生活。
+            </p>
+            <div className={styles.heroCtas}>
+              <Link to="/docs/intro" className={styles.ctaPrimary}>
+                開始閱讀
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+              </Link>
+              <Link to="/about" className={styles.ctaSecondary}>關於我</Link>
+            </div>
+          </div>
+
+          {/* Astronaut — free-standing, no box */}
+          <div className={styles.heroImageWrap}>
+            <img
+              src="/img/astronaut-animate.svg"
+              alt="太空人插畫"
+              className={styles.heroAstronaut}
+              fetchPriority="high"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Three feature cards ── */}
+      <section className={styles.featuresSection}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.sectionEyebrow}>Sections</div>
+          <h2 className={styles.sectionTitle}>四個你可以走進去的房間</h2>
+        </div>
+        <div className={styles.featuresGrid}>
+          {FEATURES.map((f, i) => (
+            <Link key={f.kind} to={f.href} className={styles.featureCard}>
+              <div className={styles.featureAccentBar} style={{ background: f.accent }} />
+              <div className={styles.featureCardTop}>
+                <span className={styles.featureKind} style={{ color: f.accent }}>0{i + 1} · {f.kind}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="2">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </div>
+              <h3 className={styles.featureCardTitle}>{f.title}</h3>
+              <p className={styles.featureCardDesc}>{f.desc}</p>
+              <div className={styles.featureCardCount}>{f.count}</div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Recent writing (full width) ── */}
+      <section className={styles.recentSection}>
+        <div className={styles.recentHeader}>
+          <h2 className={styles.recentTitle}>最近寫的</h2>
+          <Link to="/blog" className={styles.recentMore}>所有文章 →</Link>
+        </div>
+        <div className={styles.recentList}>
+          {(recentPosts || []).map((p) => (
+            <Link key={p.slug} to={p.permalink} className={styles.recentItem}>
+              <span className={styles.recentDate}>{formatPostDate(p.date)}</span>
+              <Pill>{p.tag || '文章'}</Pill>
+              <span className={styles.recentItemTitle}>{p.title}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-4)" strokeWidth="2">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className={styles.ctaSection}>
+        <div className={styles.ctaBox}>
+          <div>
+            <h2 className={styles.ctaTitle}>
+              不想<em className={styles.heroEm}>錯過</em>新文章？
+            </h2>
+            <p className={styles.ctaDesc}>
+              透過 RSS 訂閱，每當我發新文章你就會收到通知。支援所有 RSS 閱讀器（Feedly、Inoreader、NetNewsWire⋯⋯）。
+            </p>
+          </div>
+          <div className={styles.ctaButtons}>
+            <a href="/blog/rss.xml" target="_blank" rel="noreferrer" className={styles.ctaPrimary}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/>
+              </svg>
+              RSS 訂閱
+            </a>
+            <a href="https://github.com/Retsomm/Aria_Docusaurus_web" className={styles.ctaSecondary} target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </div>
+      </section>
+
     </LayoutAny>
   );
 }

@@ -1,5 +1,8 @@
 import type {Config} from '@docusaurus/types';
 import {themes as prismThemes} from 'prism-react-renderer';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 const config: Config = {
   title: 'Retsnom | 前端學習筆記',
@@ -75,6 +78,34 @@ const config: Config = {
   ],
 
   plugins: [
+    // Local plugin: expose 5 most recent blog posts via usePluginData('recent-posts')
+    function recentPostsPlugin() {
+      return {
+        name: 'recent-posts',
+        async loadContent() {
+          const blogDir = path.join(__dirname, 'blog');
+          const files = fs.readdirSync(blogDir).filter(f => f.endsWith('.md') && f !== 'tags.yml');
+          const posts = files.map(filename => {
+            const raw = fs.readFileSync(path.join(blogDir, filename), 'utf-8');
+            const { data } = matter(raw);
+            const slug = data.slug || filename.replace(/\.md$/, '');
+            const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
+            return {
+              title: String(data.title || ''),
+              date: String(data.date || ''),
+              slug,
+              permalink: `/blog/${slug}`,
+              tag: tags[0] || '',
+            };
+          }).filter(p => p.title && p.date);
+          posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          return posts.slice(0, 5);
+        },
+        async contentLoaded({ content, actions }) {
+          actions.setGlobalData(content);
+        },
+      };
+    },
     [
       '@docusaurus/plugin-content-blog',
       {
@@ -147,10 +178,11 @@ const config: Config = {
         {to: '/blog/intro', label: 'Blog', position: 'left'},
         {to: '/projects', label: 'Projects', position: 'left'},
         {to: '/reading', label: 'Reading', position: 'left'},
+        {to: '/about', label: 'About', position: 'right'},
       ],
     },
     footer: {
-      style: 'dark',
+      style: 'light',
       links: [
         {
           title: 'Docs',
@@ -159,6 +191,7 @@ const config: Config = {
             {label: 'Blog', to: '/blog/intro'},
             {label: 'Projects', to: '/projects'},
             {label: 'Reading', to: '/reading'},
+            {label: 'About', to: '/about'},
             {label: 'Private Blog', to: '/private-blog', className: 'footer-hidden-link'},
           ],
         },
@@ -167,6 +200,7 @@ const config: Config = {
           items: [
             {label: 'LinkedIn', href: 'https://www.linkedin.com/in/chan-yuting-b80218366/'},
             {label: 'GitHub', href: 'https://github.com/Retsomm'},
+            {label: 'Threads', href: 'https://www.threads.com/@aria____1214'},
           ],
         },
         {title: 'More', items: [{label: 'Docusaurus GitHub', href: 'https://github.com/facebook/docusaurus'}]},

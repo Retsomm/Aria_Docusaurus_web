@@ -1,0 +1,529 @@
+/* ── Shared ── */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--accent-ink);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.sectionEyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--accent-ink);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.sectionTitle {
+  font-family: var(--serif) !important;
+  font-weight: 500 !important;
+  font-size: 32px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
+  margin: 0 0 28px !important;
+  color: var(--ink) !important;
+}
+
+.section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 72px 48px;
+}
+
+.sectionAlt {
+  background: var(--bg-soft);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 72px 0;
+}
+
+.sectionInner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Hero ── */
+.heroSection {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 48px 56px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.heroInner {
+  max-width: 720px;
+}
+
+.heroTitle {
+  font-family: var(--serif) !important;
+  font-weight: 500 !important;
+  font-size: 64px !important;
+  line-height: 1.06 !important;
+  letter-spacing: -0.025em !important;
+  margin: 0 0 24px !important;
+  color: var(--ink) !important;
+}
+
+.heroEm {
+  font-style: italic;
+  color: var(--accent-ink);
+}
+
+.heroLead {
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 0 0 28px;
+}
+
+.heroBadges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  border-radius: 999px;
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Bio ── */
+.bioGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 64px;
+  align-items: flex-start;
+}
+
+.bioText {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  margin-bottom: 28px;
+}
+
+.bioText p {
+  margin: 0 0 16px;
+}
+
+.bioText p:last-child {
+  margin-bottom: 0;
+}
+
+.bioLinks {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.linkBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 20px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--bg) !important;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: opacity 0.15s;
+}
+
+.linkBtn:hover {
+  opacity: 0.85;
+}
+
+.linkBtnGhost {
+  display: inline-flex;
+  align-items: center;
+  padding: 11px 20px;
+  border-radius: 8px;
+  background: var(--bg-card);
+  color: var(--ink-2) !important;
+  border: 1px solid var(--rule);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: background 0.15s;
+}
+
+.linkBtnGhost:hover {
+  background: var(--bg-soft);
+}
+
+/* Info card */
+.infoCard {
+  padding: 28px;
+  border-radius: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+}
+
+.infoRow {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  align-items: flex-start;
+}
+
+.infoRow:first-child {
+  padding-top: 0;
+}
+
+.infoRow:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.infoLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-4);
+  min-width: 72px;
+  padding-top: 2px;
+  letter-spacing: 0.02em;
+}
+
+.infoValue {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+.infoLink {
+  font-size: 14px;
+  color: var(--accent-ink) !important;
+  text-decoration: none !important;
+}
+
+.infoLink:hover {
+  text-decoration: underline !important;
+}
+
+/* ── Skills ── */
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.skillGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skillGroupTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-4);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.skillItems {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skillPill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  background: var(--bg-card);
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* ── Timeline ── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 72px 20px 1fr;
+  gap: 0 20px;
+  position: relative;
+  padding-bottom: 32px;
+}
+
+.timelineItem:last-child {
+  padding-bottom: 0;
+}
+
+.timelineItem:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 83px;
+  top: 24px;
+  bottom: 0;
+  width: 1px;
+  background: var(--rule);
+}
+
+.timelineYear {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding-top: 3px;
+  text-align: right;
+}
+
+.timelineDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 5px;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.timelineContent {
+  padding-top: 0;
+}
+
+.timelineTitle {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.timelineDesc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+/* ── Quote ── */
+.quoteBlock {
+  max-width: 680px;
+  margin: 0 auto;
+  padding-left: 24px;
+  position: relative;
+}
+
+.quoteBar {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.quote {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+  border: none;
+  padding: 0;
+}
+
+.quoteNote {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+/* ── Contact ── */
+.contactBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 48px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+}
+
+.contactDesc {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+.contactLinks {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Manual (個人使用說明書) ── */
+.manualIntro {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-2);
+  max-width: 680px;
+  margin: 0 0 36px;
+}
+
+.manualGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.manualCard {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.manualCardAccentBar {
+  height: 3px;
+}
+
+.manualCardBody {
+  padding: 20px 24px 24px;
+}
+
+.manualCardTitle {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+}
+
+.manualCardList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.manualCardItem {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  padding-left: 14px;
+  position: relative;
+}
+
+.manualCardItem::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.manualCardItemLabel {
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-right: 4px;
+}
+
+.manualRolesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.manualRoleCard {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.manualRoleNum {
+  font-family: var(--serif);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--ink-4);
+  margin-bottom: 6px;
+}
+
+.manualRoleTitle {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.manualClosingQuote {
+  margin-top: 36px;
+  padding: 24px 28px;
+  background: var(--bg-soft);
+  border-radius: 12px;
+  border-left: 3px solid var(--accent);
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+/* ── Responsive ── */
+@media screen and (max-width: 996px) {
+  .heroSection { padding: 60px 24px 40px; }
+  .heroTitle { font-size: 48px !important; }
+  .section { padding: 56px 24px; }
+  .sectionInner { padding: 0 24px; }
+  .bioGrid { grid-template-columns: 1fr; gap: 40px; }
+  .skillsGrid { grid-template-columns: repeat(2, 1fr); }
+  .contactBox { flex-direction: column; padding: 32px 24px; }
+  .manualGrid { grid-template-columns: 1fr; }
+  .manualRolesGrid { grid-template-columns: 1fr; }
+}
+
+@media screen and (max-width: 600px) {
+  .heroTitle { font-size: 36px !important; }
+  .skillsGrid { grid-template-columns: 1fr; }
+  .timelineItem { grid-template-columns: 56px 16px 1fr; gap: 0 12px; }
+}
