@@ -80,8 +80,8 @@ export default function About(): React.ReactElement {
               <h2 className={styles.sectionTitle}>一些關於我的事</h2>
               <div className={styles.bioText}>
                 <p>
-                  從文科背景出發，因為<a href="https://blog.starrocket.io/posts/transcript-star-rocket-podcast-ep127-project-meta-founder-alan-chan-talks-about-his-vision-and-his-note-taking-tool-meta-a" target="_blank" rel="noreferrer">星箭廣播第127集</a>，認識的<a href="https://heptabase.com" target="_blank" rel="noreferrer">Heptabase</a>的創辦人<a href="https://www.alanchan.me" target="_blank" rel="noreferrer">詹雨安</a>，也因此對軟體開發感興趣。
-                  從最容易獲得學習反饋的前端開始學習，在經歷第一段工作經驗後，我體認到全端視角的重要，因為如果要解決問題，因該掌握的是全端的能力，所以目前正以全端工程師為目標學習中。
+                  從文科背景出發，因為<a href="https://blog.starrocket.io/posts/transcript-star-rocket-podcast-ep127-project-meta-founder-alan-chan-talks-about-his-vision-and-his-note-taking-tool-meta-a" target="_blank" rel="noreferrer">星箭廣播第127集</a>，認識了<a href="https://heptabase.com" target="_blank" rel="noreferrer">Heptabase</a>的創辦人<a href="https://www.alanchan.me" target="_blank" rel="noreferrer">詹雨安</a>，也因此對軟體開發感興趣。
+                  從最容易獲得學習反饋的前端開始學習，在經歷第一段工作經驗後，我體認到全端視角的重要，因為如果要解決問題，應該掌握的是全端的能力，所以目前正以全端工程師為目標學習中。
                 </p>
                 <p>
                   我喜歡讀書，幾乎什麼類型都讀，技術書、心理學、歷史、小說。特別推薦閱讀前哨站給喜歡閱讀的朋友。

@@ -1,42 +1,62 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/* Original BlogSidebarDesktop styles */
 .sidebar {
   max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
   overflow-y: auto;
   position: sticky;
   top: calc(var(--ifm-navbar-height) + 2rem);
+  background: var(--bg-soft);
+  border-right: 1px solid var(--rule);
+  padding: 28px 20px;
 }
 
 .sidebarItemTitle {
-  font-size: var(--ifm-h3-font-size);
-  font-weight: var(--ifm-font-weight-bold);
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebarItemTitle::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
 }
 
 .sidebarItemList {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .sidebarItem {
-  margin-top: 0.7rem;
+  margin-top: 2px;
 }
 
 .sidebarItemLink {
-  color: var(--ifm-font-color-base);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  border-radius: 6px;
+  padding: 7px 10px;
   display: block;
+  transition: color 0.15s, background 0.15s;
 }
 
 .sidebarItemLink:hover {
+  color: var(--ink);
+  background: var(--bg-card);
   text-decoration: none;
 }
 
 .sidebarItemLinkActive {
-  color: var(--ifm-color-primary) !important;
+  color: var(--accent-ink) !important;
+  background: var(--accent-soft) !important;
+  font-weight: 500;
 }
 
 @media (max-width: 996px) {
@@ -45,49 +65,57 @@
   }
 }
 
+/* Year group heading — italic serif à la the Claude design */
 .yearGroupHeading {
-  margin-top: 1.6rem;
-  margin-bottom: 0.4rem;
+  font-family: var(--serif) !important;
+  font-style: italic;
+  font-size: 22px !important;
+  font-weight: 500 !important;
+  color: var(--accent-ink) !important;
+  margin: 20px 0 8px !important;
+  letter-spacing: -0.01em;
+  line-height: 1;
 }
 
-/* Tags section styles */
+/* Tags section */
 .tagsSection {
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
 }
 
 .tagsTitle {
-  font-size: 0.75rem;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ifm-color-emphasis-600);
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-4);
+  margin-bottom: 12px;
   margin-top: 0;
 }
 
 .tagsList {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 5px;
 }
 
 .tagItem {
   display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 0;
-  background-color: var(--ifm-color-emphasis-100);
-  color: var(--ifm-font-color-base);
-  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-card);
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 500;
   text-decoration: none;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-  border: 1px solid var(--ifm-color-emphasis-200);
+  border: 1px solid var(--rule);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .tagItem:hover {
-  background-color: var(--ifm-color-primary);
-  color: white;
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  border-color: var(--accent-soft);
   text-decoration: none;
-  border-color: var(--ifm-color-primary);
 }

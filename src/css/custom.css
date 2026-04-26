@@ -159,3 +159,391 @@ footer {
   height: 40px;
   z-index: 9999;
 }
+
+/* ════════════════════════════════════════════════════
+   ① NOTE · DOCS PAGE  /docs/firebase-realtime
+   ════════════════════════════════════════════════════ */
+
+/* Sidebar warm background */
+.theme-doc-sidebar-container {
+  background-color: var(--bg-soft) !important;
+  border-right: 1px solid var(--rule) !important;
+}
+
+/* Category label */
+.menu__list-item-collapsible .menu__link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  letter-spacing: 0.01em;
+}
+
+/* Active category label */
+.menu__list-item--collapsed .menu__link,
+.menu__list-item-collapsible:hover .menu__link {
+  color: var(--ink);
+}
+
+/* Sidebar link items */
+.menu__link {
+  font-size: 13px;
+  color: var(--ink-3);
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+/* Active sidebar item */
+.menu__link--active:not(.menu__link--sublist) {
+  color: var(--accent-ink) !important;
+  background-color: var(--accent-soft) !important;
+  font-weight: 500;
+}
+
+/* Hover on sidebar items */
+.menu__link:hover {
+  color: var(--ink);
+  background-color: var(--bg-card);
+  text-decoration: none;
+}
+
+/* Nested submenu left border */
+.menu__list .menu__list {
+  border-left: 1px solid var(--rule);
+  margin-left: 4px;
+  padding-left: 4px;
+}
+
+/* ── Breadcrumb ── */
+.breadcrumbs__item .breadcrumbs__link {
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link,
+.breadcrumbs__item--active span {
+  background-color: var(--accent-soft) !important;
+  color: var(--accent-ink) !important;
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+/* ── Docs headings ── */
+.markdown h1 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.markdown h2 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  color: var(--ink);
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule-soft);
+  margin-top: 40px;
+  margin-bottom: 18px;
+}
+
+.markdown h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 28px;
+}
+
+/* ── Body text ── */
+.markdown p,
+.theme-doc-markdown p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+
+.markdown li {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink-2);
+}
+
+/* ── Admonitions (callout boxes) ── */
+.admonition {
+  border-radius: 10px !important;
+  border: 1px solid var(--rule) !important;
+  margin: 28px 0 !important;
+}
+
+.alert--info,
+.alert--note {
+  background-color: var(--accent-soft) !important;
+  border-color: #E8C9B4 !important;
+  --ifm-alert-foreground-color: var(--accent-ink);
+}
+
+.alert--info .admonition-heading,
+.alert--note .admonition-heading {
+  color: var(--accent-ink);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.alert--warning {
+  background-color: #FFF8E8 !important;
+  border-color: #E8D5A0 !important;
+}
+
+/* ── Right TOC ── */
+.table-of-contents {
+  font-size: 13px;
+  border-left: 1px solid var(--rule);
+}
+
+.table-of-contents__link {
+  color: var(--ink-3);
+  padding: 7px 14px;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  display: block;
+  line-height: 1.5;
+  transition: color 0.15s;
+}
+
+.table-of-contents__link:hover {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.table-of-contents__link--active {
+  color: var(--accent-ink) !important;
+  font-weight: 500;
+  border-left-color: var(--accent) !important;
+}
+
+/* TOC "本頁目錄" label */
+.table-of-contents__left-border {
+  border-left: 1px solid var(--rule);
+}
+
+.theme-doc-toc-desktop > div > div:first-child {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+/* ── Pagination nav ── */
+.pagination-nav__link {
+  border-color: var(--rule) !important;
+  border-radius: 8px !important;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--accent) !important;
+  background: var(--accent-soft) !important;
+  text-decoration: none;
+}
+
+.pagination-nav__label {
+  font-family: var(--serif);
+  font-size: 15px;
+}
+
+/* ════════════════════════════════════════════════════
+   ② BLOG · INTRO PAGE  /blog/intro
+   ════════════════════════════════════════════════════ */
+
+/* Blog post title — large serif */
+.blog-post-title,
+h1.blog-post-title {
+  font-family: var(--serif) !important;
+  font-size: clamp(42px, 5vw, 72px) !important;
+  font-weight: 500 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.03em !important;
+  color: var(--ink) !important;
+}
+
+/* Drop cap on first paragraph of blog posts */
+.blog-post-content > .markdown > p:first-of-type::first-letter {
+  font-family: var(--serif);
+  font-size: 78px;
+  font-weight: 500;
+  line-height: 0.85;
+  float: left;
+  margin-right: 10px;
+  margin-top: 8px;
+  color: var(--accent-ink);
+}
+
+/* Blog post body */
+.blog-post-content .markdown p {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+
+/* Pull quote / blockquote */
+.blog-post-content .markdown blockquote,
+.markdown blockquote {
+  margin: 28px 0;
+  padding: 24px 28px;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-soft);
+  border-radius: 0 8px 8px 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.markdown blockquote p {
+  margin: 0;
+  font-size: 19px;
+  color: var(--ink-2);
+}
+
+/* Blog post header meta */
+.blog-post-page .blog-post-date,
+.blog-post-metadata {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* Tags inside blog post header */
+.blog-post-tags .tag {
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--tag-bg);
+  color: var(--tag-ink);
+  border-radius: 999px;
+  text-decoration: none;
+  border: none;
+}
+
+.blog-post-tags .tag:hover {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+/* ── Blog sidebar (global Docusaurus classes) ── */
+.blog-sidebar {
+  background: var(--bg-soft);
+  border-right: 1px solid var(--rule);
+}
+
+/* ════════════════════════════════════════════════════
+   ③ BLOG TAGS PAGE  /blog/tags
+   ════════════════════════════════════════════════════ */
+
+/* Default Docusaurus tags list — fallback if not swizzled */
+.tags-list-by-letter__group-heading {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--accent-ink);
+  letter-spacing: -0.02em;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 20px;
+}
+
+/* Tag items on tags list page */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--tag-bg);
+  color: var(--tag-ink);
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tag:hover {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.tag_count {
+  font-size: 11px;
+  opacity: 0.65;
+  font-weight: 400;
+}
+
+/* ════════════════════════════════════════════════════
+   DARK MODE ADJUSTMENTS
+   ════════════════════════════════════════════════════ */
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background-color: var(--bg-soft) !important;
+  border-right-color: var(--rule) !important;
+}
+
+[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
+  background-color: rgba(204, 120, 92, 0.15) !important;
+}
+
+[data-theme='dark'] .breadcrumbs__item--active .breadcrumbs__link,
+[data-theme='dark'] .breadcrumbs__item--active span {
+  background-color: rgba(204, 120, 92, 0.18) !important;
+}
+
+[data-theme='dark'] .markdown blockquote {
+  background: var(--bg-soft);
+  border-left-color: var(--accent);
+}
+
+[data-theme='dark'] .tag {
+  background: var(--tag-bg);
+  color: var(--tag-ink);
+}
+
+[data-theme='dark'] .tag:hover {
+  background: rgba(204, 120, 92, 0.18);
+  color: var(--ifm-color-primary-light);
+}
+
+[data-theme='dark'] .alert--info,
+[data-theme='dark'] .alert--note {
+  background-color: rgba(204, 120, 92, 0.12) !important;
+  border-color: rgba(204, 120, 92, 0.3) !important;
+}
+
+/* ════════════════════════════════════════════════════
+   CODE BLOCK — remove per-token pill backgrounds
+   ════════════════════════════════════════════════════ */
+
+/* Each Prism token span must not carry its own background or padding */
+.prism-code .token {
+  background: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* Also covers any stray code-block usage */
+pre[class*='language-'] .token,
+code[class*='language-'] .token {
+  background: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}

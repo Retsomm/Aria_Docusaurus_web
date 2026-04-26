@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import styles from './projects.module.css';
 
+import DDH from '../../static/img/project/project15.png';
 import TIT from '../../static/img/project/project13.png';
 import ET from '../../static/img/project/project14.png';
 import OHT from '../../static/img/project/project12.png';
@@ -32,6 +33,13 @@ type Project = {
 };
 
 const PROJECTS: Project[] = [
+    {
+    id: 'DDH', title: 'DODOHabit', sub: '每日能量覆盤工具', year: 2026,
+    img: DDH, featured: true,
+    tags: ['Vite', 'React', 'Firebase', 'Zustand', 'TypeScript', 'Tailwind'],
+    desc: '基於 Human Design 投射者框架的每日能量覆盤工具',
+    github: 'https://github.com/Retsomm/DODOHabit', live: 'https://dodohabit-955ad.web.app',
+  },
   {
     id: 'TIT', title: 'Travel In Time', sub: '沉靜式電子書閱讀器', year: 2026,
     img: TIT, featured: true,
@@ -82,39 +90,22 @@ const PROJECTS: Project[] = [
     github: 'https://github.com/Retsomm/ARIA', live: 'https://the-aria-company.vercel.app/',
   },
   {
-    id: 'BHeart', title: 'Big Heart Noodles', sub: '大心菜單', year: 2024,
-    img: BHeart, tags: ['Vue'],
-    desc: '這是一個大心菜單，有著美味的泰式料理。',
-    github: 'https://github.com/Retsomm/bheartnoodles-menu', live: 'https://retsomm.github.io/bheartnoodles-menu/',
-  },
-  {
     id: 'PP', title: 'Pied Piper', sub: '部落格介面致敬', year: 2024,
     img: pied_piper, tags: ['React', 'MaterialUI'],
     desc: '致敬影集 Silicon Valley 的部落格介面 demo。',
     github: 'https://github.com/Retsomm/pied_piper', live: 'https://retsomm.github.io/pied_piper/',
   },
   {
-    id: 'BYD', title: 'Buy You Desire', sub: '購物網站', year: 2024,
-    img: BYD, tags: ['HTML', 'CSS', 'React', 'Redux', 'TypeScript'],
-    desc: '一個買的到商店，全端購物介面練習。',
-    github: 'https://github.com/Retsomm/Buy_You_Desire', live: 'https://retsomm.github.io/Buy_You_Desire',
-  },
-  {
-    id: 'ibest', title: 'ibest', sub: '切版面試作品', year: 2024,
-    img: ibest, tags: ['HTML', 'CSS', 'RWD'],
-    desc: '一個切版面試作品，展示 RWD 響應式設計技巧。',
-    github: 'https://github.com/Retsomm/ibest-test-web', live: 'https://retsomm.github.io/ibest-test-web/',
-  },
-  {
     id: 'grogu', title: 'Grogu', sub: '純 CSS 插畫', year: 2024,
     img: grogu, tags: ['HTML', 'CSS'],
     desc: '一隻用純 CSS 畫出來的可愛 Grogu。',
-    github: 'https://github.com/Retsomm/grogu', live: 'https://retsomm.github.io/grogu/',
+    github: 'https://github.com/Retsomm/grogu', live: 'https://meetthefuture.vercel.app',
   },
-  {
-    id: 'MTF', title: 'MTF', sub: '其他專案', year: 2024,
-    img: MTF, tags: ['React'],
-    desc: '其他前端練習專案。',
+ {
+    id: 'MTF', title: 'MTF', sub: '個人成長目標管理系統', year: 2024,
+    img: MTF, tags: ['Next.js', 'Tailwind','Recharts','React Hook Form','Headless UI','React Icons',''],
+    desc: '一個專為追蹤個人成長和量化目標進度而設計的內容管理系統。',
+    github: 'https://github.com/Retsomm/Meet_The_Futute', live: 'https://retsomm.github.io/grogu/',
   },
 ];
 
@@ -140,7 +131,6 @@ function ProjectCard({ project }: { project: Project }) {
     <article className={styles.card}>
       <div className={styles.cardThumb}>
         <img src={project.img} alt={project.title} className={styles.cardImg} />
-        <div className={styles.cardThumbId}>{project.id}</div>
         <div className={styles.cardThumbYear}>{project.year}</div>
       </div>
       <div className={styles.cardBody}>
