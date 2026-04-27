@@ -1256,7 +1256,7 @@ function TimelineSection() {
         }
         if (tlRocketRef.current) {
           gsap.to(tlRocketRef.current, {
-            y: 800,
+            y: 460,
             scrollTrigger: { trigger: '[data-tl="list"]', start: 'top 70%', end: 'bottom 60%', scrub: 1 },
           });
         }
