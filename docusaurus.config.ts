@@ -78,6 +78,21 @@ const config: Config = {
   ],
 
   plugins: [
+    // Webpack alias: @ → src/
+    function webpackAliasPlugin() {
+      return {
+        name: 'webpack-alias',
+        configureWebpack() {
+          return {
+            resolve: {
+              alias: {
+                '@': path.resolve(__dirname, 'src'),
+              },
+            },
+          };
+        },
+      };
+    },
     // Local plugin: expose 5 most recent blog posts via usePluginData('recent-posts')
     function recentPostsPlugin() {
       return {

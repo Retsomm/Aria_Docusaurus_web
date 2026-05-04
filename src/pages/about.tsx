@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import styles from './about.module.css';
-import { SpaceBackground, ElonMusk, Mars, Starship, TeslaModelS, Optimus, RobotPin, CursorGlow, ElonCanvas, MandalorianCanvas, ELON_HIDDEN, TeslaStreak } from '../components/about-components';
+import { SpaceBackground, ElonMusk, Mars, Starship, TeslaModelS, Optimus, RobotPin, CursorGlow, ElonCanvas, MandalorianCanvas, ELON_HIDDEN, TeslaStreak } from '@/components/about-components';
 
 // Deterministic pseudo-random for SSR hydration safety
 function sr(n: number): number {

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../css/projectCarousel.module.css';
+import styles from '@/css/projectCarousel.module.css';
 
 type LinkItem = { label: string; url: string };
 

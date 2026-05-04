@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import Layout from '@theme/Layout';
-import styles from '../reading.module.css';
+import styles from '@/pages/reading.module.css';
 
 type NotionBook = {
   id: string;

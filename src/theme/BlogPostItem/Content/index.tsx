@@ -5,8 +5,8 @@ import type {WrapperProps} from '@docusaurus/types';
 import {useBlogPost} from '@docusaurus/plugin-content-blog/client';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Head from '@docusaurus/Head';
-import ShareButtons from '../../../components/ShareButtons';
-import GiscusComment from '../../../components/GiscusComment';
+import ShareButtons from '@/components/ShareButtons';
+import GiscusComment from '@/components/GiscusComment';
 
 type Props = WrapperProps<typeof BlogPostItemContentType>;
 

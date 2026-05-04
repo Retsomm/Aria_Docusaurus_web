@@ -3,15 +3,15 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from '@docusaurus/Link';
-import styles from '../css/projectCarousel.module.css';
+import styles from '@/css/projectCarousel.module.css';
 
 // 引入專案圖片
-import grogu from '../../static/img/project/project1.png';
-import adoption from '../../static/img/project/project2.png';
-import pied_piper from '../../static/img/project/project3.png';
-import ARIA from '../../static/img/project/project4.png';
-import BHeart from '../../static/img/project/project5.png';
-import ibest from '../../static/img/project/project6.png';
+import grogu from '@site/static/img/project/project1.png';
+import adoption from '@site/static/img/project/project2.png';
+import pied_piper from '@site/static/img/project/project3.png';
+import ARIA from '@site/static/img/project/project4.png';
+import BHeart from '@site/static/img/project/project5.png';
+import ibest from '@site/static/img/project/project6.png';
 
 type LinkItem = { label: string; url: string };
 type Project = {
