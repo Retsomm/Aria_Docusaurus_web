@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import styles from './about.module.css';
+import styles from '../pages/about.module.css';
 
 // ── Canvas: Space Background (xAI-style starfield + shooting stars) ────────
 
