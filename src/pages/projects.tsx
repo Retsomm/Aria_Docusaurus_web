@@ -3,22 +3,18 @@ import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import styles from './projects.module.css';
 
-import DDH from '@site/static/img/project/project15.png';
-import TIT from '@site/static/img/project/project13.png';
-import ET from '@site/static/img/project/project14.png';
-import OHT from '@site/static/img/project/project12.png';
-import AA from '@site/static/img/project/project11.png';
-import EMW from '@site/static/img/project/project9.png';
-import adoption from '@site/static/img/project/project2.png';
-import grogu from '@site/static/img/project/project1.png';
-import pied_piper from '@site/static/img/project/project3.png';
-import ARIA from '@site/static/img/project/project4.png';
-import BHeart from '@site/static/img/project/project5.png';
-import ibest from '@site/static/img/project/project6.png';
-import BYD from '@site/static/img/project/project7.png';
-import movie from '@site/static/img/project/project8.png';
-import MTF from '@site/static/img/project/project10.png';
-
+import DDH from '@site/static/img/project/project15.webp';
+import TIT from '@site/static/img/project/project13.webp';
+import ET from '@site/static/img/project/project14.webp';
+import OHT from '@site/static/img/project/project12.webp';
+import AA from '@site/static/img/project/project11.webp';
+import EMW from '@site/static/img/project/project9.webp';
+import adoption from '@site/static/img/project/project2.webp';
+import grogu from '@site/static/img/project/project1.webp';
+import pied_piper from '@site/static/img/project/project3.webp';
+import ARIA from '@site/static/img/project/project4.webp';
+import movie from '@site/static/img/project/project8.webp';
+import MTF from '@site/static/img/project/project10.webp';
 type Project = {
   id: string;
   title: string;

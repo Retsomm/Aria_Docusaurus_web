@@ -6,12 +6,12 @@ import Link from '@docusaurus/Link';
 import styles from '@/css/projectCarousel.module.css';
 
 // 引入專案圖片
-import grogu from '@site/static/img/project/project1.png';
-import adoption from '@site/static/img/project/project2.png';
-import pied_piper from '@site/static/img/project/project3.png';
-import ARIA from '@site/static/img/project/project4.png';
-import BHeart from '@site/static/img/project/project5.png';
-import ibest from '@site/static/img/project/project6.png';
+import grogu from '@site/static/img/project/project1.webp';
+import adoption from '@site/static/img/project/project2.webp';
+import pied_piper from '@site/static/img/project/project3.webp';
+import ARIA from '@site/static/img/project/project4.webp';
+import BHeart from '@site/static/img/project/project5.webp';
+import ibest from '@site/static/img/project/project6.webp';
 
 type LinkItem = { label: string; url: string };
 type Project = {

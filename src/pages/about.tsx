@@ -252,6 +252,7 @@ function BioSection() {
             scrollTrigger: { trigger: rootRef.current!, start: 'top bottom', end: 'bottom top', scrub: 1 },
           });
         }
+        gsap.set('[data-bio="cta"]', { opacity: 0, scale: 0.85 });
         gsap.to('[data-bio="cta"]', {
           scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.5)',
           scrollTrigger: { trigger: '[data-bio="cta"]', start: 'top 85%' },
@@ -294,7 +295,6 @@ function BioSection() {
             to="/projects"
             className={styles.btnPrimary}
             data-bio="cta"
-            style={{ opacity: 0, transform: 'scale(0.85)' }}
           >
             看我的作品 →
           </Link>
@@ -302,7 +302,6 @@ function BioSection() {
             to="/reading"
             className={styles.btnGhost}
             data-bio="cta"
-            style={{ opacity: 0, transform: 'scale(0.85)' }}
           >
             我的書單
           </Link>
@@ -570,7 +569,7 @@ function ManualSection() {
         <div className={styles.mEyebrow}>
           <span className={styles.mEyebrowLine} />
           <span>MANUAL · 個人使用說明書</span>
-          <span style={{ opacity: 0.5 }}>/ 互動式說明書</span>
+          <span style={{ opacity: 0.5 }} aria-hidden="true">/ 互動式說明書</span>
         </div>
         <h2 className={styles.mTitleBig} data-man="title">
           與我協作的<em style={{ fontStyle: 'italic', color: 'var(--accent-ink)', borderBottom: '2px solid var(--accent)', paddingBottom: '2px' }}>使用手冊</em>
@@ -641,9 +640,9 @@ function QuoteSection() {
           scale: 0, rotation: -30, duration: 1, ease: 'back.out(1.5)',
           scrollTrigger: { trigger: rootRef.current!, start: 'top 75%' },
         });
-        gsap.from('[data-q="char"]', {
-          opacity: 0.15, duration: 0.6, stagger: 0.03,
-          scrollTrigger: { trigger: rootRef.current!, start: 'top 70%', end: 'center 50%', scrub: 1 },
+        gsap.from('[data-q="phrase"]', {
+          opacity: 0.15, duration: 0.5, stagger: 0.08,
+          scrollTrigger: { trigger: rootRef.current!, start: 'top 85%', end: 'center 50%', scrub: true },
         });
         gsap.from('[data-q="source"]', {
           y: 20, opacity: 0, duration: 0.8,
@@ -659,8 +658,8 @@ function QuoteSection() {
     <section ref={rootRef} className={styles.quoteSection}>
       <div ref={markRef} className={styles.quoteMark}>"</div>
       <blockquote className={styles.quoteText}>
-        {text.split('').map((ch, i) => (
-          <span key={i} data-q="char" style={{ display: 'inline' }}>{ch}</span>
+        {(text.match(/[^，。]+[，。]/g) || [text]).map((phrase, i) => (
+          <span key={i} data-q="phrase" style={{ display: 'inline' }}>{phrase}</span>
         ))}
       </blockquote>
       <div className={styles.quoteSource} data-q="source">
@@ -743,7 +742,7 @@ export default function About(): React.ReactElement {
   const LayoutAny = Layout as any;
   return (
     <LayoutAny title="About · 關於我" description="Aria 是一位前端工程師，喜歡讀書、寫作與做有意義的 side projects。">
-      <div style={{ overflowX: 'hidden' }}>
+      <main style={{ overflowX: 'hidden' }}>
         <CursorGlow />
         <HeroSection />
         <BioSection />
@@ -751,7 +750,7 @@ export default function About(): React.ReactElement {
         <ManualSection />
         <QuoteSection />
         <ContactSection />
-      </div>
+      </main>
     </LayoutAny>
   );
 }

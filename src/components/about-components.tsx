@@ -53,7 +53,7 @@ function SpaceBackground() {
     const shots: Shot[] = [];
     let nextShot = performance.now() + 2500 + Math.random() * 4000;
 
-    let rafId: number;
+    let rafId = 0;
     let prev = 0;
 
     function frame(t: number) {
@@ -132,10 +132,15 @@ function SpaceBackground() {
       }
     }
 
-    rafId = requestAnimationFrame(frame);
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !rafId) { prev = 0; rafId = requestAnimationFrame(frame); }
+      else if (!e.isIntersecting && rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+    });
+    io.observe(canvas);
     return () => {
       cancelAnimationFrame(rafId);
       ro?.disconnect();
+      io.disconnect();
     };
   }, []);
 
@@ -280,7 +285,8 @@ function Mars({ style }: { style?: React.CSSProperties }) {
     if (!mount) return;
 
     let renderer: import('three').WebGLRenderer;
-    let rafId: number;
+    let rafId = 0;
+    let marsIo: IntersectionObserver | null = null;
 
     // Hover speed control
     const targetSpeed = { value: 0 };
@@ -349,7 +355,7 @@ function Mars({ style }: { style?: React.CSSProperties }) {
       }
 
       // Mars sphere
-      const marsGeo = new THREE.SphereGeometry(2, 256, 256);
+      const marsGeo = new THREE.SphereGeometry(2, 64, 64);
       const marsMat = new THREE.MeshPhongMaterial({
         map: createMarsTexture(),
         shininess: 5,
@@ -384,11 +390,17 @@ function Mars({ style }: { style?: React.CSSProperties }) {
         marsMesh.rotation.y += currentSpeed.value;
         renderer.render(scene, camera);
       }
-      animate();
+
+      marsIo = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting && !rafId) rafId = requestAnimationFrame(animate);
+        else if (!e.isIntersecting && rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+      });
+      if (mountRef.current) marsIo.observe(mountRef.current);
     });
 
     return () => {
       cancelAnimationFrame(rafId);
+      marsIo?.disconnect();
       clearCountdown();
       mount.removeEventListener('mouseenter', onEnter);
       mount.removeEventListener('mouseleave', onLeave);
@@ -422,7 +434,7 @@ function Starship({ style, small }: { style?: React.CSSProperties; small?: boole
     ctx.scale(DPR, DPR);
 
     let tick = 0;
-    let rafId: number;
+    let rafId = 0;
 
     function steelH() {
       const g = ctx.createLinearGradient(22, 88, 88, 88);
@@ -543,9 +555,14 @@ function Starship({ style, small }: { style?: React.CSSProperties; small?: boole
     canvas.addEventListener('mouseleave', onLeave);
     canvas.style.cursor = 'pointer';
 
-    rafId = requestAnimationFrame(frame);
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !rafId) rafId = requestAnimationFrame(frame);
+      else if (!e.isIntersecting && rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+    });
+    io.observe(canvas);
     return () => {
       cancelAnimationFrame(rafId);
+      io.disconnect();
       canvas.removeEventListener('mouseenter', onEnter);
       canvas.removeEventListener('mouseleave', onLeave);
     };
@@ -844,7 +861,7 @@ function Optimus({ style }: { style?: React.CSSProperties }) {
     ctx.translate(80, 0);
 
     let tick = 0;
-    let rafId: number;
+    let rafId = 0;
 
     const panel = (x0: number, y0: number, x1: number, y1: number) => {
       const g = ctx.createLinearGradient(x0, y0, x1, y1);
@@ -974,9 +991,14 @@ function Optimus({ style }: { style?: React.CSSProperties }) {
     canvas.addEventListener('mouseleave', onLeave);
     canvas.style.cursor = 'pointer';
 
-    rafId = requestAnimationFrame(frame);
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !rafId) rafId = requestAnimationFrame(frame);
+      else if (!e.isIntersecting && rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+    });
+    io.observe(canvas);
     return () => {
       cancelAnimationFrame(rafId);
+      io.disconnect();
       canvas.removeEventListener('mouseenter', onEnter);
       canvas.removeEventListener('mouseleave', onLeave);
     };
@@ -1003,19 +1025,26 @@ function CursorGlow() {
     let y = window.innerHeight / 2;
     let tx = x;
     let ty = y;
-    let rafId: number;
-
-    const onMove = (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; };
-    window.addEventListener('mousemove', onMove);
+    let rafId = 0;
 
     function tick() {
       x += (tx - x) * 0.12;
       y += (ty - y) * 0.12;
       glow!.style.left = x + 'px';
       glow!.style.top = y + 'px';
-      rafId = requestAnimationFrame(tick);
+      if (Math.abs(tx - x) > 0.3 || Math.abs(ty - y) > 0.3) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = 0;
+      }
     }
-    tick();
+
+    const onMove = (e: MouseEvent) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    };
+    window.addEventListener('mousemove', onMove);
 
     return () => {
       window.removeEventListener('mousemove', onMove);
@@ -1118,7 +1147,7 @@ function ElonCanvas({ style }: { style?: React.CSSProperties }) {
     ctx.scale(DPR, DPR);
 
     let processed: HTMLCanvasElement | null = null;
-    let floatY = 0, tick = 0, rafId: number;
+    let floatY = 0, tick = 0, rafId = 0;
 
     const img = new Image();
     img.src = '/img/elon-pin.png';
@@ -1184,8 +1213,12 @@ function ElonCanvas({ style }: { style?: React.CSSProperties }) {
       ctx.restore();
     }
 
-    rafId = requestAnimationFrame(frame);
-    return () => cancelAnimationFrame(rafId);
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !rafId) rafId = requestAnimationFrame(frame);
+      else if (!e.isIntersecting && rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+    });
+    io.observe(canvas);
+    return () => { cancelAnimationFrame(rafId); io.disconnect(); };
   }, []);
 
   return (
@@ -1241,7 +1274,7 @@ function TeslaStreak() {
     // 車子顯示尺寸：維持圖片 2.47:1 比例
     const CAR_W = 370, CAR_H = 150;
 
-    let rafId: number;
+    let rafId = 0;
     let lastX = posRef.current.x;
     let processed: HTMLCanvasElement | null = null;
 
@@ -1363,8 +1396,12 @@ function TeslaStreak() {
       if (cx > -CAR_W && cx < W + CAR_W) drawCar(cx, dX);
     }
 
-    rafId = requestAnimationFrame(frame);
-    return () => cancelAnimationFrame(rafId);
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !rafId) rafId = requestAnimationFrame(frame);
+      else if (!e.isIntersecting && rafId) { cancelAnimationFrame(rafId); rafId = 0; }
+    });
+    io.observe(canvas);
+    return () => { cancelAnimationFrame(rafId); io.disconnect(); };
   }, []);
 
   return (

@@ -12,6 +12,7 @@ const FEATURES = [
     desc: 'React、TypeScript、CSS、瀏覽器原理、面試題庫——每一個踩過的坑都寫成可以重讀的長記憶。',
     count: '120+ 篇筆記',
     accent: '#CC785C',
+    textAccent: '#8B4A2F',
   },
   {
     kind: 'Blog',
@@ -20,6 +21,7 @@ const FEATURES = [
     desc: '一週寫一到兩篇——讀書心得、工作雜想、感情、關於成為自己的種種猶豫。',
     count: '110+ 篇文章',
     accent: '#7A8C5C',
+    textAccent: '#4A5C2A',
   },
   {
     kind: 'Projects',
@@ -28,6 +30,7 @@ const FEATURES = [
     desc: '習慣追蹤、無障礙地圖、電子書閱讀器、番茄鐘⋯⋯一些用來練習與解決自己問題的小作品。',
     count: '14 個作品',
     accent: '#5C7A8C',
+    textAccent: '#2A4A5C',
   },
   {
     kind: 'Reading',
@@ -36,6 +39,7 @@ const FEATURES = [
     desc: '讀完的書、正在讀的書、想讀的書——每一本都附上心得與重點摘錄，慢慢累積的閱讀軌跡。',
     count: '書單持續更新中',
     accent: '#8C5C7A',
+    textAccent: '#5C2A4A',
   },
 ];
 
@@ -49,7 +53,7 @@ type RecentPost = { title: string; date: string; slug: string; permalink: string
 function formatPostDate(dateStr: string): string {
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return '';
-  return `${String(d.getMonth() + 1).padStart(2, '0')} · ${String(d.getDate()).padStart(2, '0')}`;
+  return `${String(d.getUTCMonth() + 1).padStart(2, '0')} · ${String(d.getUTCDate()).padStart(2, '0')}`;
 }
 
 export default function Home(): React.ReactElement {
@@ -57,6 +61,7 @@ export default function Home(): React.ReactElement {
   const recentPosts = usePluginData('recent-posts') as RecentPost[];
   return (
     <LayoutAny description="Aria 的前端學習筆記與生活記錄。這裡有 React、JavaScript、CSS、TypeScript 等技術文章，也有讀書心得與生活感悟。">
+      <main>
 
       {/* ── Hero ── */}
       <section className={styles.heroSection}>
@@ -90,6 +95,8 @@ export default function Home(): React.ReactElement {
               alt="太空人插畫"
               className={styles.heroAstronaut}
               fetchPriority="high"
+              width="480"
+              height="480"
             />
           </div>
         </div>
@@ -106,7 +113,7 @@ export default function Home(): React.ReactElement {
             <Link key={f.kind} to={f.href} className={styles.featureCard}>
               <div className={styles.featureAccentBar} style={{ background: f.accent }} />
               <div className={styles.featureCardTop}>
-                <span className={styles.featureKind} style={{ color: f.accent }}>0{i + 1} · {f.kind}</span>
+                <span className={styles.featureKind} style={{ color: f.textAccent }}>0{i + 1} · {f.kind}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-3)" strokeWidth="2">
                   <path d="M7 17 17 7M9 7h8v8" />
                 </svg>
@@ -162,6 +169,7 @@ export default function Home(): React.ReactElement {
         </div>
       </section>
 
+      </main>
     </LayoutAny>
   );
 }

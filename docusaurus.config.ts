@@ -155,8 +155,17 @@ const config: Config = {
     ],
   ],
 
+  stylesheets: [
+    {
+      href: 'https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter+Tight:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap',
+      type: 'text/css',
+    },
+  ],
+
   headTags: [
     {tagName: 'link', attributes: {rel: 'preload', href: '/img/astronaut-animate.svg', as: 'image'}},
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'}},
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'}},
     {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://KOYF7XQ73V-dsn.algolia.net', crossorigin: 'anonymous'}},
   ],
 
