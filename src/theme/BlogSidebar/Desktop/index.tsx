@@ -12,7 +12,7 @@ import styles from './styles.module.css';
 
 // Use a merged list of preferred Chinese tags (editor defaults) and common tags.
 const TAG_LABELS = [
-  '生活', '教學', '筆記', '開發', '前端', '後端', '寫作練習', '情緒抒發', '推薦',
+  '生活', '筆記', '開發', '前端', '後端', '寫作練習', '情緒抒發',
    '心得', '面試', 'Heptabase', '超級個體','動畫','電影',
     '影集','閱讀', '學習', '理財',
 ];
