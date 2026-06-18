@@ -76,7 +76,8 @@
     "gray-matter/js-yaml": "3.14.1",
     "picomatch": "^4.0.2",
     "micromatch": "^4.0.8",
-    "braces": "^3.0.3"
+    "braces": "^3.0.3",
+    "shell-quote": ">=1.8.4"
   },
   "engines": {
     "node": ">=20.0"
