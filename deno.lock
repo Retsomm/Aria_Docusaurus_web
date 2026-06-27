@@ -25,10 +25,12 @@
         "npm:@types/node@^25.2.3",
         "npm:@types/react-dom@^19.2.3",
         "npm:@types/react@^19.2.14",
+        "npm:@types/three@0.184",
         "npm:clsx@2",
         "npm:concurrently@^9.2.1",
         "npm:cross-env@10",
         "npm:esbuild-loader@^4.3.0",
+        "npm:gsap@^3.15.0",
         "npm:husky@9",
         "npm:lint-staged@15",
         "npm:netlify-cli@^24.2.0",
@@ -37,6 +39,7 @@
         "npm:react-slick@~0.30.3",
         "npm:react@19",
         "npm:slick-carousel@^1.8.1",
+        "npm:three@0.184",
         "npm:typescript@^5.9.3"
       ]
     }

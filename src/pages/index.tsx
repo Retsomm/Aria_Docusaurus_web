@@ -7,7 +7,7 @@ import styles from './index.module.css';
 const FEATURES = [
   {
     kind: 'Note',
-    href: '/docs/intro',
+    href: '/docs',
     title: '把學程式的筆記整理在這',
     desc: 'React、TypeScript、CSS、瀏覽器原理、面試題庫——每一個踩過的坑都寫成可以重讀的長記憶。',
     count: '120+ 篇筆記',
