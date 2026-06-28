@@ -19,4 +19,12 @@ keywords:
 
 這邊記錄我學習程式的東西，有些東西真的常常需要使用，但是金魚腦的我真的想不起來，所以就直接放在自己的網站上看，希望能累積越來越多筆記，直到能產出很多「原創」的文章!
 
-![img alt](/img/Learning-amico.png)
+import LatestContentLanding from '@site/src/components/LatestContentLanding';
+
+<LatestContentLanding
+  pluginName="recent-posts"
+  itemsKey="docs"
+  title="最新筆記"
+  description="這裡整理了我最近更新過的技術筆記，包含 React、TypeScript、CSS、Next.js 等內容。"
+  emptyMessage="目前還沒有可顯示的筆記。"
+/>

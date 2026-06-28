@@ -21,11 +21,6 @@
   startTimeout = 180
 
 [[headers]]
-  for = "/private-blog/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
-[[headers]]
   for = "/admin/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"

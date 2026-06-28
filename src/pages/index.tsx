@@ -58,7 +58,8 @@ function formatPostDate(dateStr: string): string {
 
 export default function Home(): React.ReactElement {
   const LayoutAny = Layout as any;
-  const recentPosts = usePluginData('recent-posts') as RecentPost[];
+  const recentPostsData = usePluginData('recent-posts') as { blog?: RecentPost[] } | undefined;
+  const recentPosts = recentPostsData?.blog || [];
   return (
     <LayoutAny description="Aria 的前端學習筆記與生活記錄。這裡有 React、JavaScript、CSS、TypeScript 等技術文章，也有讀書心得與生活感悟。">
       <main>

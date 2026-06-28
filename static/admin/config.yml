@@ -59,32 +59,6 @@ collections:
         sanitize_preview: true
         default: "<!-- truncate -->\n\n"
 
-  - name: "blog-private"
-    label: "私密 Blog 文章"
-    folder: "blog-private"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "標題", name: "title", widget: "string" }
-      - { label: "日期", name: "date", widget: "datetime" }
-      - { label: "摘要", name: "description", widget: "string", required: false }
-      - label: "標籤"
-        name: "tags"
-        widget: "list"
-        required: false
-        default: []
-        field:
-          label: "標籤"
-          name: "tag"
-          widget: "select"
-          options: ["生活", "教學", "筆記", "開發", "前端", "後端", "寫作練習",  "情緒抒發", "心得", "面試", "Heptabase", "超級個體","推薦",]
-      - label: "內文"
-        name: "body"
-        widget: "markdown"
-        modes: ["rich_text"]
-        editor_components: ["image", "code-block"]
-        sanitize_preview: true
-
   - name: "docs"
     label: "Docs 文件"
     folder: "docs"

@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const root: string = process.cwd();
-const searchDirs: string[] = ['blog', 'blog-private', 'docs'];
+const searchDirs: string[] = ['blog', 'docs'];
 const exts: string[] = ['.md', '.mdx', '.markdown'];
 
 const readFilesRecursive = (dir: string): string[] => {

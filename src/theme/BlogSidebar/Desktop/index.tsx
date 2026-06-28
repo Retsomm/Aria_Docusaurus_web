@@ -1,7 +1,6 @@
 import React, {memo} from 'react';
 import clsx from 'clsx';
 import {translate} from '@docusaurus/Translate';
-import {useLocation} from '@docusaurus/router';
 import Link from '@docusaurus/Link';
 import {
   useVisibleBlogSidebarItems,
@@ -33,8 +32,6 @@ const ListComponent = ({items}: {items: any[]}) => {
 
 function BlogSidebarDesktop({sidebar}: {sidebar: any}) {
   const items = useVisibleBlogSidebarItems(sidebar.items);
-  const location = useLocation();
-  const isPrivateBlog = location.pathname.startsWith('/private-blog');
 
   return (
     <aside className="col col--3">
@@ -53,18 +50,16 @@ function BlogSidebarDesktop({sidebar}: {sidebar: any}) {
           ListComponent={ListComponent}
           yearGroupHeadingClassName={styles.yearGroupHeading}
         />
-        {!isPrivateBlog && (
-          <div className={styles.tagsSection}>
-            <p className={styles.tagsTitle}>文章標籤</p>
-            <div className={styles.tagsList}>
-              {BLOG_TAGS.map((tag) => (
-                <Link key={tag.label} to={tag.path} className={styles.tagItem}>
-                  {tag.label}
-                </Link>
-              ))}
-            </div>
+        <div className={styles.tagsSection}>
+          <p className={styles.tagsTitle}>文章標籤</p>
+          <div className={styles.tagsList}>
+            {BLOG_TAGS.map((tag) => (
+              <Link key={tag.label} to={tag.path} className={styles.tagItem}>
+                {tag.label}
+              </Link>
+            ))}
           </div>
-        )}
+        </div>
       </nav>
     </aside>
   );

@@ -64,7 +64,6 @@ const config: Config = {
           priority: 0.5,
           ignorePatterns: [
             '/tags/**',
-            '/private-blog/**',
             '/blog/tags/**',
             '/docs/tags/**',
             '/blog/archive',
@@ -93,47 +92,98 @@ const config: Config = {
         },
       };
     },
-    // Local plugin: expose 5 most recent blog posts via usePluginData('recent-posts')
+    // Local plugin: expose latest blog and docs entries via usePluginData('recent-posts')
     function recentPostsPlugin() {
+      const parseDateToTime = (value: string | undefined): number | null => {
+        if (!value) return null;
+        const normalized = String(value).trim();
+        if (!normalized) return null;
+
+        const directDate = new Date(normalized);
+        if (!Number.isNaN(directDate.getTime())) {
+          return directDate.getTime();
+        }
+
+        const compactMatch = normalized.match(/^(\d{4})[-/](\d{1,2})(?:[-/](\d{1,2}))?/);
+        if (compactMatch) {
+          const [, year, month, day] = compactMatch;
+          const fallback = new Date(`${year}-${month.padStart(2, '0')}-${(day || '01').padStart(2, '0')}T00:00:00`);
+          if (!Number.isNaN(fallback.getTime())) {
+            return fallback.getTime();
+          }
+        }
+
+        return null;
+      };
+
+      const readMarkdownItems = (baseDir: string, type: 'blog' | 'docs') => {
+        const collectFiles = (dir: string): string[] => {
+          const entries = fs.readdirSync(dir, {withFileTypes: true});
+          const files: string[] = [];
+          entries.forEach((entry) => {
+            const fullPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+              files.push(...collectFiles(fullPath));
+            } else if (entry.isFile() && /\.mdx?$/.test(entry.name)) {
+              files.push(fullPath);
+            }
+          });
+          return files;
+        };
+
+        return collectFiles(baseDir)
+          .filter((filePath) => {
+            const fileName = path.basename(filePath);
+            return fileName !== 'tags.yml' && fileName !== 'intro.md' && fileName !== 'intro.mdx';
+          })
+          .map((filePath) => {
+            const raw = fs.readFileSync(filePath, 'utf-8');
+            const {data, content} = matter(raw);
+            const relativePath = path.relative(baseDir, filePath).replace(/\\/g, '/');
+            const slugFromPath = relativePath.replace(/\.mdx?$/, '');
+            const slug = String(data.slug || slugFromPath);
+            const tag = Array.isArray(data.tags) ? String(data.tags[0] || '') : '';
+            const stats = fs.statSync(filePath);
+            const dateValue = String(data.date || data.updated || data.modified || '');
+            const sortTime = parseDateToTime(dateValue) ?? stats.mtime.getTime();
+            const headingMatch = content.match(/^#\s+(.+)$/m);
+            const title = String(data.title || headingMatch?.[1] || path.basename(filePath, path.extname(filePath)));
+            const permalink = type === 'blog'
+              ? `/blog/${slug}`
+              : slug.startsWith('/')
+                ? `/docs${slug}`
+                : `/docs/${slug}`;
+
+            return {
+              title,
+              description: String(data.description || ''),
+              date: new Date(sortTime).toISOString(),
+              sortTime,
+              slug,
+              permalink,
+              tag,
+            };
+          })
+          .filter((item) => item.title && Number.isFinite(item.sortTime))
+          .sort((a, b) => b.sortTime - a.sortTime)
+          .slice(0, 5);
+      };
+
       return {
         name: 'recent-posts',
         async loadContent() {
           const blogDir = path.join(__dirname, 'blog');
-          const files = fs.readdirSync(blogDir).filter(f => f.endsWith('.md') && f !== 'tags.yml');
-          const posts = files.map(filename => {
-            const raw = fs.readFileSync(path.join(blogDir, filename), 'utf-8');
-            const { data } = matter(raw);
-            const slug = data.slug || filename.replace(/\.md$/, '');
-            const tags: string[] = Array.isArray(data.tags) ? data.tags : [];
-            return {
-              title: String(data.title || ''),
-              date: String(data.date || ''),
-              slug,
-              permalink: `/blog/${slug}`,
-              tag: tags[0] || '',
-            };
-          }).filter(p => p.title && p.date);
-          posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-          return posts.slice(0, 5);
+          const docsDir = path.join(__dirname, 'docs');
+          return {
+            blog: readMarkdownItems(blogDir, 'blog'),
+            docs: readMarkdownItems(docsDir, 'docs'),
+          };
         },
         async contentLoaded({ content, actions }) {
           actions.setGlobalData(content);
         },
       };
     },
-    [
-      '@docusaurus/plugin-content-blog',
-      {
-        id: 'private-blog',
-        routeBasePath: 'private-blog',
-        path: './blog-private',
-        showReadingTime: false,
-        postsPerPage: 10,
-        blogSidebarCount: 10,
-        blogSidebarTitle: 'Private Blog',
-        feedOptions: {type: []},
-      },
-    ],
     [
       '@docusaurus/plugin-pwa',
       {
@@ -216,7 +266,6 @@ const config: Config = {
             {label: 'Projects', to: '/projects'},
             {label: 'Reading', to: '/reading'},
             {label: 'About', to: '/about'},
-            {label: 'Private Blog', to: '/private-blog', className: 'footer-hidden-link'},
           ],
         },
         {

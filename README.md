@@ -36,7 +36,6 @@ Aria 的個人學習筆記與部落格網站，使用 Docusaurus 建立。記錄
 
 ```
 ├── blog/                        # 部落格文章（公開）
-├── blog-private/                # 私人部落格文章
 ├── docs/                        # 技術文檔與學習筆記
 │   ├── HTML/
 │   ├── css/
@@ -168,7 +167,6 @@ yarn seo:keywords       # 補全缺少 keywords 的 blog 文章
 - **Notion 書單** — 閱讀頁面即時串接 Notion 資料庫
 - **文章留言** — Giscus（GitHub Discussions 驅動）
 - **線上編輯** — 透過 Decap CMS 在網頁上直接發文
-- **Private Blog** — 私人文章路由（`/private-blog`）
 
 ## 聯絡方式
 

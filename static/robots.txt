@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /private-blog/
 Disallow: /admin/
 
 Sitemap: https://ariadocusauruswed.netlify.app/sitemap.xml
