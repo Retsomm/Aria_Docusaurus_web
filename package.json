@@ -77,7 +77,9 @@
     "picomatch": "^4.0.2",
     "micromatch": "^4.0.8",
     "braces": "^3.0.3",
-    "shell-quote": ">=1.8.4"
+    "shell-quote": ">=1.8.4",
+    "websocket-driver": ">=0.7.5",
+    "@xhmikosr/decompress": ">=10.2.1"
   },
   "engines": {
     "node": ">=20.0"
