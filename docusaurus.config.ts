@@ -3,6 +3,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import {execFileSync} from 'child_process';
 
 const config: Config = {
   title: 'Retsnom | 前端學習筆記',
@@ -116,6 +117,27 @@ const config: Config = {
         return null;
       };
 
+      // CI/Netlify does a fresh checkout on every build (often a shallow clone), which
+      // stamps every file with the checkout time and may not have history for files
+      // last touched outside the fetched depth — so neither mtime nor `git log` can be
+      // trusted to always resolve. Try git log; if it can't resolve, treat the item as
+      // undated (sortTime 0) rather than fabricating "now", which would wrongly make
+      // old undated content look freshest right after every build.
+      const getLastCommitTime = (filePath: string): number | null => {
+        try {
+          const output = execFileSync(
+            'git',
+            ['log', '-1', '--format=%cI', '--', filePath],
+            {cwd: __dirname, encoding: 'utf-8'},
+          ).trim();
+          if (!output) return null;
+          const time = new Date(output).getTime();
+          return Number.isNaN(time) ? null : time;
+        } catch {
+          return null;
+        }
+      };
+
       const readMarkdownItems = (baseDir: string, type: 'blog' | 'docs') => {
         const collectFiles = (dir: string): string[] => {
           const entries = fs.readdirSync(dir, {withFileTypes: true});
@@ -143,9 +165,9 @@ const config: Config = {
             const slugFromPath = relativePath.replace(/\.mdx?$/, '');
             const slug = String(data.slug || slugFromPath);
             const tag = Array.isArray(data.tags) ? String(data.tags[0] || '') : '';
-            const stats = fs.statSync(filePath);
             const dateValue = String(data.date || data.updated || data.modified || '');
-            const sortTime = parseDateToTime(dateValue) ?? stats.mtime.getTime();
+            const resolvedTime = parseDateToTime(dateValue) ?? getLastCommitTime(filePath);
+            const sortTime = resolvedTime ?? 0;
             const headingMatch = content.match(/^#\s+(.+)$/m);
             const title = String(data.title || headingMatch?.[1] || path.basename(filePath, path.extname(filePath)));
             const permalink = type === 'blog'
@@ -157,7 +179,7 @@ const config: Config = {
             return {
               title,
               description: String(data.description || ''),
-              date: new Date(sortTime).toISOString(),
+              date: resolvedTime !== null ? new Date(resolvedTime).toISOString() : null,
               sortTime,
               slug,
               permalink,

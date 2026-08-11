@@ -1,3 +1,7 @@
+---
+date: 2026-08-11T14:43:31.000+08:00
+---
+
 # FP 中的反應式架構與洋蔥式架構
 
 > 用最淺白的文字加上 React 範例，帶你認識函數式程式設計（Functional Programming, FP）中兩個重要的架構觀念：**反應式架構（Reactive Architecture）** 與 **洋蔥式架構（Onion Architecture）**。
