@@ -625,6 +625,7 @@ function ManualSection() {
 function QuoteSection() {
   const rootRef = useRef<HTMLElement>(null);
   const markRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLQuoteElement>(null);
 
   const text = '我認為工作上的自由，是每天醒來，所有你夢想達成的事，你的能力都可以支撐你做到，而且每一件事都是你出於自由意志想做的事，並且對你個人有著極其深遠的意義，讓你為此深深著迷。';
 
@@ -633,16 +634,22 @@ function QuoteSection() {
     import('gsap').then(async ({ gsap }) => {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
-      if (!rootRef.current || !markRef.current) return;
+      if (!rootRef.current || !markRef.current || !textRef.current) return;
 
       const ctx = gsap.context(() => {
         gsap.from(markRef.current, {
           scale: 0, rotation: -30, duration: 1, ease: 'back.out(1.5)',
           scrollTrigger: { trigger: rootRef.current!, start: 'top 75%' },
         });
+        // start 綁在 section（較早進場，保留較長捲動距離讓逐字漸亮效果慢慢展開），
+        // end 用 endTrigger 精準綁在文字區塊「置中於畫面」的那一刻，兩者可分開設定
         gsap.from('[data-q="phrase"]', {
           opacity: 0.15, duration: 0.5, stagger: 0.08,
-          scrollTrigger: { trigger: rootRef.current!, start: 'top 85%', end: 'center 50%', scrub: true },
+          scrollTrigger: {
+            trigger: rootRef.current!, start: 'top 85%',
+            endTrigger: textRef.current, end: 'center center',
+            scrub: true,
+          },
         });
         gsap.from('[data-q="source"]', {
           y: 20, opacity: 0, duration: 0.8,
@@ -657,7 +664,7 @@ function QuoteSection() {
   return (
     <section ref={rootRef} className={styles.quoteSection}>
       <div ref={markRef} className={styles.quoteMark}>"</div>
-      <blockquote className={styles.quoteText}>
+      <blockquote ref={textRef} className={styles.quoteText}>
         {(text.match(/[^，。]+[，。]/g) || [text]).map((phrase, i) => (
           <span key={i} data-q="phrase" style={{ display: 'inline' }}>{phrase}</span>
         ))}
