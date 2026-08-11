@@ -48,9 +48,10 @@ function Pill({ children }: { children: React.ReactNode }) {
   return <span className={styles.pill}>{children}</span>;
 }
 
-type RecentPost = { title: string; date: string; slug: string; permalink: string; tag: string };
+type RecentPost = { title: string; date: string | null; slug: string; permalink: string; tag: string };
 
-function formatPostDate(dateStr: string): string {
+function formatPostDate(dateStr?: string | null): string {
+  if (!dateStr) return '';
   const d = new Date(dateStr);
   if (isNaN(d.getTime())) return '';
   return `${String(d.getUTCMonth() + 1).padStart(2, '0')} · ${String(d.getUTCDate()).padStart(2, '0')}`;
@@ -136,7 +137,7 @@ export default function Home(): React.ReactElement {
         <div className={styles.recentList}>
           {(recentPosts || []).map((p) => (
             <Link key={p.slug} to={p.permalink} className={styles.recentItem}>
-              <span className={styles.recentDate}>{formatPostDate(p.date)}</span>
+              {p.date ? <span className={styles.recentDate}>{formatPostDate(p.date)}</span> : null}
               <Pill>{p.tag || '文章'}</Pill>
               <span className={styles.recentItemTitle}>{p.title}</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-4)" strokeWidth="2">

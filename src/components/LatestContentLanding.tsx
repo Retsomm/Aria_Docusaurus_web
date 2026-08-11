@@ -7,7 +7,7 @@ type LatestContentItem = {
   title: string;
   description?: string;
   permalink: string;
-  date?: string;
+  date?: string | null;
   tag?: string;
 };
 

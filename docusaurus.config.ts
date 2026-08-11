@@ -127,7 +127,7 @@ const config: Config = {
         try {
           const output = execFileSync(
             'git',
-            ['log', '-1', '--format=%aI', '--', filePath],
+            ['log', '-1', '--format=%cI', '--', filePath],
             {cwd: __dirname, encoding: 'utf-8'},
           ).trim();
           if (!output) return null;
@@ -166,7 +166,8 @@ const config: Config = {
             const slug = String(data.slug || slugFromPath);
             const tag = Array.isArray(data.tags) ? String(data.tags[0] || '') : '';
             const dateValue = String(data.date || data.updated || data.modified || '');
-            const sortTime = parseDateToTime(dateValue) ?? getLastCommitTime(filePath) ?? 0;
+            const resolvedTime = parseDateToTime(dateValue) ?? getLastCommitTime(filePath);
+            const sortTime = resolvedTime ?? 0;
             const headingMatch = content.match(/^#\s+(.+)$/m);
             const title = String(data.title || headingMatch?.[1] || path.basename(filePath, path.extname(filePath)));
             const permalink = type === 'blog'
@@ -178,7 +179,7 @@ const config: Config = {
             return {
               title,
               description: String(data.description || ''),
-              date: new Date(sortTime).toISOString(),
+              date: resolvedTime !== null ? new Date(resolvedTime).toISOString() : null,
               sortTime,
               slug,
               permalink,
