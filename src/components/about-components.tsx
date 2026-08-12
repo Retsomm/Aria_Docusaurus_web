@@ -780,7 +780,7 @@ function RobotPin({ style }: { style?: React.CSSProperties }) {
     ctx.scale(DPR, DPR);
 
     const img = new Image();
-    img.src = '/img/r2d2-c3po-pin.png';
+    img.src = '/img/r2d2-c3po-pin.webp';
     img.onload = () => {
       // flood fill 去背
       const ofc = document.createElement('canvas');
@@ -1073,7 +1073,7 @@ function MandalorianCanvas({ style }: { style?: React.CSSProperties }) {
     ctx.scale(DPR, DPR);
 
     const img = new Image();
-    img.src = '/img/mandalorian-pin.png';
+    img.src = '/img/mandalorian-pin.webp';
     img.onload = () => {
       const iW = img.naturalWidth, iH = img.naturalHeight;
       const ofc = document.createElement('canvas');
@@ -1150,7 +1150,7 @@ function ElonCanvas({ style }: { style?: React.CSSProperties }) {
     let floatY = 0, tick = 0, rafId = 0;
 
     const img = new Image();
-    img.src = '/img/elon-pin.png';
+    img.src = '/img/elon-pin.webp';
     img.onload = () => {
       const iW = img.naturalWidth, iH = img.naturalHeight;
       const ofc = document.createElement('canvas');
@@ -1279,7 +1279,7 @@ function TeslaStreak() {
     let processed: HTMLCanvasElement | null = null;
 
     const img = new Image();
-    img.src = '/img/tesla-model-s.png';
+    img.src = '/img/tesla-model-s.webp';
     img.onload = () => {
       // ── 去背：flood fill 從邊緣移除淺色背景 ──────────────
       const ofc = document.createElement('canvas');
