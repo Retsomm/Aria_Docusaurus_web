@@ -10,6 +10,22 @@ function sr(n: number): number {
   return x - Math.floor(x);
 }
 
+// 這幾個裝飾用的 canvas（Mars/Elon/RobotPin/Mandalorian/TeslaStreak）在 ≤996px 本來就用
+// CSS display:none 藏起來，但 CSS 隱藏不會阻止 React mount、Three.js 建場景、或圖片背景
+// 去背的逐像素 flood fill 執行——這些都是實測影響效能最大的主執行緒工作。用這個 hook
+// 讓手機視窗直接不 mount 這些元件，而不是 mount 了才用 CSS 藏起來。
+function useIsDesktop(breakpoint = 996): boolean {
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${breakpoint + 1}px)`);
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, [breakpoint]);
+  return isDesktop;
+}
+
 // ── Data ──────────────────────────────────────────────────────────────────
 
 const TIMELINE_DATA = [
@@ -103,6 +119,7 @@ function HeroSection() {
   const elonRef = useRef<HTMLDivElement>(null);
   const elonShownRef = useRef(false);   // 當前是否已展開
   const animatingRef = useRef(false);   // 動畫進行中鎖定
+  const isDesktop = useIsDesktop();     // Mars/Elon 只在桌機（>996px）mount，見 useIsDesktop 說明
 
   function handleMarsClick() {
     if (animatingRef.current || !elonRef.current) return;
@@ -145,12 +162,18 @@ function HeroSection() {
       if (!rootRef.current) return;
 
       const ctx = gsap.context(() => {
+        // eyebrow/word/sub 只用位移動畫、不碰 opacity：這幾個是首屏 LCP 候選文字，
+        // SSR 已經是可視內容，CSS 預設位移（見 about.module.css）已讓初次繪製與這裡的
+        // from 值一致，避免「SSR 顯示→JS 重置成隱藏→再淡入」造成的閃爍與雙重動畫。
+        // 用 fromTo（而非 from）明確給終值：CSS 預設值跟這裡的起始值相同時，
+        // from() 會把「目前算出來的樣式」當成終點去讀，兩者一樣就等於沒有終點，
+        // 動畫會卡在隱藏狀態動不了——fromTo 明確指定終值就不會有這個問題。
         gsap.timeline({ defaults: { ease: 'power3.out' } })
-          .from('[data-hero="eyebrow"]', { y: 18, opacity: 0, duration: 0.8 })
-          .from('[data-hero="word"]', { y: 60, opacity: 0, duration: 0.9, stagger: 0.08 }, '-=0.4')
-          .from('[data-hero="sub"] p', { y: 16, opacity: 0, duration: 0.7, stagger: 0.1 }, '-=0.4')
-          .from('[data-hero="pill"]', { scale: 0, opacity: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(2)' }, '-=0.3')
-          .from('[data-hero="mars"]', { opacity: 0, duration: 1.2 }, '-=1.2');
+          .fromTo('[data-hero="eyebrow"]', { y: 18 }, { y: 0, duration: 0.8 })
+          .fromTo('[data-hero="word"]', { y: 60 }, { y: 0, duration: 0.9, stagger: 0.08 }, '-=0.4')
+          .fromTo('[data-hero="sub"] p', { y: 16 }, { y: 0, duration: 0.7, stagger: 0.1 }, '-=0.4')
+          .fromTo('[data-hero="pill"]', { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(2)' }, '-=0.3')
+          .fromTo('[data-hero="mars"]', { opacity: 0 }, { opacity: 1, duration: 1.2 }, '-=1.2');
 
         const st = { trigger: rootRef.current!, start: 'top top', end: 'bottom top', scrub: 1.5 };
         gsap.to('[data-hero="mars"]', { y: -80, scrollTrigger: st });
@@ -196,21 +219,23 @@ function HeroSection() {
         </div>
       </div>
 
-      <div
-        className={styles.heroMars}
-        data-hero="mars"
-        onClick={handleMarsClick}
-        style={{ cursor: 'pointer' }}
-      >
-        {/* heroElon 初始在 Mars 後方，z-index:0 確保在 Mars 球體之下 */}
-        <div ref={elonRef} className={styles.heroElon}>
-          <ElonCanvas style={{ width: '100%', height: '100%' }} />
+      {isDesktop && (
+        <div
+          className={styles.heroMars}
+          data-hero="mars"
+          onClick={handleMarsClick}
+          style={{ cursor: 'pointer' }}
+        >
+          {/* heroElon 初始在 Mars 後方，z-index:0 確保在 Mars 球體之下 */}
+          <div ref={elonRef} className={styles.heroElon}>
+            <ElonCanvas style={{ width: '100%', height: '100%' }} />
+          </div>
+          {/* Mars 包一層 positioned div，z-index:1 讓球體遮住 heroElon */}
+          <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+            <Mars style={{ width: '100%', height: '100%' }} />
+          </div>
         </div>
-        {/* Mars 包一層 positioned div，z-index:1 讓球體遮住 heroElon */}
-        <div style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
-          <Mars style={{ width: '100%', height: '100%' }} />
-        </div>
-      </div>
+      )}
 
       <div className={styles.scrollIndicator}>
         <span>向下捲動</span>
@@ -225,6 +250,7 @@ function HeroSection() {
 function BioSection() {
   const rootRef = useRef<HTMLElement>(null);
   const robotRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -265,12 +291,16 @@ function BioSection() {
 
   return (
     <section ref={rootRef} className={styles.bioSection}>
-      <div ref={robotRef} className={styles.bioRobot}>
-        <RobotPin style={{ width: '100%', height: '100%' }} />
-      </div>
-      <div className={styles.bioRobotLeft}>
-        <MandalorianCanvas style={{ width: '100%', height: '100%' }} />
-      </div>
+      {isDesktop && (
+        <>
+          <div ref={robotRef} className={styles.bioRobot}>
+            <RobotPin style={{ width: '100%', height: '100%' }} />
+          </div>
+          <div className={styles.bioRobotLeft}>
+            <MandalorianCanvas style={{ width: '100%', height: '100%' }} />
+          </div>
+        </>
+      )}
 
       <div className={styles.bioContent}>
         <div className={styles.eyebrow}>BIO</div>
@@ -542,6 +572,7 @@ function ManualDrawer({ chapter, isOpen, onToggle }: { chapter: ManChapter; isOp
 function ManualSection() {
   const rootRef = useRef<HTMLElement>(null);
   const [openId, setOpenId] = useState<string | null>('ch1');
+  const isDesktop = useIsDesktop();
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -588,7 +619,7 @@ function ManualSection() {
         </div>
       </div>
 
-      <TeslaStreak />
+      {isDesktop && <TeslaStreak />}
 
       <div className={styles.mBooklet}>
         {MAN_CHAPTERS.map((ch) => (

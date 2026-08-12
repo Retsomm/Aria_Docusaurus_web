@@ -162,6 +162,15 @@
   flex-shrink: 0;
 }
 
+/* 進場動畫的初始狀態要跟 GSAP timeline 的 from 值對齊（見 about.tsx HeroSection）。
+   SSR 輸出的 HTML 直接就是這個狀態，避免「先顯示完整內容→JS 才把它重置成隱藏
+   →再動畫回來」造成的閃爍與看起來動了兩次。eyebrow/word/sub 只做位移、不用
+   opacity，讓文字從第一次繪製就是可視內容，不拖累 LCP。 */
+[data-hero="eyebrow"] { transform: translateY(18px); }
+[data-hero="word"] { transform: translateY(60px); }
+[data-hero="sub"] p { transform: translateY(16px); }
+[data-hero="pill"] { opacity: 0; transform: scale(0); }
+
 /* Hero illustration scene */
 .heroScene {
   display: none;
@@ -186,6 +195,7 @@
   width: 720px;
   height: 720px;
   z-index: 1;
+  opacity: 0;
 }
 
 .heroRocket {
