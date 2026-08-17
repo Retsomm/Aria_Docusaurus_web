@@ -38,6 +38,7 @@
 
 [data-theme='dark'] {
   --accent-ink: #E09070;
+  --accent-soft: rgba(204, 120, 92, 0.15);
   --bg: #1A1917;
   --bg-soft: #211F1D;
   --bg-card: #272421;
@@ -526,6 +527,11 @@ h1.blog-post-title {
 [data-theme='dark'] .alert--note {
   background-color: rgba(204, 120, 92, 0.12) !important;
   border-color: rgba(204, 120, 92, 0.3) !important;
+}
+
+[data-theme='dark'] .alert--warning {
+  background-color: rgba(255, 183, 77, 0.12) !important;
+  border-color: rgba(255, 183, 77, 0.3) !important;
 }
 
 /* ════════════════════════════════════════════════════
