@@ -48,7 +48,7 @@ const addUser = async (user) => (await dbPromise).add("users", user);
 const getUser = async (id) => (await dbPromise).get("users", id);
 ```
 
-適合情境：離線應用（PWA）、大量結構化資料快取、需要儲存檔案（Blob/File，這是 localStorage 完全做不到的）。一般 CRUD 網頁用 localStorage 就夠了。
+適合情境：離線應用（PWA）、大量結構化資料快取、需要儲存檔案（Blob/File，這是 localStorage 完全做不到的）。localStorage 只適合簡單偏好設定或小型快取，資料量稍大或結構複雜就該用 IndexedDB。
 
 ---
 
@@ -68,9 +68,9 @@ Cookies.set("username", "小明", { expires: 7 });
 
 | 屬性 | 作用 |
 |---|---|
-| `httpOnly` | **只能由伺服器設定**，JS 完全無法讀取，防範 XSS 攻擊竊取憑證的關鍵 |
+| `httpOnly` | **只能由伺服器設定**，限制 JavaScript 讀取這個 Cookie（`document.cookie` 看不到），防止 Token 被 XSS 腳本直接偷走 |
 | `secure` | 只在 HTTPS 下傳送 |
-| `samesite` | 控制跨站請求要不要帶上，防範 CSRF 攻擊 |
+| `samesite` | 降低跨站請求自動帶上 Cookie 的風險，緩解 CSRF 攻擊 |
 | `expires`/`max-age` | 過期時間 |
 
 ### 為什麼登入 Token 建議放 httpOnly Cookie 而不是 localStorage？
@@ -101,5 +101,5 @@ const stolenToken = localStorage.getItem("token");
 
 - localStorage 永久、sessionStorage 分頁存活期間有效，都只能存字串，要搭配 JSON.stringify/parse
 - IndexedDB 適合大量結構化資料與離線應用，實務用 `idb` 等套件簡化操作
-- Cookie 因為會自動送到伺服器，適合放登入憑證，搭配 `httpOnly` 防 XSS、`samesite` 防 CSRF
+- Cookie 因為會自動送到伺服器，適合放登入憑證，搭配 `httpOnly` 限制 JS 讀取以防憑證被 XSS 偷走、`samesite` 降低 CSRF 風險；狀態變更請求仍應搭配 CSRF token 或 Origin 檢查，`samesite` 不能單獨取代這層防護
 - 敏感資料永遠不要放 localStorage，優先考慮 httpOnly Cookie

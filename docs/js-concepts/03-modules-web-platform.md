@@ -159,9 +159,14 @@ console.log("主執行緒沒被卡住");
 // Vite 內建支援
 const worker = new Worker(new URL("./worker.js", import.meta.url));
 
-// 或用 comlink 套件讓呼叫像一般函式
+// 或用 comlink 套件讓呼叫像一般函式（先 npm install comlink，加進 package.json dependencies）
+// worker.js 也要改用 ESM，並用 expose() 把函式暴露出去：
+// import { expose } from "comlink";
+// const heavyCalculation = (n) => { let r = 0; for (let i = 0; i < n; i++) r += i; return r; };
+// expose({ heavyCalculation });
 import { wrap } from "comlink";
-const workerApi = wrap(worker);
+const comlinkWorker = new Worker(new URL("./worker.js", import.meta.url), { type: "module" }); // ESM worker 要加 type: "module"
+const workerApi = wrap(comlinkWorker);
 const result = await workerApi.heavyCalculation(1000000000);
 ```
 

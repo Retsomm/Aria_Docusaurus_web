@@ -76,7 +76,12 @@ class Queue {
     const item = this.#items[this.#head];
     this.#items[this.#head] = undefined;
     this.#head++;
-    return item; // enqueue/dequeue 都是攤銷 O(1)
+    // 已消耗的前半段只是留著 undefined 佔位，定期用 slice 回收，避免記憶體隨佇列生命週期無限成長
+    if (this.#head > 1000 && this.#head > this.#items.length / 2) {
+      this.#items = this.#items.slice(this.#head);
+      this.#head = 0;
+    }
+    return item; // enqueue/dequeue 攤銷後仍是 O(1)
   };
 }
 ```
@@ -139,6 +144,8 @@ const twoSum = (nums, target) => {
 ```
 
 > 排序演算法原理知道就好，實務上直接用內建的 `sort()`（規範沒有保證時間複雜度，但主流引擎通常採用 O(n log n) 等級的演算法，已高度優化），不用自己手刻。
+>
+> 注意 `sort()` **預設會把元素轉成字串再比較**：`[10, 2].sort()` 結果是 `[10, 2]`（因為 "10" < "2"），不是直覺的 `[2, 10]`。數值排序要自己給比較函式：`[10, 2].sort((a, b) => a - b)`。另外 `sort()` 會**原地（in-place）修改原陣列**並回傳同一個參照，不是回傳新陣列。
 
 ---
 

@@ -76,11 +76,11 @@ const sum = numbers.reduce((acc, cur) => acc + cur, 0);     // 壓縮成一個�
 **reduce 進階應用：**
 
 ```javascript
-// 陣列變物件
-const userMap = users.reduce((acc, u) => { acc[u.id] = u.name; return acc; }, {});
+// 陣列變物件（用 Object.create(null) 避免 user.id 剛好是 "__proto__" 等繼承屬性名稱造成汙染）
+const userMap = users.reduce((acc, u) => { acc[u.id] = u.name; return acc; }, Object.create(null));
 
-// 計算出現次數
-const countMap = fruits.reduce((acc, f) => { acc[f] = (acc[f] || 0) + 1; return acc; }, {});
+// 計算出現次數（同理，fruit 字串也可能撞到原型鏈上的屬性名稱）
+const countMap = fruits.reduce((acc, f) => { acc[f] = (acc[f] || 0) + 1; return acc; }, Object.create(null));
 ```
 
 **方法鏈接（前端資料處理超常見）：**
