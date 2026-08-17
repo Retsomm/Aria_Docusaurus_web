@@ -6,9 +6,10 @@
 
 ## 1. Property Descriptors（屬性描述符）
 
-每個屬性背後都有隱藏規格：`writable`（能否修改）、`enumerable`（能否被列舉）、`configurable`（能否刪除）。
+每個屬性背後都有隱藏規格，共用 `enumerable`（能否被列舉）、`configurable`（能否刪除）：data descriptor 額外有 `writable`（能否修改值），accessor descriptor 則改用 `get`/`set` 定義存取邏輯，兩者互斥、不能混用。
 
 ```javascript
+const config = {};
 Object.defineProperty(config, "apiUrl", {
   value: "https://api.example.com",
   writable: false, enumerable: true, configurable: false
@@ -38,11 +39,12 @@ state.user.name = "小華"; // 這樣可以改！內層沒被凍結
 ```javascript
 class BankAccount {
   #balance = 0;
-  get balance() { return `$${this.#balance}`; }
+  get balance() { return this.#balance; } // 回傳數字，跟 setter/內部欄位型別一致
   set balance(value) {
     if (value < 0) { console.log("不能是負數"); return; }
     this.#balance = value;
   }
+  get formattedBalance() { return `$${this.#balance}`; } // 顯示用，另外提供
 }
 
 class Rectangle {
@@ -104,10 +106,10 @@ const proxy = new Proxy(target, {
 const weakCache = new WeakMap();
 let user = { name: "小明" };
 weakCache.set(user, "額外資料");
-user = null; // 沒有其他地方參照了，物件跟這筆快取記錄都會被自動清除
+user = null; // 沒有其他地方參照了，這個 key 才「可以」被回收，但不保證立即清除，實際時機由引擎的垃圾回收機制決定
 ```
 
-限制：key 只能是物件、不能遍歷、沒有 `size`（因為內容可能隨時被清除，避免不可預測的結果）。
+限制：key 只能是物件或未註冊的 Symbol、不能遍歷、沒有 `size`（因為內容可能隨時被清除，避免不可預測的結果）。
 
 **實戰場景**：幫 DOM 元素附加額外資料，元素被移除後相關資料自動清理，不用手動維護。
 

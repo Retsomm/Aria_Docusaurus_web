@@ -71,6 +71,7 @@ btn.classList.add("highlight");
 ### 新增/刪除/遍歷
 
 ```javascript
+const body = document.body;
 const newP = document.createElement("p");
 body.appendChild(newP);
 newP.remove();
@@ -87,14 +88,19 @@ desc.nextElementSibling;        // 找下一個兄弟
 
 ```javascript
 fetch("https://api.example.com/user")
-  .then((response) => response.json())
+  .then((response) => {
+    if (!response.ok) throw new Error("HTTP 錯誤：" + response.status);
+    return response.json();
+  })
   .then((data) => console.log(data))
   .catch((error) => console.log("錯誤：", error));
 
 // async/await 寫法
 async function getUser() {
   const response = await fetch("/api/user");
+  if (!response.ok) throw new Error("HTTP 錯誤：" + response.status);
   const data = await response.json();
+  return data;
 }
 ```
 

@@ -43,7 +43,10 @@ animationObserver.observe(el); // isIntersecting 時加上 class 觸發 CSS 動�
 ## 2. Mutation Observer：偵測 DOM 結構變化
 
 ```javascript
-observer.observe(targetNode, {
+const mutationObserver = new MutationObserver((mutationsList) => {
+  mutationsList.forEach((mutation) => console.log(mutation.type));
+});
+mutationObserver.observe(targetNode, {
   childList: true,    // 子元素新增/刪除
   attributes: true,    // 屬性變化
   subtree: true,        // 連深層子孫也觀察
@@ -92,15 +95,16 @@ this.observer = new ResizeObserver((entries) => {
 ## 4. Performance Observer：訂閱效能數據
 
 ```javascript
-performance.mark("start");
-doHeavyTask();
-performance.mark("end");
-performance.measure("task-duration", "start", "end");
-
+// 要先掛好 observer 再產生 measure，PerformanceObserver 預設只回報 observe() 之後才建立的項目
 const observer = new PerformanceObserver((list) => {
   list.getEntries().forEach((entry) => console.log(entry.name, entry.duration));
 });
 observer.observe({ entryTypes: ["measure"] });
+
+performance.mark("start");
+doHeavyTask();
+performance.mark("end");
+performance.measure("task-duration", "start", "end");
 ```
 
 ### Core Web Vitals（核心使用者體驗指標）

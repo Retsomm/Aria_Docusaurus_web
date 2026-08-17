@@ -25,9 +25,10 @@ const double = multiplyBy(2);
 ```javascript
 const debounce = (fn, delay) => {
   let timer;
-  return (...args) => {
+  return function (...args) {
+    const context = this; // 保留呼叫當下的 this
     clearTimeout(timer);
-    timer = setTimeout(() => fn.apply(this, args), delay);
+    timer = setTimeout(() => fn.apply(context, args), delay);
   };
 };
 ```
@@ -76,10 +77,10 @@ const sum = numbers.reduce((acc, cur) => acc + cur, 0);     // 壓縮成一個�
 
 ```javascript
 // 陣列變物件
-const userMap = users.reduce((acc, u) => ({ ...acc, [u.id]: u.name }), {});
+const userMap = users.reduce((acc, u) => { acc[u.id] = u.name; return acc; }, {});
 
 // 計算出現次數
-const countMap = fruits.reduce((acc, f) => ({ ...acc, [f]: (acc[f] || 0) + 1 }), {});
+const countMap = fruits.reduce((acc, f) => { acc[f] = (acc[f] || 0) + 1; return acc; }, {});
 ```
 
 **方法鏈接（前端資料處理超常見）：**
@@ -113,8 +114,11 @@ const countAllComments = (list) =>
   list.reduce((count, c) => count + 1 + countAllComments(c.replies), 0);
 
 // 陣列扁平化
-const flatten = (arr) => arr.reduce((flat, item) =>
-  Array.isArray(item) ? [...flat, ...flatten(item)] : [...flat, item], []);
+const flatten = (arr) => arr.reduce((flat, item) => {
+  if (Array.isArray(item)) flat.push(...flatten(item));
+  else flat.push(item);
+  return flat;
+}, []);
 // 現代 JS 內建：arr.flat(Infinity)
 ```
 

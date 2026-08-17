@@ -66,7 +66,7 @@ const downloadBlob = (blob, filename) => {
   link.href = url;
   link.download = filename;
   link.click();
-  URL.revokeObjectURL(url); // 記得釋放，避免記憶體洩漏
+  setTimeout(() => URL.revokeObjectURL(url), 0); // 等下載真正開始後再釋放，太早 revoke 可能讓部分瀏覽器下載失敗
 };
 ```
 
@@ -89,6 +89,7 @@ reader.readAsDataURL(file);
 // 寫法二：createObjectURL（更輕量，大檔案效能較好）
 previewImg.src = URL.createObjectURL(file);
 previewImg.onload = () => URL.revokeObjectURL(previewImg.src);
+previewImg.onerror = () => URL.revokeObjectURL(previewImg.src); // 載入失敗也要釋放，避免洩漏
 ```
 
 ### 上傳檔案
@@ -107,15 +108,18 @@ fetch("/api/upload", { method: "POST", body: formData }); // 瀏覽器自動處�
 
 ```javascript
 let startTime = null;
+let rafId = null;
 const animate = (currentTime) => {
   if (!startTime) startTime = currentTime;
   const elapsed = currentTime - startTime;
   const progress = Math.min(elapsed / 1000, 1); // 用實際經過時間計算進度，避免受裝置效能影響
 
   element.style.left = progress * 300 + "px";
-  if (progress < 1) requestAnimationFrame(animate);
+  if (progress < 1) rafId = requestAnimationFrame(animate);
 };
-requestAnimationFrame(animate);
+rafId = requestAnimationFrame(animate);
+
+const stopAnimate = () => cancelAnimationFrame(rafId); // React 可放進 useEffect 清理函式
 ```
 
 記得清理：`cancelAnimationFrame(id)`（回顧記憶體管理章節，React 寫在 `useEffect` 清理函式）。
@@ -124,11 +128,17 @@ requestAnimationFrame(animate);
 
 ```javascript
 // Canvas 遊戲循環範例
+let gameLoopId = null;
+let stopped = false;
 const gameLoop = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   x += 2;
   ctx.fillRect(x, 50, 30, 30);
-  requestAnimationFrame(gameLoop);
+  if (!stopped) gameLoopId = requestAnimationFrame(gameLoop);
+};
+const stopGameLoop = () => {
+  stopped = true;
+  cancelAnimationFrame(gameLoopId);
 };
 ```
 

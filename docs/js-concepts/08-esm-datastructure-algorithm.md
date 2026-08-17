@@ -43,7 +43,7 @@ export const config = await response.json();
 
 ```javascript
 // Array：有順序，索引存取快，中間插入/刪除較慢
-// Object：鍵值對應，key 是字串
+// Object：鍵值對應，key 可以是字串或 Symbol
 
 // Map：更嚴謹的鍵值對應，可用任何型別當 key，保證插入順序
 const userMap = new Map();
@@ -66,10 +66,18 @@ class Stack {
 }
 
 // Queue（佇列，先進先出）：任務排程、訊息佇列（呼應 Event Loop 的 Task Queue）
+// 用 head 指標記錄目前佇列開頭，避免 Array.shift()（O(n)，要搬移所有元素）
 class Queue {
   #items = [];
+  #head = 0;
   enqueue = (item) => this.#items.push(item);
-  dequeue = () => this.#items.shift(); // 拿走最早排隊的
+  dequeue = () => {
+    if (this.#head >= this.#items.length) return undefined;
+    const item = this.#items[this.#head];
+    this.#items[this.#head] = undefined;
+    this.#head++;
+    return item; // enqueue/dequeue 都是攤銷 O(1)
+  };
 }
 ```
 
@@ -99,6 +107,7 @@ const hasDuplicates = (arr) => {
   for (let i = 0; i < arr.length; i++)
     for (let j = i + 1; j < arr.length; j++)
       if (arr[i] === arr[j]) return true;
+  return false;
 };
 ```
 
@@ -129,7 +138,7 @@ const twoSum = (nums, target) => {
 };
 ```
 
-> 排序演算法原理知道就好，實務上直接用內建的 `sort()`（O(n log n)，已高度優化），不用自己手刻。
+> 排序演算法原理知道就好，實務上直接用內建的 `sort()`（規範沒有保證時間複雜度，但主流引擎通常採用 O(n log n) 等級的演算法，已高度優化），不用自己手刻。
 
 ---
 

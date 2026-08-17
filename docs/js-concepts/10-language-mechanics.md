@@ -56,7 +56,7 @@ function setName() {
 function showThis() { console.log(this); } // undefined（嚴格模式）vs window（非嚴格模式）
 ```
 
-呼應：這正是為什麼一般函式呼叫時 `this` 預設是 `undefined` 而不是 `window`。
+呼應：在嚴格模式下（ESM/class 內部自動如此）一般函式呼叫時 `this` 預設是 `undefined`；傳統非嚴格模式的瀏覽器腳本則會綁定成 `window`。
 
 其他被擋下的可疑寫法：禁止重複參數名稱、禁止對變數用 `delete`。
 
@@ -86,7 +86,10 @@ true && "hello";     // "hello"（&& 遇到第一個 falsy 就停）
 ```javascript
 typeof [];            // "object" ← 陣列也是 object！判斷要用 Array.isArray()
 typeof function(){};  // "function"
-r instanceof Robot;    // 透過原型鏈判斷是否為該類別的實例
+
+class Robot {}
+const r = new Robot();
+r instanceof Robot;    // true，透過原型鏈判斷是否為該類別的實例
 ```
 
 ### Symbol：獨一無二

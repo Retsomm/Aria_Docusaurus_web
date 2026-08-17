@@ -55,9 +55,10 @@ newState.count = 1;
 console.log(state.count); // 1，其實根本沒複製到
 
 // 正確：用展開運算子真正複製
-let newState2 = { ...state };
+let state2 = { count: 0 };
+let newState2 = { ...state2 };
 newState2.count = 1;
-console.log(state.count); // 0，這次才是獨立的
+console.log(state2.count); // 0，這次才是獨立的
 ```
 
 ---
@@ -67,12 +68,12 @@ console.log(state.count); // 0，這次才是獨立的
 JavaScript 會自動幫你把值轉換成需要的型別：
 
 ```javascript
-console.log(1 + "2");      // "12"  ← 遇到字串，全部轉字串
-console.log("10" - 5);     // 5     ← 遇到 - * /，全部轉數字
-console.log("abc" - 5);    // NaN
+console.log(1 + "2");      // "12"  ← + 遇到字串運算元會轉成字串拼接
+console.log("10" - 5);     // 5     ← -、*、/ 等算術運算子會把運算元轉成數字
+console.log("abc" - 5);    // NaN   ← 轉不成合法數字就得到 NaN
 ```
 
-### 8 個 Falsy Value（一定要背起來）
+### 8 個常見 Falsy Value（一定要背起來）
 
 ```javascript
 Boolean(false);      // false
@@ -84,6 +85,7 @@ Boolean(null);       // false
 Boolean(undefined);  // false
 Boolean(NaN);        // false
 // 除了這 8 個，其他一律是 true，包括 "0"、[]、{}
+// 例外：document.all 是瀏覽器特例，typeof 是 "undefined" 但實際是物件，且為 falsy
 ```
 
 **表單驗證地雷：**

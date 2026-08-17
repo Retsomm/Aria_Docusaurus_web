@@ -39,8 +39,9 @@ modal.addEventListener("click", (e) => e.stopPropagation()); // 阻止冒泡，�
 
 ```javascript
 todoList.addEventListener("click", (event) => {
-  if (event.target.tagName === "LI") {
-    console.log("點擊了：", event.target.textContent);
+  const li = event.target.closest("li"); // 不管點在 li、裡面的 span 或其他子元素都能找到
+  if (li && todoList.contains(li)) {
+    console.log("點擊了：", li.textContent);
   }
 });
 // 動態新增的 <li> 也完全不用另外綁定監聽器！

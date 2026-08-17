@@ -35,9 +35,12 @@ class Settings {
 
 ```javascript
 class EventEmitter {
-  #listeners = {};
-  on = (name, cb) => (this.#listeners[name] ??= []).push(cb);
-  emit = (name, data) => this.#listeners[name]?.forEach((cb) => cb(data));
+  #listeners = new Map(); // 用 Map 而非一般物件，避免事件名稱撞到 toString、constructor 等繼承屬性
+  on = (name, cb) => {
+    if (!this.#listeners.has(name)) this.#listeners.set(name, []);
+    this.#listeners.get(name).push(cb);
+  };
+  emit = (name, data) => this.#listeners.get(name)?.forEach((cb) => cb(data));
 }
 ```
 
@@ -66,7 +69,7 @@ const userProxy = new Proxy(user, {
 ```
 
 > **這是 Vue 3 響應式系統的核心原理**：用 `get` 追蹤依賴、用 `set` 觸發畫面更新。
-
+>
 > 不用刻意「套用」設計模式，而是反過來：發現自己寫的程式碼很眼熟時，去查查有沒有現成的名字，讓團隊溝通更有效率。
 
 ---
@@ -90,7 +93,7 @@ const calculateTax = (price, quantity) => price * quantity * 0.05;
 ```javascript
 // 一個函式做驗證+計算+更新畫面+發送 API
 // 拆成小函式，各自單一職責，方便測試與重用
-const isOrderValid = (order) => order.items?.length > 0;
+const isOrderValid = (order) => order?.items?.length > 0;
 const calculateTotal = (items) => items.reduce((sum, i) => sum + i.price * i.quantity, 0);
 ```
 
@@ -102,7 +105,7 @@ const calculateTotal = (items) => items.reduce((sum, i) => sum + i.price * i.qua
 
 ```javascript
 // 巢狀 if 一直往右縮
-// const getDiscount = (user) => {
+const getDiscount = (user) => {
   if (!user) return 0;
   if (!user.isMember) return 0;
   if (user.points > 100) return 0.2;
@@ -117,8 +120,8 @@ const calculateTotal = (items) => items.reduce((sum, i) => sum + i.price * i.qua
 count = count + 1;
 
 // 解釋程式碼本身看不出來的考量
-// 用 setTimeout 是為了等瀏覽器完成當前重繪，不然動畫效果會失效
-setTimeout(() => startAnimation(), 0);
+// 用 requestAnimationFrame 讓動畫排在瀏覽器下一次重繪之前執行，跟畫面更新節奏同步
+requestAnimationFrame(() => startAnimation());
 ```
 
 格式一致性交給 ESLint / Prettier 自動處理，不用自己手動維護。

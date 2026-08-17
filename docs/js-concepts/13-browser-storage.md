@@ -17,7 +17,12 @@ const savedUser = JSON.parse(localStorage.getItem("user"));
 // 安全讀取寫法
 const getSafeData = (key) => {
   const raw = localStorage.getItem(key);
-  return raw ? JSON.parse(raw) : null; // 讀不到是 null，直接 JSON.parse(null) 會報錯
+  if (raw === null) return null; // 沒有這個 key，getItem 回傳 null
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null; // 儲存的內容不是合法 JSON，避免直接拋出讓呼叫端崩潰
+  }
 };
 ```
 
@@ -49,10 +54,11 @@ const getUser = async (id) => (await dbPromise).get("users", id);
 
 ## 3. Cookies
 
-Cookie 跟前兩者最大的差異：**每次發送請求給伺服器時，會自動附帶送出**。
+Cookie 跟前兩者最大的差異：**符合該 Cookie 的 Domain/Path 範圍、且滿足 Secure、SameSite、第三方 Cookie 政策等條件時，請求會自動附帶送出**，不是無條件送給所有請求。
 
 ```javascript
 document.cookie = "username=小明"; // 原生 API 相當陽春，讀取要自己手動解析字串
+// 沒指定 Path 時，預設為目前文件所在的路徑
 // 實務上常用 js-cookie 套件
 import Cookies from "js-cookie";
 Cookies.set("username", "小明", { expires: 7 });

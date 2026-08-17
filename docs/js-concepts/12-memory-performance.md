@@ -8,7 +8,7 @@
 
 記憶體生命週期：**分配 → 使用 → 釋放**，JS 靠垃圾回收自動完成釋放，但寫法不當還是會造成記憶體洩漏。
 
-**Stack**（原始型別，固定大小，速度快）vs **Heap**（物件/陣列/函式，大小可變，需垃圾回收追蹤）。
+多數引擎常見的實作模型（並非語言規範保證）：**Stack**（原始型別，速度快）vs **Heap**（物件/陣列/函式，需垃圾回收追蹤）。
 
 ### 常見記憶體洩漏情境
 
@@ -60,9 +60,10 @@ user = null;   // 現在完全不可觸及了，兩個物件都會被清除
 ```javascript
 const debounce = (fn, delay) => {
   let timer;
-  return (...args) => {
+  return function (...args) {
+    const context = this; // 保留呼叫當下的 this
     clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), delay);
+    timer = setTimeout(() => fn.apply(context, args), delay);
   };
 };
 ```
@@ -93,12 +94,17 @@ const throttle = (fn, delay) => {
 用一本「筆記本」（快取）記住函式相同輸入對應的相同輸出，下次直接查表。
 
 ```javascript
-const memoize = (fn) => {
+// 注意：key 是用 JSON.stringify(args) 產生，僅適用於「可安全轉成 JSON」的參數
+// （不支援循環參照的物件；BigInt 需要自訂 replacer 轉換，否則會直接報錯）
+const memoize = (fn, { maxSize = 100 } = {}) => {
   const cache = new Map();
   return (...args) => {
-    const key = JSON.stringify(args);
+    const key = JSON.stringify(args, (_, value) =>
+      typeof value === "bigint" ? `${value}n` : value
+    );
     if (cache.has(key)) return cache.get(key);
     const result = fn(...args);
+    if (cache.size >= maxSize) cache.delete(cache.keys().next().value); // 超過上限，丟掉最舊的一筆
     cache.set(key, result);
     return result;
   };

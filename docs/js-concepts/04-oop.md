@@ -56,7 +56,11 @@ robot.greet(); // this 是 robot
 
 // 地雷：把方法拆下來單獨用，this 會遺失
 const greetFn = robot.greet;
-greetFn(); // undefined，這是 React class component 常見地雷
+greetFn(); // 嚴格模式/ES module 下 this 是 undefined，存取 this.name 會直接報錯，這是 React class component 常見地雷
+
+// 修法：用 bind 綁死 this
+const boundGreet = robot.greet.bind(robot);
+boundGreet(); // 正確印出 R2D2
 
 // 規則3 明確綁定：call / apply / bind
 greet.call(person1);           // 立刻執行，逗號傳參數
@@ -75,7 +79,7 @@ const robot2 = {
 };
 ```
 
-> 現代 React function component + Hooks 幾乎不用處理 this，因為都用箭頭函式；但維護舊 class component 專案、看第三方套件原始碼、面試都還是會遇到。
+> 現代 React function component + Hooks 幾乎不用處理 this，因為 function component 本身不依賴任何 class instance context；但維護舊 class component 專案、看第三方套件原始碼、面試都還是會遇到。
 
 ---
 
@@ -114,13 +118,15 @@ obj.hasOwnProperty("x");    // 判斷屬性是自己的還是借來的
 class Animal {
   constructor(name) { this.name = name; }
   eat() { console.log(this.name + " 正在吃飯"); }
+  makeSound() { console.log("..."); }
 }
 class Dog extends Animal {
   constructor(name, breed) {
-    super(name); // 必須放在第一行
+    super(name); // 必須先於 this 使用
     this.breed = breed;
   }
   fetch() { console.log(this.name + " 去撿球了"); }
+  makeSound() { console.log("汪汪！"); } // 覆寫父類別方法
 }
 ```
 

@@ -79,14 +79,20 @@ const fetchUserData = async (id) => {
     return await response.json();
   } catch (error) {
     console.log("失敗：", error.message);
+    throw error; // 重新拋出，讓呼叫端知道失敗了，而不是默默回傳 undefined
   }
 };
 ```
 
-**重要地雷：`try/catch` 只能抓「同步」程式碼的錯誤**，`setTimeout` 這類非同步 callback 裡的錯誤要在 callback 內部自己處理：
+**重要地雷：`try/catch` 能抓「同步例外」跟「try 區塊內 `await` 的 rejection」，但抓不到稍後才執行的 callback（如 `setTimeout`）裡的例外**，那類錯誤要在 callback 內部自己處理：
 
 ```javascript
-// 抓不到
+// 抓得到：await 的 rejection 發生在 try 區塊執行期間
+try {
+  await Promise.reject(new Error("失敗"));
+} catch (error) { console.log("這裡抓得到"); }
+
+// 抓不到：setTimeout 的 callback 是「稍後」才執行，早已離開 try 區塊
 try {
   setTimeout(() => { throw new Error("出錯了"); }, 1000);
 } catch (error) { /* 永遠不會執行 */ }
@@ -98,7 +104,7 @@ setTimeout(() => {
 }, 1000);
 ```
 
-Promise 一定要接 `.catch()` 或包在 `try/catch` 裡，不然錯誤會被靜默忽略。
+單純建立一個 Promise（不 `await`、不接 `.then`）時，一定要接 `.catch()` 或改用 `await` 搭配 `try/catch`，不然錯誤會被靜默忽略。
 
 ---
 
@@ -114,10 +120,17 @@ Promise 一定要接 `.catch()` 或包在 `try/catch` 裡，不然錯誤會被�
 
 | 符號 | 意思 |
 |---|---|
-| `\d` | 數字 | `\w` | 文字/數字/底線 | `\s` | 空白 |
-| `*` | 0次以上 | `+` | 1次以上 | `?` | 0或1次 |
-| `{3}` | 剛好3次 | `^` | 開頭 | `$` | 結尾 |
-| `i` (flag) | 忽略大小寫 | `g` (flag) | 全域搜尋 |
+| `\d` | 數字 |
+| `\w` | 文字/數字/底線 |
+| `\s` | 空白 |
+| `*` | 0次以上 |
+| `+` | 1次以上 |
+| `?` | 0或1次 |
+| `{3}` | 剛好3次 |
+| `^` | 開頭 |
+| `$` | 結尾 |
+| `i` (flag) | 忽略大小寫 |
+| `g` (flag) | 全域搜尋 |
 
 ### 分組
 
@@ -152,6 +165,6 @@ const camelToKebab = (str) => str.replace(/([A-Z])/g, "-$1").toLowerCase();
 ## 本篇總結
 
 - JS 引擎透過 JIT 編譯，自動優化「熱點程式碼」，物件結構一致有助於效能
-- `try/catch/finally`：只能抓同步錯誤，非同步錯誤要在 callback/async 函式內部自己處理
+- `try/catch/finally`：能抓同步錯誤跟 try 區塊內 `await` 的 rejection；稍後才執行的 callback（如 `setTimeout`）要在 callback 內部自己處理
 - 自訂錯誤類別搭配 `instanceof`，可以針對不同錯誤類型做不同處理
 - Regex 是強大的字串比對工具，前端最常用在表單驗證跟字串清理

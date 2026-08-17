@@ -8,7 +8,7 @@
 
 JavaScript 是**單執行緒**（一次只能做一件事），但透過 Event Loop 機制達成「非阻塞」的效果。
 
-執行順序規則：**Call Stack（手上工作）** → **Microtask Queue（Promise，優先清空）** → **Task Queue（setTimeout、事件，最後處理）**
+瀏覽器會不斷重複執行「一個 Task」的循環：先清空 **Call Stack（手上工作）**，接著把 **Microtask Queue（Promise 等）** 全部清空，之後可能更新畫面，才從 **Task Queue（setTimeout、事件等）** 選下一個 Task 繼續。
 
 ```javascript
 console.log("1");
@@ -120,7 +120,7 @@ async function processOrder() {
 const user = fetch("/api/user"); // 應該要 await
 
 // 地雷2：互不相關的請求排隊等待，浪費時間
-const user2 = await fetchUser();       // 各花 1 秒，總共 3 秒
+const user2 = await fetchUser();       // 各花 1 秒，總共約 2 秒
 const orders2 = await fetchOrders();
 // 改用 Promise.all 平行處理，只要約 1 秒
 const [user3, orders3] = await Promise.all([fetchUser(), fetchOrders()]);
@@ -185,7 +185,7 @@ async function* fetchPages() {
 
 ## 本篇總結
 
-- Event Loop 順序：Call Stack → Microtask（Promise）→ Task（setTimeout）
+- Event Loop 反覆執行 Task：Call Stack 清空 → Microtask（Promise）清空 → 可能更新畫面 → 選下一個 Task（setTimeout）
 - Callback → Promise → async/await，是 JS 處理非同步問題一路演進的三個階段
 - Promise 鏈記得 `return`；async/await 記得 `await`，互不相關的請求用 `Promise.all` 平行處理
 - Generator 提供「暫停執行」的能力，適合表達無限序列、分批處理資料
